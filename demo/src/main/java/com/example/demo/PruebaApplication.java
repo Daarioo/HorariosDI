@@ -14,7 +14,6 @@ public class PruebaApplication {
 	}
 	@GetMapping("/hello")
 	public String hello() {
-		
 		return String.format("Hello!");
 	}
 }
