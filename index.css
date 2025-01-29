@@ -217,3 +217,68 @@ main{
     width: 40vh;
     padding: 1vh;
 }
+
+@media screen and (max-width: 680px) {
+    /* Header */
+    .header_container {
+        padding: 10px 5px;
+    }
+
+    .logo {
+        width: 60%;
+    }
+
+    .bloque {
+        font-size: 1.5vh;
+        border-radius: 100%;
+        background-color: ;
+    }
+
+    /* Main */
+    .guirifoto {
+       display: none;
+    }
+
+    .main_container {
+        width: 100%;
+        padding: 1.5rem;
+    }
+
+    .circulo {
+        width: 12vh;
+        height: 12vh;
+    }
+
+    .user {
+        width: 8vh;
+    }
+
+    .text_is {
+        font-size: 2vh;
+    }
+
+    .login{
+        margin: 0,2%,0,2%;
+    }
+
+    .login input[type="text"],
+    .login input[type="password"] {
+        height: 5vh;
+        font-size: 0.9rem;
+    }
+
+    .button {
+        height: 5vh;
+        font-size: 0.9rem;
+    }
+
+    .olv {
+        font-size: 1.2vh;
+    }
+
+    /* Footer */
+    .xunta {
+        width: 60%;
+        padding: 5%;
+    }
+}
