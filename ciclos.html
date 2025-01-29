@@ -6,36 +6,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Ciclos</title>
     <link rel="stylesheet" href="ciclos.css">
+    <script src="ciclos.js"></script>
 </head>
 
 <body>
     <header>
-        <section class= "header_container">
-            <section class="header_container">
-                <div class="logo_container">
-                    <img src="./img/niñosclase.jpg" alt="niños" class="niños">
+        <section class="header_container">
+            <img src="./img/clase.jpg" alt="niños" class="niños">
+            <div class="flecha">
+                <div class="corte"></div>
+                <div class="bloque">
+                    <nav>
+                        <a href="ciclos.html">Ciclos</a>
+                        <a href="modulos.html">Módulos</a>
+                        <a href="horarios.html">Horarios</a>
+                        <a href="alumnos.html">Alumnos</a>
+                    </nav>
                 </div>
-                <div class="flecha">
-                    <div class="corte"></div>
-                    <div class="bloque">
-                        <nav>
-                            <a href="">Ciclos</a>
-                            <a href="">Módulos</a>
-                            <a href="">Horarios</a>
-                            <a href="">Alumnos</a>
-                        </nav>
-                    </div>
-                </div>
-            </section>
+                <div class="corte2"></div>
+            </div>
         </section>
-
     </header>
+    
     <main>
-
+        <button id="btn-add" onclick="openModal()">Añadir Ciclo</button>
+        <div id="cycle-container"></div>
+        
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Añadir Ciclo</h2>
+                <form id="cycle-form">
+                    <label for="code">Código:</label>
+                    <input type="text" id="code" required>
+                    
+                    <label for="name">Nombre:</label>
+                    <input type="text" id="name" required>
+                    
+                    <label for="duration">Duración:</label>
+                    <input type="text" id="duration" required>
+                    
+                    <label for="description">Descripción:</label>
+                    <textarea id="description" required></textarea>
+                    
+                    <button type="submit">Guardar</button>
+                </form>
+            </div>
+        </div>
     </main>
+    
     <footer>
 
+            <article class="footer">
+                <div class="xunta">
+                    <img src="./img/logoxunta.svg" alt="logoxunta" class="logoxunta">
+                </div>
+                <div class="redes">
+                    <img src="./img/facebook.svg" alt="facebook" class="facebook">
+                    <img src="./img/instagram.svg" alt="instagram" class="instagram">
+                    <img src="./img/twitter.svg" alt="twitter" class="twitter">
+                </div>
+            </article>
     </footer>
+    <script src="ciclos.js"></script>
 </body>
 
 </html>
