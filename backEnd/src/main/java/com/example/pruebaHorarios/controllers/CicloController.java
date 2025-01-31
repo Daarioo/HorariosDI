@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/ciclos")
+@CrossOrigin(origins = "*")
 public class CicloController {
     private final CicloService cicloService;
 

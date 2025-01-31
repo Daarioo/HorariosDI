@@ -149,8 +149,8 @@ public class Modulo {
     }
 
     public void removeSesion (Sesion sesion){
-            sesiones.remove(sesion);
-            sesion.setModulo(null);
+        sesiones.remove(sesion);
+        sesion.setModulo(null);
 
     }
 }

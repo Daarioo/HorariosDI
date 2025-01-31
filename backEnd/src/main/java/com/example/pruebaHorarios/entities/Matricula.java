@@ -13,9 +13,9 @@ public class Matricula {
     private int numMatricula;
 
     @ManyToOne
-    @JoinColumn(name = "id_alumno")
+    @JoinColumn(name = "id_usuario")
     @JsonIgnoreProperties({"matriculas"})
-    private Alumno alumno;
+    private Usuario usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_ciclo")
@@ -32,9 +32,9 @@ public class Matricula {
     }
 
 
-    public Matricula(int numMatricula, Alumno alumno, Ciclo cicloFormativo, Modulo modulo) {
+    public Matricula(int numMatricula, Usuario usuario, Ciclo cicloFormativo, Modulo modulo) {
         this.numMatricula = numMatricula;
-        this.alumno = alumno;
+        this.usuario = usuario;
         this.cicloFormativo = cicloFormativo;
         this.modulo = modulo;
     }
@@ -56,12 +56,12 @@ public class Matricula {
         this.numMatricula = numMatricula;
     }
 
-    public Alumno getAlumno() {
-        return alumno;
+    public Usuario getUsuario() {
+        return usuario;
     }
 
-    public void setAlumno(Alumno alumno) {
-        this.alumno = alumno;
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public Ciclo getCicloFormativo() {
@@ -85,7 +85,7 @@ public class Matricula {
         return "Matricula{" +
                 "id=" + id +
                 ", numMatricula=" + numMatricula +
-                ", alumno=" + alumno.getNombreUsuario() +
+                ", usuario=" + usuario.getNombreUsuario() +
                 ", cicloFormativo=" + cicloFormativo.getNombre() +
                 ", modulo=" + modulo.getNombre() +
                 '}';
