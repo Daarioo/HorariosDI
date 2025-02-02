@@ -20,34 +20,129 @@
     <!-- Panel de Navegación -->
     <nav class="panel" id="navPanel">
         <ul>
-            <li><a href="#">Current User 👨🏻‍🦱</a></li>
-            <li><a href="#">Ciclos</a></li>
-            <li><a href="#">Módulos</a></li>
-            <li><a href="#">Horarios</a></li>
-            <li><a href="#">Alumnos</a></li>
-            <li><a href="#">Profesores</a></li>
+            <li><button>Current User</button></li>
+            <li><button id="ciclosBtn" >Ciclos</button></li>
+            <li><button id="modulosBtn" >Módulos</button></li>
+            <li><button id="horariosBtn" >Horarios</button></li>
+            <li><button id="alumnosBtn" >Alumnos</button></li>
+            <li><button id="profesoresBtn" >Profesores</button></li>
         </ul>
         <button id="logoutBtn">Cerrar Sesión</button>
     </nav>
 
-    <div id="emptyFrame" class="frame">
+    <div id="emptyFrame" class="frame"></div>
+
+
+    <!-- Frame de Ciclos -->
+    <div id="ciclosFrame">
 
     </div>
 
-    <div id="modulosFrame"  class="frame hidden">
-        <!-- Lista de Módulos -->
-        <main>
-            <section class="modules">
-                <h2>Modules</h2>
-                <ul>
-                    <li>Modulo1</li>
-                    <li>Modulo1</li>
-                    <li>Modulo1</li>
-                    <li>Modulo1</li>
-                </ul>
-            </section>
-        </main>
+
+    <!-- Frame de Módulos -->
+    <div id="modulosFrame" class="frame">
+        <select id="cicloSelect">
+            <option value="ciclo1">Ciclo 1</option>
+            <option value="ciclo2">Ciclo 2</option>
+            <option value="ciclo3">Ciclo 3</option>
+        </select>
+    
+
+        <ul class="list">
+            <li>
+                <div class="modulo">
+                    <span>Módulo 1</span>
+                    <div class="acciones">
+                        <span class="icon ver">👁️</span>
+                        <span class="icon eliminar">❌</span>
+                    </div>
+                </div>        
+            </li>
+
+            <li>
+                <div class="modulo">
+                    <span>Módulo 1</span>
+                    <div class="acciones">
+                        <span class="icon ver">👁️</span>
+                        <span class="icon eliminar">❌</span>
+                    </div>
+                </div>        
+            </li>
+
+            <li>
+                <div class="modulo">
+                    <span>Módulo 1</span>
+                    <div class="acciones">
+                        <span class="icon ver">👁️</span>
+                        <span class="icon eliminar">❌</span>
+                    </div>
+                </div>        
+            </li>
+
+            <li>
+                <div class="modulo">
+                    <span>Módulo 1</span>
+                    <div class="acciones">
+                        <span class="icon ver">👁️</span>
+                        <span class="icon eliminar">❌</span>
+                    </div>
+                </div>        
+            </li>
+        </ul>
+    
+        <div id="botonAgregar">+</div>
     </div>
+
+
+    <!-- Frame de Ciclos -->
+    <div id="ciclosFrame" class="frame">
+    
+        <ul class="list" id="ciclosList">
+            <li>
+                <div class="ciclo">
+                    <span>Ciclo 1</span>
+                    <div class="acciones">
+                        <span class="icon ver">👁️</span>
+                        <span class="icon eliminar">❌</span>
+                    </div>
+                </div>        
+            </li>
+
+            <li>
+                <div class="ciclo">
+                    <span>Ciclo 1</span>
+                    <div class="acciones">
+                        <span class="icon ver">👁️</span>
+                        <span class="icon eliminar">❌</span>
+                    </div>
+                </div>        
+            </li>
+
+            <li>
+                <div class="ciclo">
+                    <span>Ciclo 1</span>
+                    <div class="acciones">
+                        <span class="icon ver">👁️</span>
+                        <span class="icon eliminar">❌</span>
+                    </div>
+                </div>        
+            </li>
+
+            <li>
+                <div class="ciclo">
+                    <span>Ciclo 1</span>
+                    <div class="acciones">
+                        <span class="icon ver">👁️</span>
+                        <span class="icon eliminar">❌</span>
+                    </div>
+                </div>        
+            </li>
+        </ul>
+    
+        <div id="botonAgregar">+</div>
+    </div>
+
+  
 
     </div>
     <!-- Pie de Página -->
