@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/nav.css">
 </head>
 <body>
+    
     <!-- Encabezado -->
     <header>
         <img src="images/index/logo.png" alt="logo san clemente" class="logoSanClemente">
@@ -32,13 +33,6 @@
 
     <div id="emptyFrame" class="frame"></div>
 
-
-    <!-- Frame de Ciclos -->
-    <div id="ciclosFrame">
-
-    </div>
-
-
     <!-- Frame de Módulos -->
     <div id="modulosFrame" class="frame">
         <select id="cicloSelect">
@@ -46,7 +40,6 @@
             <option value="ciclo2">Ciclo 2</option>
             <option value="ciclo3">Ciclo 3</option>
         </select>
-    
 
         <ul class="list">
             <li>
@@ -89,7 +82,7 @@
                 </div>        
             </li>
         </ul>
-    
+
         <div id="botonAgregar">+</div>
     </div>
 
@@ -142,6 +135,33 @@
         <div id="botonAgregar">+</div>
     </div>
 
+    <!-- Frame de Horarios -->
+    <div name="horariosFrame" class="frame">
+
+        <div class="content">
+            <select id="cicloSelect" class="dropdown">
+                <option value="ciclo1">Ciclo 1</option>
+                <option value="ciclo2">Ciclo 2</option>
+                <option value="ciclo3">Ciclo 3</option>
+            </select>
+
+            <div id="horariosList" class="horarios">
+                <!-- Horarios se generarán dinámicamente aquí -->
+            </div>
+        </div>
+
+        <nav class="nav">
+            <button class="dia" data-dia="Lunes">Lunes</button>
+            <button class="dia active" data-dia="Martes">Martes</button>
+            <button class="dia" data-dia="Miércoles">Miércoles</button>
+            <button class="dia" data-dia="Jueves">Jueves</button>
+            <button class="dia" data-dia="Viernes">Viernes</button>
+        </nav>
+        
+    </div>
+    <div id="alumnosFrame"></div>
+    <div id="profesoresFrame"></div>
+
   
 
     </div>
@@ -150,5 +170,7 @@
         <img src="images/index/logoXuntaClaro.png" alt="logoXunta" class="logoXunta">
     </footer>
     <script src="js/nav.js"></script>
+    <script src="js/horarios.js"></script> 
+
 </body>
 </html>

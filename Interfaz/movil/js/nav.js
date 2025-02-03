@@ -7,6 +7,14 @@ const alumnosFrame = document.getElementById("alumnosFrame");
 const profesoresFrame = document.getElementById("profesoresFrame");
 
 //Guardar los botones en variables
+const ciclos= document.getElementById("ciclosBtn");
+const modulos = document.getElementById("modulosBtn");
+const horarios = document.getElementById("horariosBtn");
+const alumnos = document.getElementById("alumnosBtn");
+const profesores = document.getElementById("profesoresBtn");
+const logoutBtn = document.getElementById("logoutBtn");
+
+//Menu desplegable
 const menuToggle = document.getElementById("menuToggle")
 
 menuToggle.addEventListener('click', function() {
@@ -15,24 +23,14 @@ menuToggle.addEventListener('click', function() {
 });
 
 // Establecer emptyFrame como visible por defecto
-emptyFrame.style.display = "block";
-ciclosFrame.style.display = "none";
-modulosFrame.style.display = "none";
-horariosFrame.style.display = "none";
-alumnosFrame.style.display = "none";
-profesoresFrame.style.display = "none";
-
-
-//Guardar los botones en variables
-
-const ciclos= document.getElementById("ciclosBtn");
-const modulos = document.getElementById("modulosBtn");
-const horarios = document.getElementById("horariosBtn");
-const alumnos = document.getElementById("alumnosBtn");
-const profesores = document.getElementById("profesoresBtn");
-const logoutBtn = document.getElementById("logoutBtn");
-
-
+document.addEventListener("DOMContentLoaded", function() {
+    ciclosFrame.style.display = "none";
+    modulosFrame.style.display = "none";
+    horariosFrame.style.display = "none";
+    alumnosFrame.style.display = "none";
+    profesoresFrame.style.display = "none";
+    emptyFrame.style.display = "block";
+});
 
 
 logoutBtn.addEventListener('click', function(event) {
@@ -41,29 +39,30 @@ logoutBtn.addEventListener('click', function(event) {
 
 ciclos.addEventListener('click', function(event) {
     emptyFrame.style.display = "none";
-    ciclosFrame.style.display = "block";
     modulosFrame.style.display = "none";
     horariosFrame.style.display = "none";
     alumnosFrame.style.display = "none";
     profesoresFrame.style.display = "none";
+    ciclosFrame.style.display = "block";
 });
+
 
 modulos.addEventListener('click', function(event) {
     emptyFrame.style.display = "none";
     ciclosFrame.style.display = "none";
-    modulosFrame.style.display = "block";
     horariosFrame.style.display = "none";
     alumnosFrame.style.display = "none";
     profesoresFrame.style.display = "none";
+    modulosFrame.style.display = "block";
 });
 
 horarios.addEventListener('click', function(event) {
     emptyFrame.style.display = "none";
     ciclosFrame.style.display = "none";
     modulosFrame.style.display = "none";
-    horariosFrame.style.display = "block";
     alumnosFrame.style.display = "none";
     profesoresFrame.style.display = "none";
+    horariosFrame.style.display = "block";
 });
 
 alumnos.addEventListener('click', function(event) {   
@@ -71,8 +70,8 @@ alumnos.addEventListener('click', function(event) {
     ciclosFrame.style.display = "none";
     modulosFrame.style.display = "none";
     horariosFrame.style.display = "none";
-    alumnosFrame.style.display = "block";
     profesoresFrame.style.display = "none";
+    alumnosFrame.style.display = "block";
 });
 
 profesores.addEventListener('click', function(event) {

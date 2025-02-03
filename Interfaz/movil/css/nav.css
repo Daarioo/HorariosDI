@@ -16,13 +16,13 @@ body {
 
 /* Menu */
 .menu-toggle {
+    background-color: rgb(104, 187, 255);
     font-size: 24px;
-    background: none;
-    border: none;
+    border-radius: 8px;
     cursor: pointer;
     position: fixed;
-    top: 20px;
-    left: 20px;
+    top: 16px;
+    left: 15px;
     z-index: 1000;
 }
 
@@ -111,8 +111,7 @@ body {
     cursor: pointer;
 }
 
-/* Frame de módulos */
-#modulosFrame {
+.frame{
     width: 360px;
     height: 400px;
     background: white;
@@ -121,6 +120,9 @@ body {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
     position: relative;
 }
+
+
+/* Frame de módulos */
 #cicloSelect {
     width: 50%;
     padding: 8px;
@@ -166,16 +168,6 @@ body {
 
 
 /* Frame de ciclos */
-#ciclosFrame {
-    width: 360px;
-    height: 400px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    position: relative;
-}
-
 .ciclo {
     display: flex;
     justify-content: space-between;
@@ -189,6 +181,38 @@ body {
 #ciclosList{
     margin-top: 50px;
 }
+
+/* Frame de horarios */
+.horarios {
+    background: white;
+    color: black;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.nav {
+    display: flex;
+    position: relative;
+    margin-top: 80%;
+    justify-content: space-between;
+    background: rgba(73, 73, 73, 0.767);
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+}
+
+.dia {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dia.active {
+    color: orange;
+    font-weight: bold;
+}
+
 
 /* Footer */
 .logoXunta {
