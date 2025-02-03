@@ -1,7 +1,6 @@
-const horarios = document.getElementById("horariosBtn");
 
 
-horarios.addEventListener("click", () => {
+document.addEventListener("onDocumentLoad", () => {
     const horariosFrame = document.getElementById("horariosList");
     const diaButtons = document.querySelectorAll(".dia");
     const cicloSelect = document.getElementById("cicloSelect");

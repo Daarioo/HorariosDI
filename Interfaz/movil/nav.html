@@ -35,7 +35,7 @@
 
     <!-- Frame de Módulos -->
     <div id="modulosFrame" class="frame">
-        <select id="cicloSelect">
+        <select class="cicloSelect">
             <option value="ciclo1">Ciclo 1</option>
             <option value="ciclo2">Ciclo 2</option>
             <option value="ciclo3">Ciclo 3</option>
@@ -83,7 +83,7 @@
             </li>
         </ul>
 
-        <div id="botonAgregar">+</div>
+        <div id="botonAgregar1" class="botonAgregar">+</div>
     </div>
 
 
@@ -132,14 +132,15 @@
             </li>
         </ul>
     
-        <div id="botonAgregar">+</div>
+        <div id="botonAgregar2" class="botonAgregar">+</div>
     </div>
 
+
     <!-- Frame de Horarios -->
-    <div name="horariosFrame" class="frame">
+    <div id="horariosFrame" class="frame">
 
         <div class="content">
-            <select id="cicloSelect" class="dropdown">
+            <select class="cicloSelect">
                 <option value="ciclo1">Ciclo 1</option>
                 <option value="ciclo2">Ciclo 2</option>
                 <option value="ciclo3">Ciclo 3</option>
@@ -159,8 +160,56 @@
         </nav>
         
     </div>
-    <div id="alumnosFrame"></div>
-    <div id="profesoresFrame"></div>
+
+
+    <div id="alumnosFrame" class="frame">
+
+        <div id="toolbar">
+
+            <select class="cicloSelect">
+              <option value="ciclo1">Ciclo 1</option>
+              <option value="ciclo2">Ciclo 2</option>
+              <option value="ciclo3">Ciclo 3</option>
+            </select>
+            <button id="botonAgregar3" class="botonAgregar">+</button>
+          </div>
+
+          <div id="listaAlumnos">
+            <!-- Los alumnos se agregarán aquí -->
+            <div class="alumno">
+              <span>Alumno 1</span>
+              <div class="acciones">
+                <button class="ver">👁️</button>
+                <button class="eliminar">❌</button>
+              </div>
+            </div>
+          </div>
+
+    </div>
+
+
+    <div id="profesoresFrame" class="frame">
+
+        <select class="cicloSelect">
+            <option value="ciclo1">Ciclo 1</option>
+            <option value="ciclo2">Ciclo 2</option>
+            <option value="ciclo3">Ciclo 3</option>
+        </select>
+
+        <button id="botonAgregar4" class="botonAgregar">+</button>
+
+        <div id="listaProfes">
+          <!-- Los alumnos se agregarán aquí -->
+          <div class="profesor">
+            <span>Profesor 1</span>
+            <div class="acciones">
+              <button class="ver">👁️</button>
+              <button class="eliminar">❌</button>
+            </div>
+          </div>
+        </div>
+
+    </div>
 
   
 
@@ -170,7 +219,8 @@
         <img src="images/index/logoXuntaClaro.png" alt="logoXunta" class="logoXunta">
     </footer>
     <script src="js/nav.js"></script>
-    <script src="js/horarios.js"></script> 
-
+    <script src="js/horarios.js"></script>
+    <script src="js/alumnos.js"></script>
+    <script src="js/profesores.js"></script>
 </body>
 </html>
