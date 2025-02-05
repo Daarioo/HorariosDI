@@ -5,16 +5,13 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "sesion", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"dia", "horaInicio", "horaFin", "aula", "cursoAcademico"})
+        @UniqueConstraint(columnNames = {"dia", "horaInicio", "horaFin", "aula"})
 })
 public class Sesion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idSesion;
-
-    @Column(nullable = false)
-    private String cursoAcademico;
 
     @Column(nullable = false)
     private String horaInicio;
@@ -34,30 +31,27 @@ public class Sesion {
     public Sesion() {
     }
 
-    public Sesion(String horaInicio, String horaFin, String dia, String aula, String cursoAcademico) {
+    public Sesion(String horaInicio, String horaFin, String dia, String aula) {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.dia = dia;
         this.aula = aula;
-        this.cursoAcademico=cursoAcademico;
     }
 
-    public Sesion(String horaInicio, String horaFin, String dia, String aula, String cursoAcademico, Modulo modulo) {
+    public Sesion(String horaInicio, String horaFin, String dia, String aula, Modulo modulo) {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.dia = dia;
         this.aula = aula;
-        this.cursoAcademico=cursoAcademico;
         this.modulo = modulo;
     }
 
-    public Sesion(int idSesion, String horaInicio, String horaFin, String dia, String aula, String cursoAcademico, Modulo modulo) {
+    public Sesion(int idSesion, String horaInicio, String horaFin, String dia, String aula, Modulo modulo) {
         this.idSesion = idSesion;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.dia = dia;
         this.aula = aula;
-        this.cursoAcademico=cursoAcademico;
         this.modulo = modulo;
     }
 
@@ -107,14 +101,6 @@ public class Sesion {
 
     public void setModulo(Modulo modulo) {
         this.modulo = modulo;
-    }
-
-    public String getCursoAcademico() {
-        return cursoAcademico;
-    }
-
-    public void setCursoAcademico(String cursoAcademico) {
-        this.cursoAcademico = cursoAcademico;
     }
 
     @Override
