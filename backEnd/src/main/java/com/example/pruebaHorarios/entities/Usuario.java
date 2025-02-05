@@ -2,24 +2,36 @@ package com.example.pruebaHorarios.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
 //PARA ACTUALIZAR LA BD DEL PROYECTO ALTER TABLE matricula RENAME COLUMN id_alumno TO id_usuario;
 @Entity
-public class Usuario {
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idUsuario;
     private String nombreUsuario;
     private String contraseña;
     private String email;
-    private String tipo;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo", insertable = false, updatable = false)
+    private TipoUsuario tipo;
+
+    public enum TipoUsuario {
+        ADMIN, ALUMNO
+    }
+
     @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("usuario")
     private List<Matricula> matriculas = new ArrayList<>();
+
     public Usuario() {
     }
 
@@ -68,11 +80,11 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getTipo() {
+    public TipoUsuario getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(TipoUsuario tipo) {
         this.tipo = tipo;
     }
 
@@ -106,5 +118,40 @@ public class Usuario {
     @Override
     public int hashCode() {
         return Objects.hash(idUsuario, nombreUsuario, email);
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(tipo.name())); // No le agregamos "ROLE_"
+    }
+
+    @Override
+    public String getPassword() {
+        return contraseña;
+    }
+
+    @Override
+    public String getUsername() {
+        return nombreUsuario;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
     }
 }
