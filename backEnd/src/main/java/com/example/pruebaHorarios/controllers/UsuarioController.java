@@ -25,6 +25,12 @@ public class UsuarioController {
         return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping
+    public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
+        Usuario newUsuario = usuarioService.createUsuario(usuario);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newUsuario);
+    }
+
 
     @GetMapping
     public ResponseEntity<List<Usuario>> getAllUsuarios() {

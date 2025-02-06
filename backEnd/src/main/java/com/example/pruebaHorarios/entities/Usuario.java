@@ -21,7 +21,8 @@ public class Usuario implements UserDetails {
     private String contraseña;
     private String email;
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo", insertable = false, updatable = false)
+    @Column(name = "tipo")
+    //@Column(name = "tipo", insertable = false, updatable = false)
     private TipoUsuario tipo;
 
     public enum TipoUsuario {

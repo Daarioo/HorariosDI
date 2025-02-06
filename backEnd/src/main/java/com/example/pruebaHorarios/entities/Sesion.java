@@ -5,13 +5,16 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "sesion", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"dia", "horaInicio", "horaFin", "aula"})
+        @UniqueConstraint(columnNames = {"dia", "horaInicio", "horaFin", "aula", "cursoAcademico"})
 })
 public class Sesion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idSesion;
+
+    @Column(nullable = false)
+    private String cursoAcademico;
 
     @Column(nullable = false)
     private String horaInicio;
@@ -101,6 +104,14 @@ public class Sesion {
 
     public void setModulo(Modulo modulo) {
         this.modulo = modulo;
+    }
+
+    public String getCursoAcademico() {
+        return cursoAcademico;
+    }
+
+    public void setCursoAcademico(String cursoAcademico) {
+        this.cursoAcademico = cursoAcademico;
     }
 
     @Override
