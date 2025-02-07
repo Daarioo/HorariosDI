@@ -33,12 +33,12 @@ public class SecurityConfig {
                         .requestMatchers("/public/**", "/login", "/register").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
-                        //.anyRequest().authenticated()*/
+                        .anyRequest().authenticated() */
                         .anyRequest().permitAll()
                 )
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .defaultSuccessUrl("/admin/dashboard", true)
+                        .defaultSuccessUrl("/public/horario", true)
                         .permitAll()
                 )
                 .logout(logout -> logout

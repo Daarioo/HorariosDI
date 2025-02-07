@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api/sesiones")
+@RequestMapping("/admin/sesiones")
 @CrossOrigin(origins = "*")
 public class SesionController {
 
