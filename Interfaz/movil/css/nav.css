@@ -111,44 +111,109 @@ body {
 
 
 /* desplegable para añadir alumno */
+/* Estilos para la superposición del modal */
 .modal {
-  display: none;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+  display: flex;
   justify-content: center;
   align-items: center;
   z-index: 1000;
 }
 
+/* Estilos para el contenido del modal */
 .modal-contenido {
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
-  width: 300px;
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 80%;           /* Ocupa el 80% del ancho de la pantalla */
+  max-width: 700px;     /* Con un máximo para evitar que sea demasiado ancho en pantallas grandes */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.3s ease-out;
 }
 
-.modal-contenido form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+/* Opcional: quitar márgenes superiores en el título */
+.modal-contenido h3 {
+  margin-top: 0;
 }
 
-.modal-contenido input {
-  padding: 8px;
-  border: 1px solid #ddd;
+/* Estilos para los inputs del formulario */
+.modal-contenido input[type="text"],
+.modal-contenido input[type="email"],
+.modal-contenido input[type="tel"] {
+  width: 100%;
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  border: 1px solid #ccc;
   border-radius: 4px;
+  box-sizing: border-box;
 }
 
+/* Estilos para los botones del modal */
 .modal-botones {
+  margin-top: 1rem;
   display: flex;
-  justify-content: space-between;
-  margin-top: 15px;
+  justify-content: flex-end;
+  gap: 1rem;
 }
 
+.modal-botones button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.modal-botones .cancelar {
+  background: #ccc;
+  color: #333;
+}
+
+.modal-botones .cancelar:hover {
+  background: #b3b3b3;
+}
+
+.modal-botones button[type="submit"] {
+  background: #28a745;
+  color: #fff;
+}
+
+.modal-botones button[type="submit"]:hover {
+  background: #218838;
+}
+
+/* Estilos para el desplegable del alumno */
+.desplegable-alumno {
+  background: #fff;
+  position: fixed;
+  top: 0;
+  left: 0;
+  border: 2px solid #007bff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  min-width: 300px;
+  max-width: 90%;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Animación para efecto de aparición */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
 /* Contenedor de Frames */
 .container {
