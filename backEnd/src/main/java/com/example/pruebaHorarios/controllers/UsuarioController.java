@@ -19,6 +19,12 @@ public class UsuarioController {
     private UsuarioService usuarioService;
 
 
+    @GetMapping("/buscar/{nombreUsuario}")
+    public ResponseEntity<Usuario> buscarUsuario(@PathVariable String nombreUsuario) {
+        Optional<Usuario> usuario = usuarioService.buscarPorNombreUsuario(nombreUsuario);
+        return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
     @PostMapping
     public ResponseEntity<Usuario> createUsuario(@RequestBody Usuario usuario) {
         Usuario newUsuario = usuarioService.createUsuario(usuario);

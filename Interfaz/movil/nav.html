@@ -33,107 +33,52 @@
 
     <div id="emptyFrame" class="frame"></div>
 
+
+    
     <!-- Frame de Módulos -->
     <div id="modulosFrame" class="frame">
-        <select class="cicloSelect">
-            <option value="ciclo1">Ciclo 1</option>
-            <option value="ciclo2">Ciclo 2</option>
-            <option value="ciclo3">Ciclo 3</option>
-        </select>
+        <div id="toolbar">
+            <select class="cicloSelect">
+              <option value="ciclo1">Ciclo 1</option>
+              <option value="ciclo2">Ciclo 2</option>
+              <option value="ciclo3">Ciclo 3</option>
+            </select>
+            <button id="botonAgregar1" class="botonAgregar">+</button>
+        </div>
 
-        <ul class="list">
-            <li>
-                <div class="modulo">
-                    <span>Módulo 1</span>
-                    <div class="acciones">
-                        <span class="icon ver">👁️</span>
-                        <span class="icon eliminar">❌</span>
-                    </div>
-                </div>        
-            </li>
 
-            <li>
-                <div class="modulo">
-                    <span>Módulo 1</span>
-                    <div class="acciones">
-                        <span class="icon ver">👁️</span>
-                        <span class="icon eliminar">❌</span>
-                    </div>
-                </div>        
-            </li>
+        <div id="listaModulos">
+            <!-- Los modulos se agregarán aquí -->
+            <div class="modulo">
+              <span>Modulo 1</span>
+              <div class="acciones">
+                <button class="ver">👁️</button>
+                <button class="eliminar">❌</button>
+              </div>
+            </div>
+        </div>
 
-            <li>
-                <div class="modulo">
-                    <span>Módulo 1</span>
-                    <div class="acciones">
-                        <span class="icon ver">👁️</span>
-                        <span class="icon eliminar">❌</span>
-                    </div>
-                </div>        
-            </li>
-
-            <li>
-                <div class="modulo">
-                    <span>Módulo 1</span>
-                    <div class="acciones">
-                        <span class="icon ver">👁️</span>
-                        <span class="icon eliminar">❌</span>
-                    </div>
-                </div>        
-            </li>
-        </ul>
-
-        <div id="botonAgregar1" class="botonAgregar">+</div>
     </div>
+
 
 
     <!-- Frame de Ciclos -->
     <div id="ciclosFrame" class="frame">
     
-        <ul class="list" id="ciclosList">
-            <li>
-                <div class="ciclo">
-                    <span>Ciclo 1</span>
-                    <div class="acciones">
-                        <span class="icon ver">👁️</span>
-                        <span class="icon eliminar">❌</span>
-                    </div>
-                </div>        
-            </li>
-
-            <li>
-                <div class="ciclo">
-                    <span>Ciclo 1</span>
-                    <div class="acciones">
-                        <span class="icon ver">👁️</span>
-                        <span class="icon eliminar">❌</span>
-                    </div>
-                </div>        
-            </li>
-
-            <li>
-                <div class="ciclo">
-                    <span>Ciclo 1</span>
-                    <div class="acciones">
-                        <span class="icon ver">👁️</span>
-                        <span class="icon eliminar">❌</span>
-                    </div>
-                </div>        
-            </li>
-
-            <li>
-                <div class="ciclo">
-                    <span>Ciclo 1</span>
-                    <div class="acciones">
-                        <span class="icon ver">👁️</span>
-                        <span class="icon eliminar">❌</span>
-                    </div>
-                </div>        
-            </li>
-        </ul>
+        <div id="listaCiclos">
+            <!-- Los modulos se agregarán aquí -->
+            <div class="ciclo">
+              <span>Modulo 1</span>
+              <div class="acciones">
+                <button class="ver">👁️</button>
+                <button class="eliminar">❌</button>
+              </div>
+            </div>
+        </div>
     
         <div id="botonAgregar2" class="botonAgregar">+</div>
     </div>
+
 
 
     <!-- Frame de Horarios -->
@@ -162,19 +107,20 @@
     </div>
 
 
+
+    <!-- Frame de Alumnos -->
     <div id="alumnosFrame" class="frame">
 
         <div id="toolbar">
-
             <select class="cicloSelect">
               <option value="ciclo1">Ciclo 1</option>
               <option value="ciclo2">Ciclo 2</option>
               <option value="ciclo3">Ciclo 3</option>
             </select>
             <button id="botonAgregar3" class="botonAgregar">+</button>
-          </div>
+        </div>
 
-          <div id="listaAlumnos">
+        <div id="listaAlumnos">
             <!-- Los alumnos se agregarán aquí -->
             <div class="alumno">
               <span>Alumno 1</span>
@@ -183,20 +129,24 @@
                 <button class="eliminar">❌</button>
               </div>
             </div>
-          </div>
+        </div>
 
     </div>
 
 
+
+    <!-- Frame de Profesores -->
     <div id="profesoresFrame" class="frame">
 
-        <select class="cicloSelect">
-            <option value="ciclo1">Ciclo 1</option>
-            <option value="ciclo2">Ciclo 2</option>
-            <option value="ciclo3">Ciclo 3</option>
-        </select>
+        <div id="toolbar">
+            <select class="cicloSelect">
+              <option value="ciclo1">Ciclo 1</option>
+              <option value="ciclo2">Ciclo 2</option>
+              <option value="ciclo3">Ciclo 3</option>
+            </select>
 
-        <button id="botonAgregar4" class="botonAgregar">+</button>
+            <button id="botonAgregar4" class="botonAgregar">+</button>
+        </div>
 
         <div id="listaProfes">
           <!-- Los alumnos se agregarán aquí -->
@@ -211,9 +161,9 @@
 
     </div>
 
-  
-
     </div>
+
+
     <!-- Pie de Página -->
     <footer>
         <img src="images/index/logoXuntaClaro.png" alt="logoXunta" class="logoXunta">
@@ -222,5 +172,6 @@
     <script src="js/horarios.js"></script>
     <script src="js/alumnos.js"></script>
     <script src="js/profesores.js"></script>
+    <script src="js/modulos.js"></script>
 </body>
 </html>

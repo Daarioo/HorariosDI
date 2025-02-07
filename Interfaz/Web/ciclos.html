@@ -21,6 +21,7 @@
                         <a href="modulos.html">Módulos</a>
                         <a href="horarios.html">Horarios</a>
                         <a href="alumnos.html">Alumnos</a>
+                        <a href="profesores.html">Profesores</a>
                     </nav>
                 </div>
                 <div class="corte2"></div>
@@ -30,7 +31,25 @@
     
     <main>
         <button id="btn-add" onclick="openModal()">Añadir Ciclo</button>
-        <div id="cycle-container"></div>
+        <div id="cycle-container">
+            <div class="cycle-card">
+                <h3>ASIR</h3>
+                <p><strong>Código:</strong> ASIR001</p>
+                <p><strong>Duración:</strong> 2 años</p>
+                <p><strong>Descripción:</strong> Administración de Sistemas Informáticos en Red. Formación en gestión de servidores, redes y seguridad.</p>
+                <button class="edit">Editar</button>
+                <button class="delete">Eliminar</button>
+            </div>
+            
+            <div class="cycle-card">
+                <h3>DAW</h3>
+                <p><strong>Código:</strong> DAW002</p>
+                <p><strong>Duración:</strong> 2 años</p>
+                <p><strong>Descripción:</strong> Desarrollo de Aplicaciones Web. Programación en HTML, CSS, JavaScript y backend con bases de datos.</p>
+                <button class="edit">Editar</button>
+                <button class="delete">Eliminar</button>
+            </div>
+        </div>
         
         <div id="modal" class="modal">
             <div class="modal-content">

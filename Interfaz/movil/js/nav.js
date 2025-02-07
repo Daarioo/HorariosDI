@@ -82,3 +82,7 @@ profesores.addEventListener('click', function(event) {
     alumnosFrame.style.display = "none";
     profesoresFrame.style.display = "block";
 });
+
+function loadhorarios(params) {
+    
+}

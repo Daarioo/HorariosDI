@@ -1,15 +1,31 @@
 
 
-document.addEventListener("onDocumentLoad", () => {
+document.addEventListener("DOMContentLoaded", () => {
     const horariosFrame = document.getElementById("horariosList");
     const diaButtons = document.querySelectorAll(".dia");
-    const cicloSelect = document.getElementById("cicloSelect");
-    
+    const cicloSelect = document.querySelector(".cicloSelect");
+
     const horarios = {
+        "Lunes": [
+            { materia: "Matemáticas", inicio: "8:00", fin: "9:00" },
+            { materia: "Física", inicio: "9:00", fin: "10:00" }
+        ],
         "Martes": [
             { materia: "Administración de sistemas", inicio: "9:00", fin: "9:50" },
             { materia: "Lenguaje de Marcas", inicio: "9:50", fin: "10:40" },
             { materia: "Programación", inicio: "11:00", fin: "11:50" }
+        ],
+        "Miércoles": [
+            { materia: "Historia", inicio: "10:00", fin: "11:00" },
+            { materia: "Literatura", inicio: "11:00", fin: "12:00" }
+        ],
+        "Jueves": [
+            { materia: "Química", inicio: "8:00", fin: "9:00" },
+            { materia: "Biología", inicio: "9:00", fin: "10:00" }
+        ],
+        "Viernes": [
+            { materia: "Educación Física", inicio: "8:00", fin: "9:00" },
+            { materia: "Arte", inicio: "9:00", fin: "10:00" }
         ]
     };
 

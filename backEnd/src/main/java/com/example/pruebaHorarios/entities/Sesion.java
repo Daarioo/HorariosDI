@@ -34,30 +34,27 @@ public class Sesion {
     public Sesion() {
     }
 
-    public Sesion(String horaInicio, String horaFin, String dia, String aula, String cursoAcademico) {
+    public Sesion(String horaInicio, String horaFin, String dia, String aula) {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.dia = dia;
         this.aula = aula;
-        this.cursoAcademico=cursoAcademico;
     }
 
-    public Sesion(String horaInicio, String horaFin, String dia, String aula, String cursoAcademico, Modulo modulo) {
+    public Sesion(String horaInicio, String horaFin, String dia, String aula, Modulo modulo) {
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.dia = dia;
         this.aula = aula;
-        this.cursoAcademico=cursoAcademico;
         this.modulo = modulo;
     }
 
-    public Sesion(int idSesion, String horaInicio, String horaFin, String dia, String aula, String cursoAcademico, Modulo modulo) {
+    public Sesion(int idSesion, String horaInicio, String horaFin, String dia, String aula, Modulo modulo) {
         this.idSesion = idSesion;
         this.horaInicio = horaInicio;
         this.horaFin = horaFin;
         this.dia = dia;
         this.aula = aula;
-        this.cursoAcademico=cursoAcademico;
         this.modulo = modulo;
     }
 
