@@ -13,9 +13,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan("com.example.pruebaHorarios.config")
 @EnableWebMvc
 public class PruebaHorariosApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(PruebaHorariosApplication.class, args);
 	}
-
 }
