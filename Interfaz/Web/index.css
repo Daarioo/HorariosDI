@@ -8,6 +8,7 @@ html{
 }
 
 body{
+    min-height: 100vh;
     margin:0;
     background-color: #468DAE;
 }
@@ -192,7 +193,7 @@ main{
 }
 
 .corte_2{
-    width: 50px;
+    width: 58px;
     height: 8vh;
     background-color: #FFFFFF;
     clip-path: polygon(0 0, 100% 0, 0 100%, 100% 100%, 0% 100%);
@@ -231,7 +232,7 @@ main{
     .bloque {
         font-size: 1.5vh;
         border-radius: 100%;
-        background-color: ;
+        background-color: gold;
     }
 
     /* Main */
