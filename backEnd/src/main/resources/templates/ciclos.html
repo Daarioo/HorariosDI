@@ -33,23 +33,7 @@
         <h1>Ciclos Formativos</h1>
         <button id="btn-add" onclick="openModal()">Añadir Ciclo</button>
         <div id="cycle-container">
-            <div class="cycle-card">
-                <h3>ASIR</h3>
-                <p><strong>Código:</strong> ASIR001</p>
-                <p><strong>Duración:</strong> 2 años</p>
-                <p><strong>Descripción:</strong> Administración de Sistemas Informáticos en Red. Formación en gestión de servidores, redes y seguridad.</p>
-                <button class="edit">Editar</button>
-                <button class="delete">Eliminar</button>
-            </div>
 
-            <div class="cycle-card">
-                <h3>DAW</h3>
-                <p><strong>Código:</strong> DAW002</p>
-                <p><strong>Duración:</strong> 2 años</p>
-                <p><strong>Descripción:</strong> Desarrollo de Aplicaciones Web. Programación en HTML, CSS, JavaScript y backend con bases de datos.</p>
-                <button class="edit">Editar</button>
-                <button class="delete">Eliminar</button>
-            </div>
         </div>
 
         <div id="modal" class="modal">
@@ -64,7 +48,7 @@
                     <input type="text" id="name" required>
 
                     <label for="duration">Duración:</label>
-                    <input type="text" id="duration" required>
+                    <input type="number" id="duration" required>
 
                     <label for="description">Descripción:</label>
                     <textarea id="description" required></textarea>

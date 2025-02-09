@@ -1,40 +1,92 @@
-async function obtenerUsuario() {
-    const response = await fetch('/api/usuarios/info', {
-        method: 'GET',
-        credentials: 'include'
-    });
-    const data = await response.json();
+document.addEventListener("DOMContentLoaded", function () {
+    obtenerUsuario();
+});
 
-    if (data.authenticated) {
-        // console.log("ID:", data.id, "Nombre:", data.nombre, "Tipo:", data.tipo);
-        getJson(data.id)
-    } else {
-        console.log("Usuario no autenticado");
+let modulosExcluidos = []; // Array para guardar los módulos excluidos
+
+async function obtenerUsuario() {
+    try {
+        const response = await fetch('/api/usuarios/info', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const data = await response.json();
+
+        if (data.authenticated) {
+            getJson(data.id);
+        } else {
+            console.log("Usuario no autenticado");
+        }
+    } catch (error) {
+        console.error("Error al obtener usuario:", error);
     }
 }
 
-function getJson(id){
+function getJson(id) {
     fetch('http://localhost:8080/api/alumno/' + id)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Error al cargar el archivo');
-      }
-      return response.json();
-    })
-    .then(data => {
-      loadSesion(data);
-    })
-    .catch(error => {
-      console.error('Error:', error);
+        .then(response => response.json())
+        .then(data => {
+            cargarModulosSelect(data);
+            loadSesion(data);
+        })
+        .catch(error => console.error("Error:", error));
+}
+
+function cargarModulosSelect(data) {
+    let selectModulos = document.getElementById("select-modulo");
+    let contenedorBotones = document.getElementById("tag-container");
+
+    selectModulos.innerHTML = "";
+    contenedorBotones.innerHTML = "";
+
+    if (!data.matriculas || !Array.isArray(data.matriculas) || data.matriculas.length === 0) {
+        console.warn("No hay matrículas disponibles.");
+        return;
+    }
+
+    data.matriculas.forEach(matricula => {
+        if (matricula.modulo && !modulosExcluidos.includes(matricula.modulo.nombre)) {
+            let option = document.createElement("option");
+            option.value = matricula.modulo.nombre;
+            option.innerText = matricula.modulo.nombre;
+            selectModulos.appendChild(option);
+        }
+    });
+
+    modulosExcluidos.forEach(modulo => {
+        let boton = document.createElement("button");
+        boton.innerText = modulo + " ❌";
+        boton.classList.add("modulo-boton"); // Clase para estilos
+        boton.addEventListener("click", function () {
+            quitarModulo(modulo, data);
+        });
+        contenedorBotones.appendChild(boton);
+    });
+
+    let btnFiltrar = document.getElementById("btn-filtrar");
+    let btnReset = document.getElementById("btn-reset");
+
+    btnFiltrar.replaceWith(btnFiltrar.cloneNode(true));
+    btnReset.replaceWith(btnReset.cloneNode(true));
+
+    document.getElementById("btn-filtrar").addEventListener("click", function () {
+        let moduloSeleccionado = selectModulos.value;
+        if (moduloSeleccionado && !modulosExcluidos.includes(moduloSeleccionado)) {
+            modulosExcluidos.push(moduloSeleccionado);
+        }
+        cargarModulosSelect(data);
+        loadSesion(data);
+    });
+
+    document.getElementById("btn-reset").addEventListener("click", function () {
+        modulosExcluidos = [];
+        cargarModulosSelect(data);
+        loadSesion(data);
     });
 }
 
-function loadSesion(data){
-  createTable(data);
-}
-
-function createTable(data){
-  var tabla = document.querySelector("table");
+function loadSesion(data) {
+    var tabla = document.querySelector("table");
     tabla.innerHTML = "";
 
     var diasSemana = ["", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
@@ -48,73 +100,77 @@ function createTable(data){
     let horasSet = new Set();
 
     data.matriculas.forEach(matricula => {
-      if (matricula.modulo && Array.isArray(matricula.modulo.sesiones)) {
-          matricula.modulo.sesiones.forEach(sesion => {
-              let horaInicio = parseInt(sesion.horaInicio.split(":")[0]);
-              let horaFin = parseInt(sesion.horaFin.split(":")[0]);
+        if (matricula.modulo && Array.isArray(matricula.modulo.sesiones)) {
+            if (modulosExcluidos.includes(matricula.modulo.nombre)) return; // Excluir módulos seleccionados
 
-              for (let hora = horaInicio; hora < horaFin; hora++) {
-                  let horaStr = `${hora.toString().padStart(2, "0")}:00`;
-                  sesionesExpandida.push({
-                      dia: sesion.dia,
-                      horaInicio: horaStr,
-                      horaFin: `${(hora + 1).toString().padStart(2, "0")}:00`,
-                      aula: sesion.aula,
-                      modulo: matricula.modulo.nombre
-                  });
-                  horasSet.add(horaStr);
-              }
-          });
-      }
-  });
+            matricula.modulo.sesiones.forEach(sesion => {
+                let horaInicio = parseInt(sesion.horaInicio.split(":")[0]);
+                let horaFin = parseInt(sesion.horaFin.split(":")[0]);
 
-  let minHora = Math.min(...Array.from(horasSet).map(h => parseInt(h.split(":")[0])));
-  let maxHora = Math.max(...Array.from(horasSet).map(h => parseInt(h.split(":")[0])));
+                for (let hora = horaInicio; hora < horaFin; hora++) {
+                    let horaStr = `${hora.toString().padStart(2, "0")}:00`;
+                    sesionesExpandida.push({
+                        dia: sesion.dia,
+                        horaInicio: horaStr,
+                        horaFin: `${(hora + 1).toString().padStart(2, "0")}:00`,
+                        aula: sesion.aula,
+                        modulo: matricula.modulo.nombre
+                    });
+                    horasSet.add(horaStr);
+                }
+            });
+        }
+    });
 
-  let horasOrdenadas = [];
-  for (let h = minHora; h <= maxHora; h++) {
-      horasOrdenadas.push(`${h.toString().padStart(2, "0")}:00-${(h + 1).toString().padStart(2, "0")}:00`);
-  }
+    var head = document.createElement("thead");
+    var filaHead = document.createElement("tr");
 
-  var head = document.createElement("thead");
-  var filaHead = document.createElement("tr");
+        diasSemana.forEach(dia => {
+            var celda = document.createElement("th");
+            celda.innerText = dia;
+            filaHead.append(celda);
+        });
+    head.append(filaHead);
 
-  diasSemana.forEach(dia => {
-      var celda = document.createElement("th");
-      celda.innerText = dia;
-      filaHead.append(celda);
-  });
+    let minHora = Math.min(...Array.from(horasSet).map(h => parseInt(h.split(":")[0])));
+    let maxHora = Math.max(...Array.from(horasSet).map(h => parseInt(h.split(":")[0])));
 
-  head.append(filaHead);
-  tabla.append(head);
+    let horasOrdenadas = [];
+    for (let h = minHora; h <= maxHora; h++) {
+        horasOrdenadas.push(`${h.toString().padStart(2, "0")}:00-${(h + 1).toString().padStart(2, "0")}:00`);
+    }
 
-  var body = document.createElement("tbody");
+    var body = document.createElement("tbody");
 
-  horasOrdenadas.forEach(hora => {
-      var fila = document.createElement("tr");
+    horasOrdenadas.forEach(hora => {
+        var fila = document.createElement("tr");
 
-      var celdaHora = document.createElement("td");
-      celdaHora.innerText = hora;
-      fila.append(celdaHora);
+        var celdaHora = document.createElement("td");
+        celdaHora.innerText = hora;
+        fila.append(celdaHora);
 
-      for (let i = 0; i < 5; i++) {
-          var celda = document.createElement("td");
-          let diaSemana = diasSemana[i + 1]; 
+        for (let i = 0; i < 5; i++) {
+            var celda = document.createElement("td");
+            let diaSemana = diasSemana[i + 1];
 
-          let sesion = sesionesExpandida.find(s => s.dia === diaSemana && `${s.horaInicio}-${s.horaFin}` === hora);
-          if (sesion) {
-              celda.innerText = `${sesion.modulo} (${sesion.aula})`;
-          } else {
-            celda.innerText = "";
-          }
+            let sesion = sesionesExpandida.find(s => s.dia === diaSemana && `${s.horaInicio}-${s.horaFin}` === hora);
+            if (sesion) {
+                celda.innerText = `${sesion.modulo} (${sesion.aula})`;
+            } else {
+                celda.innerText = "";
+            }
 
-          fila.append(celda);
-      }
+            fila.append(celda);
+        }
 
-      body.append(fila);
-  });
-
-  tabla.append(body);
+        body.append(fila);
+    });
+    tabla.append(head);
+    tabla.append(body);
 }
 
-obtenerUsuario();
+function quitarModulo(modulo, data) {
+    modulosExcluidos = modulosExcluidos.filter(m => m !== modulo);
+    cargarModulosSelect(data);
+    loadSesion(data);
+}
