@@ -103,3 +103,18 @@ function createTable(data){
 
   tabla.append(body);
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Obtener la URL actual
+  const currentPage = window.location.pathname.split("/").pop();
+
+  // Seleccionar todos los enlaces del nav
+  const links = document.querySelectorAll("nav a");
+
+  // Recorrer los enlaces y marcar el activo
+  links.forEach(link => {
+      if (link.getAttribute("href") === currentPage) {
+          link.classList.add("active");
+      }
+  });
+});

@@ -4,14 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Ciclos</title>
-    <link rel="stylesheet" href="ciclos.css">
-    <script src="ciclos.js"></script>
+    <title>Página Módulos</title>
+    <link rel="stylesheet" href="modulos.css">
+    <script src="modulos.js"></script>
 </head>
 
 <body>
     <header>
         <section class="header_container">
+            <img src="./img/logo.png" alt="san" class="san">
             <img src="./img/clase.jpg" alt="niños" class="niños">
             <div class="flecha">
                 <div class="corte"></div>
@@ -28,3 +29,68 @@
             </div>
         </section>
     </header>
+    <main>
+        <h2>Gestión de Módulos</h2>
+        <button id="abrirModal" onclick="mostrarModal()">Agregar Módulo</button>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModal()">&times;</span>
+                <h2>Agregar Módulo</h2>
+                <form id="moduloForm" onsubmit="agregarModulo(event)">
+                    <label>Nombre: <input type="text" id="nombre" required></label><br>
+                    <label>Código: <input type="text" id="codigo" required></label><br>
+                    <label>Horas por semana: <input type="number" id="horasSemana" required></label><br>
+                    <label>Horas totales: <input type="number" id="horasTotales" required></label><br>
+                    <label>Ciclo asociado:
+                        <select id="ciclo" required>
+                            <option value="">Selecciona un ciclo</option>
+                            <option value="DAW">Desarrollo de Aplicaciones Web</option>
+                            <option value="DAM">Desarrollo de Aplicaciones Multiplataforma</option>
+                        </select>
+                    </label><br>
+                    <label>Profesor asignado:
+                        <select id="profesor" required>
+                            <option value="">Selecciona un profesor</option>
+                            <option value="Profesor1">Juan Pérez</option>
+                            <option value="Profesor2">Ana López</option>
+                        </select>
+                    </label><br>
+                    <button type="submit">Crear Módulo</button>
+                </form>
+            </div>
+        </div>
+
+        <h2>Módulos Agregados</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Código</th>
+                    <th>Horas/semana</th>
+                    <th>Horas totales</th>
+                    <th>Ciclo</th>
+                    <th>Profesor</th>
+                </tr>
+            </thead>
+            <tbody id="modulosTabla">
+            </tbody>
+        </table>
+    </main>
+    <footer>
+
+        <article class="footer">
+            <div class="xunta">
+                <img src="./img/logoxunta.svg" alt="logoxunta" class="logoxunta">
+            </div>
+            <div class="redes">
+                <img src="./img/facebook.svg" alt="facebook" class="facebook">
+                <img src="./img/instagram.svg" alt="instagram" class="instagram">
+                <img src="./img/twitter.svg" alt="twitter" class="twitter">
+            </div>
+        </article>
+    </footer>
+
+</body>
+
+</html>
