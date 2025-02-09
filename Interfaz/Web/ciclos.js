@@ -58,6 +58,7 @@ function manageCycles() {
             cycleDiv.innerHTML = createCycleHTML(code, name, duration, description);
             addEventListeners(cycleDiv);
             container.appendChild(cycleDiv);
+            crearCiclo(code, name, duration, description);
         }
 
         modal.style.display = "none";

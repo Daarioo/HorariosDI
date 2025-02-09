@@ -29,26 +29,10 @@ function manageCycles() {
         const name = document.getElementById("name").value.trim();
         const duration = document.getElementById("duration").value.trim();
         const description = document.getElementById("description").value.trim();
-
-        if (!code || !name || !duration || !description) {
-            alert("Todos los campos son obligatorios.");
-            return;
-        }
-
-        if (!editingCycle) {
-            // Verificar si ya existe un ciclo con el mismo código
-            const existingCycle = Array.from(container.children).find(cycle =>
-                cycle.querySelector("p:first-of-type").textContent.includes(`Código: ${code}`)
-            );
-
-            if (existingCycle) {
-                alert("Ya existe un ciclo con este código.");
-                return;
-            }
-        }
-
+        
         if (editingCycle) {
-            // Editar el ciclo existente sin crear uno nuevo
+            let firstP = editingCycle.querySelector("p:nth-of-type(1)");
+            updateCiclo(firstP.textContent.replace("Código:", "").trim(), code, name, duration, description)
             editingCycle.innerHTML = createCycleHTML(code, name, duration, description);
             addEventListeners(editingCycle);
         } else {
@@ -58,11 +42,45 @@ function manageCycles() {
             cycleDiv.innerHTML = createCycleHTML(code, name, duration, description);
             addEventListeners(cycleDiv);
             container.appendChild(cycleDiv);
+            crearCiclo(code, name, duration, description);
         }
 
         modal.style.display = "none";
         form.reset();
-        editingCycle = null; // Restablecer la variable después de editar
+        editingCycle = null;
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const modal = document.getElementById("modal");
+        const openModalBtn = document.getElementById("btn-add");
+        const closeModalBtn = document.querySelector(".close");
+
+        // Función para mostrar el modal
+        function showModal() {
+            modal.classList.add("show");
+        }
+
+        // Función para ocultar el modal
+        function hideModal() {
+            modal.classList.remove("show");
+        }
+
+        // Evento para abrir el modal
+        if (openModalBtn) {
+            openModalBtn.addEventListener("click", showModal);
+        }
+
+        // Evento para cerrar el modal
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener("click", hideModal);
+        }
+
+        // Cerrar el modal si se hace clic fuera del contenido
+        window.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                hideModal();
+            }
+        });
     });
 
     function createCycleHTML(code, name, duration, description) {
@@ -78,11 +96,14 @@ function manageCycles() {
 
     function addEventListeners(cycleDiv) {
         cycleDiv.querySelector(".delete").addEventListener("click", () => {
+            const firstP = cycleDiv.querySelector("p:nth-of-type(1)");
+            deleteCiclo(firstP.textContent.replace("Código:", "").trim());
             cycleDiv.remove();
         });
 
         cycleDiv.querySelector(".edit").addEventListener("click", () => {
             modal.style.display = "flex";
+            modal.classList.add("show");
             editingCycle = cycleDiv;
 
             document.getElementById("code").value = cycleDiv.querySelector("p:nth-of-type(1)").textContent.replace("Código: ", "");
@@ -91,44 +112,118 @@ function manageCycles() {
             document.getElementById("description").value = cycleDiv.querySelector("p:nth-of-type(3)").textContent.replace("Descripción: ", "");
         });
     }
-}
 
-document.addEventListener("DOMContentLoaded", manageCycles);
+    async function crearCiclo(code, name, duration, description) {
+        const ciclo = {
+            codigo: code,
+            nombre: name,
+            descripcion: description,
+            duracion: duration
+        };
 
+        try {
+            const response = await fetch("/api/admin/ciclos", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(ciclo),
+                credentials: "include"
+            });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const modal = document.getElementById("modal");
-    const openModalBtn = document.getElementById("btn-add");
-    const closeModalBtn = document.querySelector(".close");
+            if (!response.ok) {
+                throw new Error("Error al crear el ciclo");
+            }
 
-    // Función para mostrar el modal
-    function showModal() {
-        modal.classList.add("show");
+            const data = await response.json();
+            console.log("Ciclo creado:", data);
+        } catch (error) {
+            console.error("Error:", error);
+        }
     }
 
-    // Función para ocultar el modal
-    function hideModal() {
-        modal.classList.remove("show");
-    }
+    document.addEventListener("DOMContentLoaded", async function () {
+        const container = document.getElementById("cycle-container"); // Asegúrate de tener este elemento en tu HTML
 
-    // Evento para abrir el modal
-    if (openModalBtn) {
-        openModalBtn.addEventListener("click", showModal);
-    }
-
-    // Evento para cerrar el modal
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener("click", hideModal);
-    }
-
-    // Cerrar el modal si se hace clic fuera del contenido
-    window.addEventListener("click", function (event) {
-        if (event.target === modal) {
-            hideModal();
+        try {
+            let ciclos = await getCiclos();
+            ciclos.forEach(ciclo => {
+                const cycleDiv = document.createElement("div");
+                cycleDiv.classList.add("cycle-card");
+                cycleDiv.innerHTML = createCycleHTML(ciclo.codigo, ciclo.nombre, ciclo.duracion, ciclo.descripcion);
+                addEventListeners(cycleDiv);
+                container.appendChild(cycleDiv);
+            });
+        } catch (error) {
+            console.error("Error:", error);
         }
     });
-});
 
+    async function deleteCiclo(codigo) {
+        let ciclos = await getCiclos();
+        let ciclo = ciclos.find(c => c.codigo === codigo);
+
+        try {
+            const response = await fetch(`/api/admin/ciclos/${ciclo.idCiclo}`, {
+                method: "DELETE",
+                credentials: "include"
+            });
+
+            if (!response.ok) {
+                throw new Error("Error al eliminar el ciclo");
+            }
+
+            console.log(`Ciclo con código ${codigo} eliminado correctamente.`);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    async function updateCiclo(oldCode, code, name, duration, description) {
+        let ciclos = await getCiclos();
+        let ciclo = ciclos.find(c => c.codigo === oldCode);
+
+        const updatedCiclo = {
+            codigo: code,
+            nombre: name,
+            descripcion: description,
+            duracion: duration
+        };
+
+        try {
+            const response = await fetch("/api/admin/ciclos/" + ciclo.idCiclo, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(updatedCiclo),
+                credentials: "include"
+            });
+
+            if (!response.ok) {
+                throw new Error("Error al actualizar el ciclo");
+            }
+
+            console.log(`Ciclo con código ${oldCode} actualizado a ${code}`);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+
+    async function getCiclos() {
+        const response = await fetch("/api/admin/ciclos", { credentials: "include" });
+
+        if (!response.ok) {
+             throw new Error("Error al obtener los ciclos");
+        }
+
+        const ciclos = await response.json();
+        return ciclos;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", manageCycles());
 
 document.addEventListener("DOMContentLoaded", function () {
     // Obtener la URL actual

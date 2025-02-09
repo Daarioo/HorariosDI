@@ -1,5 +1,5 @@
 table{
-    margin: 250px auto;
+    margin: 100px auto;
     border-collapse: separate;
     border-spacing: 0px;
     border: 1px solid rgb(163, 163, 163);
@@ -24,6 +24,7 @@ th, td {
     border: 1px solid rgb(163, 163, 163);
     text-align: center;
     min-width: 100px;
+    max-width: 250px;
 }
 
 th{
