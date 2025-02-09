@@ -1,5 +1,20 @@
-function getJson(){
-    fetch('http://localhost:8080/api/alumno/3')
+async function obtenerUsuario() {
+    const response = await fetch('/api/usuarios/info', {
+        method: 'GET',
+        credentials: 'include'
+    });
+    const data = await response.json();
+
+    if (data.authenticated) {
+        // console.log("ID:", data.id, "Nombre:", data.nombre, "Tipo:", data.tipo);
+        getJson(data.id)
+    } else {
+        console.log("Usuario no autenticado");
+    }
+}
+
+function getJson(id){
+    fetch('http://localhost:8080/api/alumno/' + id)
     .then(response => {
       if (!response.ok) {
         throw new Error('Error al cargar el archivo');
@@ -13,8 +28,6 @@ function getJson(){
       console.error('Error:', error);
     });
 }
-
-getJson();
 
 function loadSesion(data){
   createTable(data);
@@ -103,3 +116,5 @@ function createTable(data){
 
   tabla.append(body);
 }
+
+obtenerUsuario();

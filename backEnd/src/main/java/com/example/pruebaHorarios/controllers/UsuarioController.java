@@ -2,18 +2,25 @@ package com.example.pruebaHorarios.controllers;
 
 import com.example.pruebaHorarios.entities.Usuario;
 import com.example.pruebaHorarios.services.UsuarioService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/usuarios")
 @CrossOrigin(origins = "*")
 public class UsuarioController {
+    private static final Logger logger = LoggerFactory.getLogger(UsuarioController.class);
 
     @Autowired
     private UsuarioService usuarioService;
@@ -61,5 +68,21 @@ public class UsuarioController {
     public ResponseEntity<Void> deleteUsuario(@PathVariable Integer id) {
         usuarioService.deleteUsuario(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/info")
+    public Map<String, Object> getCurrentUserInfo(@AuthenticationPrincipal Usuario usuario) {
+        if (usuario == null) {
+            return Map.of("authenticated", false);
+        }
+
+        System.out.println("Usuario autenticado: ID=" + usuario.getIdUsuario() + " Nombre=" + usuario.getNombreUsuario() + " Tipo=" + usuario.getTipo());
+
+        return Map.of(
+                "authenticated", true,
+                "id", usuario.getIdUsuario(),
+                "nombre", usuario.getNombreUsuario(),
+                "tipo", usuario.getTipo().name()
+        );
     }
 }

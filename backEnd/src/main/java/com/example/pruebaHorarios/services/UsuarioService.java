@@ -28,11 +28,7 @@ public class UsuarioService implements UserDetailsService {
 
         System.out.println("Usuario encontrado: " + usuario);
 
-        return new User(
-                usuario.getEmail(), // Identificador del usuario
-                usuario.getContraseña(), // Contraseña
-                Collections.singletonList(new SimpleGrantedAuthority(usuario.getTipo().name())) // Rol del usuario
-        );
+        return usuario;
     }
 
 

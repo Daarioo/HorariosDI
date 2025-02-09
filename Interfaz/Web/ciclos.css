@@ -100,10 +100,9 @@ nav a.active {
 /*main*/
 
 h1 {
-    margin-left: 88vh;
     text-decoration: underline overline 2px;
     text-underline-offset: 9px;
-
+    text-align: center;
 }
 
 #cycle-container {

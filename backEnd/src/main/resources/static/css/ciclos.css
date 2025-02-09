@@ -3,12 +3,13 @@
     box-sizing: border-box;
 }
 
-html{
+html {
     scroll-behavior: smooth;
 }
 
-body{
-    margin:0;
+body {
+    padding: 0;
+    margin: 0;
     background-color: #FFFFFF;
 }
 
@@ -16,22 +17,37 @@ body{
 /*header*/
 
 
-.niños{
+.niños {
     width: 100%;
     height: 300px;
     margin: 0;
     object-fit: cover;
 }
 
-.flecha{    
+nav {
+    display: flex;
+    gap: 2rem;
+
+}
+
+.san {
+    position: absolute;
+    top: 23%;
+    left: 37%;
+    width: 500px;
+    height: 80px;
+    z-index: 20;
+}
+
+.flecha {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
 }
 
-.corte{
-    width: 50px;
+.corte {
+    width: 57px;
     height: 8vh;
     background-color: #468DAE;
     padding: 20px;
@@ -39,16 +55,16 @@ body{
 
 }
 
-.corte2{
+.corte2 {
     width: 50px;
     height: 8vh;
     background-color: #468DAE;
     padding: 20px;
-    clip-path: polygon(100% 0, 100% 0, 100% 100%, 0 100%, 100% 0);
+    clip-path: polygon(100% 0, 100% 0, 0 100%, 0 0, 100% 0);
 
 }
 
-.bloque{
+.bloque {
     width: 140vh;
     height: 8vh;
     background-color: #468DAE;
@@ -56,75 +72,230 @@ body{
     justify-content: space-around;
     align-items: center;
     color: #FFFFFF;
-    font-size: 4vh ;
+    font-size: 4vh;
     text-decoration: none;
 }
 
-nav a{
+
+nav a {
     text-decoration: none;
-    color: #FFFFFF;
+    color: white;
+    padding: 10px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #F4791B;
+    text-decoration: underline;
+    text-underline-offset: 9px;
+}
+
+/* Mantener el color naranja en el enlace activo */
+nav a.active {
+    color: #F4791B;
+    text-decoration: underline;
+    text-underline-offset: 9px;
 }
 
 /*main*/
 
-main {
-    padding: 20px;
+h1 {
+    text-decoration: underline overline 2px;
+    text-underline-offset: 9px;
     text-align: center;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
 #cycle-container {
-    margin-top: 20px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
 }
 
-.cycle {
-    background: white;
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid #ccc;
-    width: 80%;
-    display: flex;
-    justify-content: space-between;
+.cycle-card {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    width: 300px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cycle-card h3 {
+    margin: 0 0 10px;
+    color: #333;
+}
+
+.cycle-card p {
+    margin: 5px 0;
+    color: #555;
+}
+
+.edit,
+.delete {
+    margin-top: 10px;
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.edit {
+    background: #007bff;
+    color: white;
+}
+
+.delete {
+    background: #dc3545;
+    color: white;
+}
+
+#btn-add {
+    display: block;
+    margin: auto;
+    padding: 10px 15px;
+    background: #F4791B;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .modal {
     display: none;
-    z-index: 1;
+    /* Oculto por defecto */
     position: fixed;
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,0.5);
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo semi-transparente */
     justify-content: center;
     align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.3s, opacity 0.3s linear;
 }
 
+.modal {
+    display: none;
+    /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo semi-transparente */
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s linear 0.3s, opacity 0.3s linear;
+}
+
+/* Mostrar modal cuando esté activo */
+.modal.show {
+    display: flex;
+    visibility: visible;
+    opacity: 1;
+    transition-delay: 0s;
+}
+
+/* Contenido del modal */
 .modal-content {
-    background: white;
+    background: #fff;
     padding: 20px;
-    width: 300px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     text-align: center;
+    animation: fadeIn 0.3s ease-in-out;
 }
 
+/* Botón de cierre */
 .close {
-    float: right;
+    position: absolute;
+    right: 20px;
+    top: 10px;
     font-size: 24px;
     cursor: pointer;
+    color: #333;
+    transition: color 0.3s;
 }
+
+.close:hover {
+    color: red;
+}
+
+/* Estilos del formulario */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: bold;
+    text-align: left;
+    display: block;
+    margin-top: 10px;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+textarea {
+    resize: none;
+    height: 80px;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 1s;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
 
 /*footer*/
 
 
-footer{
+footer {
     background-color: #468DAE;
     color: #FFFFFF;
     width: 100%;
@@ -132,20 +303,19 @@ footer{
 
 }
 
-.footer{
+.footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.redes{
+.redes {
     display: flex;
     justify-content: space-around;
     align-items: center;
     width: 20%;
 }
 
-.logoxunta{
+.logoxunta {
     width: 80%;
 }
-

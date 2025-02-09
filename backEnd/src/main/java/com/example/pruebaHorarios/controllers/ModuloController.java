@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin/modulos")
+@RequestMapping("/api/admin/modulos")
 @CrossOrigin(origins = "*")
 public class ModuloController {
 
