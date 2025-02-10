@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Módulos</title>
     <link rel="stylesheet" href="profesores.css">
-    <script src="modulos.js"></script>
+    <script src="profesores.js"></script>
 </head>
 
 <body>
@@ -29,5 +29,72 @@
             </div>
         </section>
     </header>
+
+    <main>
+        <h2 class="text2">Gestión de Profesores</h2>
+        <body onload="init()">
+            <button class="add2" id="openModal">Añadir Profesor</button>
+
+            <h2 class="text1">Profesores añadidos</h2>
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Formulario de Profesor</h2>
+                    <form id="matriculaForm">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" required>
+                    
+                        <label for="apellidos">Apellidos:</label>
+                        <input type="text" id="apellidos" required>
+                    
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required>
+                    
+                        <label for="modulos">Módulos Asignados:</label>
+                        <select id="modulos" required>
+                            <option value="" disabled selected>Selecciona un módulo</option>
+                            <option value="modulo1">Programación</option>
+                            <option value="modulo2">Bases de Datos</option>
+                            <option value="modulo3">Lenguaje de Marcas</option>
+                            <option value="modulo4">Contornos de Desarrollo</option>
+                        </select>
+                    
+                        <button class="add" type="submit">Agregar</button>
+                    </form>
+                </div>
+            </div>  
+
+            <table id="alumnosTable">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Módulos</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+    </main>
+    </main>
+
+    <footer>
+
+        <article class="footer">
+            <div class="xunta">
+                <img src="./img/logoxunta.svg" alt="logoxunta" class="logoxunta">
+            </div>
+            <div class="redes">
+                <img src="./img/facebook .svg" alt="facebook" class="facebook">
+                <img src="./img/instagram .svg" alt="instagram" class="instagram">
+                <img src="./img/youtube .svg" alt="youtube" class="youtube">
+            </div>
+        </article>
+    </footer>
 </body>
-</html>    
+
+</html>
+</body>
+
+</html>

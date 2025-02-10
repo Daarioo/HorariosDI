@@ -105,13 +105,16 @@ h1 {
     text-align: center;
 }
 
+
 #cycle-container {
     display: flex;
     gap: 20px;
+    background-color: #9e9c9c ;
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
-    height: 39.1vh;
+    height: 32.1vh;
+    margin-bottom: 3vh;
 }
 
 .cycle-card {
@@ -143,13 +146,22 @@ h1 {
 }
 
 .edit {
-    background: #007bff;
+    margin-top: 15%;
+    background: #1b9625;
     color: white;
 }
 
 .delete {
-    background: #dc3545;
+    background: #dd2437;
     color: white;
+}
+
+.edit:hover {
+    background: #1f7a26;
+} 
+
+.delete:hover {
+    background: #af1e2c;
 }
 
 #btn-add {
@@ -314,9 +326,14 @@ footer {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    width: 20%;
+    width: 15%;
 }
 
 .logoxunta {
     width: 80%;
+}
+
+.facebook, .youtube, .instagram {
+    width: 40px;
+    height: 40px;
 }

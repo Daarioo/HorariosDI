@@ -310,10 +310,9 @@ footer {
 }
 
 .redes {
-    display: flex;
-    justify-content: space-around;
+    margin-right: 15px;
     align-items: center;
-    width: 20%;
+    width: 10%;
 }
 
 .logoxunta {

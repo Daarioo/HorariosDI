@@ -193,7 +193,7 @@ main{
 }
 
 .corte_2{
-    width: 58px;
+    width: 56px;
     height: 8vh;
     background-color: #FFFFFF;
     clip-path: polygon(0 0, 100% 0, 0 100%, 100% 100%, 0% 100%);
@@ -201,7 +201,7 @@ main{
 }
 
 .bloque_2{
-    width: 140vh;
+    width: 141vh;
     height: 8vh;
     background-color: #FFFFFF;
     display: flex;
