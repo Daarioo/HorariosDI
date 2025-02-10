@@ -169,3 +169,8 @@ footer{
 .logoxunta{
     width: 80%;
 }
+
+.facebook, .youtube, .instagram {
+    width: 40px;
+    height: 40px;
+}

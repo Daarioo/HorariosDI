@@ -49,7 +49,7 @@ nav {
 }
 
 .corte {
-    width: 57px;
+    width: 56px;
     height: 8vh;
     background-color: #468DAE;
     padding: 20px;
@@ -101,22 +101,37 @@ nav a.active {
 
 /*main*/
 
+.text2{
+    margin-left: 45%;
+}
+
+.text1{
+    margin-top:4%;
+    margin-left: 45.5%;
+    
+}
+
+.btnadd{
+    margin-left: 46.5%;
+}
+
 
 table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
+    margin-bottom: 25.7vh;
 }
 
-th,
-td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: left;
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #468DAE;
+    color: white;
 }
 
 .modal {
@@ -172,7 +187,7 @@ select {
 
 button {
     margin-left: 1%;
-    width: 10%;
+    width: 8%;
     padding: 10px;
     background: #F4791B;
     color: white;
@@ -207,11 +222,16 @@ footer {
 
 .redes {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     width: 20%;
 }
 
 .logoxunta {
     width: 80%;
+}
+
+.facebook, .youtube, .instagram {
+    width: 40px;
+    height: 40px;
 }
