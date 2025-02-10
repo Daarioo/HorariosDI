@@ -3,6 +3,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 let modulosExcluidos = []; // Array para guardar los módulos excluidos
+let usuario;
+let ciclo;
 
 async function obtenerUsuario() {
     try {
@@ -13,6 +15,7 @@ async function obtenerUsuario() {
         const data = await response.json();
 
         if (data.authenticated) {
+            usuario = data.nombre;
             getJson(data.id);
         } else {
             console.log("Usuario no autenticado");
@@ -26,6 +29,7 @@ function getJson(id) {
     fetch('http://localhost:8080/api/alumno/' + id)
         .then(response => response.json())
         .then(data => {
+            ciclo = data.matriculas[0].cicloFormativo;
             cargarModulosSelect(data);
             loadSesion(data);
         })
@@ -173,4 +177,65 @@ function quitarModulo(modulo, data) {
     modulosExcluidos = modulosExcluidos.filter(m => m !== modulo);
     cargarModulosSelect(data);
     loadSesion(data);
+}
+
+document.getElementById("btn-pdf").addEventListener("click", function () {
+    generarPDF();
+});
+
+function generarPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text(ciclo.nombre, 105, 15, { align: "center" });
+    doc.setFontSize(14);
+    doc.text(usuario, 105, 25, { align: "center" });
+
+    let tabla = document.querySelector("table");
+    if (!tabla) {
+        console.error("No se encontró la tabla.");
+        return;
+    }
+
+    let dataTabla = [];
+    let headers = [];
+
+
+    let filas = tabla.querySelectorAll("tr");
+    filas.forEach((fila, index) => {
+        let filaData = [];
+        fila.querySelectorAll("td, th").forEach(celda => {
+            filaData.push(celda.innerText.trim());
+        });
+
+        if (index === 0) {
+            headers = filaData;
+        } else {
+            dataTabla.push(filaData);
+        }
+    });
+
+    doc.autoTable({
+        head: [headers],
+        body: dataTabla,
+        startY: 30,
+        styles: {
+            fontSize: 8,
+            cellPadding: 3,
+            halign: "center",
+            minCellWidth: 20
+        },
+        headStyles: {
+            fillColor: [74, 139, 172],
+            textColor: 255,
+            fontStyle: "bold",
+            halign: "center"
+        },
+        theme: "grid",
+        margin: { top: 20 }
+    });
+
+    doc.save("Horario.pdf");
 }

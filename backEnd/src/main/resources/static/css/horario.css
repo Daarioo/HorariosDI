@@ -1,5 +1,5 @@
 table{
-    margin: 100px auto;
+    margin: 80px auto;
     border-collapse: separate;
     border-spacing: 0px;
     border: 1px solid rgb(163, 163, 163);
@@ -37,4 +37,22 @@ th:first-child{
     background-color: #4A8BAC;
     color: white;
     border: 1px solid rgb(163, 163, 163);
+}
+
+#tag-container{
+    margin: 20px;
+    height: 29px;
+}
+
+.modulo-boton{
+    padding: 8px;
+    border-radius: 10px;
+    margin-right: 25px;
+    border: solid 2px #4A8BAC;
+    background-color: white;
+}
+
+.modulo-boton:active{
+    border: solid 2px #266281;
+    background-color: #ebebeb;
 }
