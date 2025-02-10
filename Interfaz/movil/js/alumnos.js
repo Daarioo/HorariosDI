@@ -1,8 +1,8 @@
 const btnAgregar = document.getElementById("botonAgregar3");
-const listAlumnos = document.getElementById("listaAlumnos");
+const listProfes = document.getElementById("listaAlumnos");
 
 // Función para crear el modal de ingreso de datos (Agregar alumno)
-function crearModalAlumno() {
+function crearModalProfe() {
   const modal = document.createElement("div");
   modal.id = "modalAlumno";
   modal.className = "modal";
@@ -30,7 +30,7 @@ function crearModalAlumno() {
 btnAgregar.addEventListener("click", function() {
   // Crear modal si no existe
   if (!document.getElementById("modalAlumno")) {
-    crearModalAlumno();
+    crearModalProfe();
   }
   
   const modal = document.getElementById("modalAlumno");
@@ -48,7 +48,7 @@ btnAgregar.addEventListener("click", function() {
   // Manejar el envío del formulario para agregar un nuevo alumno
   form.onsubmit = (e) => {
     e.preventDefault();
-    const alumnoCount = listAlumnos.getElementsByClassName("alumno").length;
+    const alumnoCount = listProfes.getElementsByClassName("alumno").length;
     const nuevoAlumno = document.createElement("div");
     
     // Extraer valores de los inputs
@@ -70,14 +70,14 @@ btnAgregar.addEventListener("click", function() {
       </div>
     `;
     
-    listAlumnos.appendChild(nuevoAlumno);
+    listProfes.appendChild(nuevoAlumno);
     modal.style.display = "none";
     form.reset();
   };
 });
 
 // Eliminar alumno al hacer clic en el botón de eliminar
-listAlumnos.addEventListener("click", function(event) {
+listProfes.addEventListener("click", function(event) {
   if (event.target.classList.contains("eliminar")) {
     event.target.closest(".alumno").remove();
   }
@@ -85,12 +85,12 @@ listAlumnos.addEventListener("click", function(event) {
   // Al hacer clic en "ver", abrir la ventana emergente para editar
   if (event.target.classList.contains("ver")) {
     const alumnoElement = event.target.closest(".alumno");
-    crearModalVerEditarCiclo(alumnoElement);
+    crearModalVerEditarProfe(alumnoElement);
   }
 });
 
 // Función para crear la ventana emergente (modal) de ver y editar alumno
-function crearModalVerEditarAlumno(alumnoElement) {
+function crearModalVerEditarProfe(alumnoElement) {
   // Crear el modal
   const modalAlu = document.createElement("div");
   modalAlu.className = "modal";

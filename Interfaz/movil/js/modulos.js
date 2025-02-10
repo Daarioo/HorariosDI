@@ -10,9 +10,12 @@ function crearModalModulo() {
         <div class="modal-contenido">
             <h3>Nuevo Módulo</h3>
             <form id="formModulo">
+
                 <input type="text" id="codigoModulo" placeholder="Código" required>
                 <input type="text" id="nombreModulo" placeholder="Nombre módulo" required>
-                <input type="text" id="familiaModulo" placeholder="Familia profesional">
+                <input type="number" id="horasSem" placeholder="Horas semanales" required>
+                <input type="number" id="horasTot" placeholder="Horas totales" required>
+
                 <div class="modal-botones">
                     <button type="button" class="cancelar">Cancelar</button>
                     <button type="submit">Agregar</button>
@@ -44,7 +47,8 @@ btnAgregar.addEventListener("click", function () {
 function agregarModulo() {
     const codigo = document.getElementById("codigoModulo").value.trim();
     const nombre = document.getElementById("nombreModulo").value.trim();
-    const familia = document.getElementById("familiaModulo").value.trim();
+    const horasSem = document.getElementById("horasSem").value.trim();
+    const horasTot = document.getElementById("horasTot").value.trim();
 
     if (!codigo || !nombre) {
         alert("Por favor, complete los campos obligatorios.");
@@ -55,8 +59,9 @@ function agregarModulo() {
     nuevoModulo.classList.add("modulo");
     nuevoModulo.dataset.codigo = codigo;
     nuevoModulo.dataset.nombre = nombre;
-    nuevoModulo.dataset.familia = familia;
-
+    nuevoModulo.dataset.horasSem = horasSem;
+    nuevoModulo.dataset.horasTot = horasTot;
+    
     nuevoModulo.innerHTML = `
         <span>${nombre} (${codigo})</span>
         <div class="acciones">
@@ -92,18 +97,23 @@ function crearModalVerEditarModulo(moduloElement) {
     // Recuperar los datos existentes
     const codigo = moduloElement.dataset.codigo || "";
     const nombre = moduloElement.dataset.nombre || "";
-    const familia = moduloElement.dataset.familia || "";
+    const horasSem = moduloElement.dataset.horasSem || "";
+    const horasTot = moduloElement.dataset.horasTot || "";
 
     modal.innerHTML = `
         <div class="modal-contenido">
             <h3>Editar Datos del Módulo</h3>
             <form id="formVerEditarModulo">
+
                 <label>Código</label>
                 <input type="text" id="editCodigoModulo" value="${codigo}" required>
                 <label>Nombre</label>
                 <input type="text" id="editNombreModulo" value="${nombre}" required>
-                <label>Familia Profesional</label>
-                <input type="text" id="editFamiliaModulo" value="${familia}">
+                <label>Horas semanales</label>
+                <input type="number" id="editHorasSem" value="${horasSem}">
+                <label>Horas totales</label>
+                <input type="number" id="editHorasTot" value="${horasTot}">
+
                 <div class="modal-botones">
                     <button type="button" class="cancelar">Cancelar</button>
                     <button type="submit">Guardar cambios</button>
@@ -129,7 +139,8 @@ function crearModalVerEditarModulo(moduloElement) {
 function actualizarModulo(moduloElement) {
     const nuevoCodigo = document.getElementById("editCodigoModulo").value.trim();
     const nuevoNombre = document.getElementById("editNombreModulo").value.trim();
-    const nuevaFamilia = document.getElementById("editFamiliaModulo").value.trim();
+    const nuevoHorasSem = document.getElementById("editHorasSem").value.trim();
+    const nuevoHorasTot = document.getElementById("editHorasTot").value.trim();
 
     if (!nuevoCodigo || !nuevoNombre) {
         alert("Por favor, complete los campos obligatorios.");
@@ -138,7 +149,8 @@ function actualizarModulo(moduloElement) {
 
     moduloElement.dataset.codigo = nuevoCodigo;
     moduloElement.dataset.nombre = nuevoNombre;
-    moduloElement.dataset.familia = nuevaFamilia;
+    moduloElement.dataset.horasSem = nuevoHorasSem;
+    moduloElement.dataset.horasTot = nuevoHorasTot;
     moduloElement.querySelector("span").textContent = `${nuevoNombre} (${nuevoCodigo})`;
 
     document.getElementById("modalVerEditarModulo").remove();

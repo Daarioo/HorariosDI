@@ -1,4 +1,4 @@
-const btnAgregarCiclo = document.getElementById("botonAgregarCiclo");
+const btnAgregar = document.getElementById("botonAgregar5");
 const listaCiclos = document.getElementById("listaCiclos");
 
 // Función para crear el modal de ingreso de datos
@@ -10,10 +10,12 @@ function crearModalCiclo() {
         <div class="modal-contenido">
             <h3>Nuevo Ciclo</h3>
             <form id="formCiclo">
+
                 <input type="text" id="codigoCiclo" placeholder="Código" required>
                 <input type="text" id="nombreCiclo" placeholder="Nombre del ciclo" required>
                 <input type="number" id="duracionCiclo" placeholder="Duración en horas" required>
                 <textarea id="descripcionCiclo" placeholder="Descripción"></textarea>
+
                 <div class="modal-botones">
                     <button type="button" class="cancelar">Cancelar</button>
                     <button type="submit">Agregar</button>
@@ -34,7 +36,7 @@ function crearModalCiclo() {
 }
 
 // Evento para abrir el modal al hacer clic en "Agregar"
-btnAgregarCiclo.addEventListener("click", function () {
+btnAgregar.addEventListener("click", function () {
     if (!document.getElementById("modalCiclo")) {
         crearModalCiclo();
     }
@@ -108,7 +110,7 @@ function crearModalVerEditarCiclo(cicloElement) {
                 <input type="text" id="editNombreCiclo" value="${nombre}" required>
                 <label>Duración</label>
                 <input type="number" id="editDuracionCiclo" value="${duracion}" required>
-                <label>Descripción</label>
+                <div>Descripción</div>
                 <textarea id="editDescripcionCiclo">${descripcion}</textarea>
                 <div class="modal-botones">
                     <button type="button" class="cancelar">Cancelar</button>

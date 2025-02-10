@@ -1,0 +1,14 @@
+/* Frame de alumnos */
+  
+  /* Estilos de cada alumno */
+  .alumno {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #d3d3d3;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+  }
+  
+

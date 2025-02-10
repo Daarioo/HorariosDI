@@ -1,0 +1,29 @@
+/* Frame de horarios */
+.horarios {
+    height: 280px;
+    background: white;
+    color: black;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(73, 73, 73, 0.767);
+    padding: 10px;
+    border-radius: 0 0 10px 10px;
+}
+
+.dia {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.dia.active {
+    color: orange;
+    font-weight: bold;
+}
