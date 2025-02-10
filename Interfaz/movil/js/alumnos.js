@@ -66,7 +66,7 @@ btnAgregar.addEventListener("click", function() {
       <span>${nombre}</span>
       <div class="acciones">
         <button class="ver">👁️</button>
-        <button class="eliminar">❌</button>
+        <button class="eliminar"  id="verAlu" >❌</button>
       </div>
     `;
     
@@ -90,18 +90,18 @@ listAlumnos.addEventListener("click", function(event) {
 });
 
 // Función para crear la ventana emergente (modal) de ver y editar alumno
-function crearModalVerEditarCiclo(alumnoElement) {
+function crearModalVerEditarAlumno(alumnoElement) {
   // Crear el modal
-  const modal = document.createElement("div");
-  modal.className = "modal";
-  modal.id = "modalVerEditarAlumno";
+  const modalAlu = document.createElement("div");
+  modalAlu.className = "modal";
+  modalAlu.id = "modalVerEditarAlumno";
   
   // Recuperar los datos existentes
   const nombre = alumnoElement.dataset.nombre || alumnoElement.querySelector("span").textContent;
   const correo = alumnoElement.dataset.correo || "";
   const telefono = alumnoElement.dataset.telefono || "";
   
-  modal.innerHTML = `
+  modalAlu.innerHTML = `
     <div class="modal-contenido">
       <h3>Editar Datos del Alumno</h3>
       <form id="formVerEditarAlumno">
@@ -119,14 +119,14 @@ function crearModalVerEditarCiclo(alumnoElement) {
     </div>
   `;
   
-  document.body.appendChild(modal);
-  modal.style.display = "flex";
+  document.body.appendChild(modalAlu);
+  modalAlu.style.display = "flex";
   
-  const form = modal.querySelector("form");
+  const form = modalAlu.querySelector("form");
   
   // Configurar botón de cancelar
-  modal.querySelector(".cancelar").addEventListener("click", () => {
-    modal.remove();
+  modalAlu.querySelector(".cancelar").addEventListener("click", () => {
+    modalAlu.remove();
   });
   
   // Manejar el envío del formulario para guardar cambios
@@ -143,6 +143,6 @@ function crearModalVerEditarCiclo(alumnoElement) {
     alumnoElement.dataset.telefono = nuevoTelefono;
     alumnoElement.querySelector("span").textContent = nuevoNombre;
     
-    modal.remove();
+    modalAlu.remove();
   });
 }

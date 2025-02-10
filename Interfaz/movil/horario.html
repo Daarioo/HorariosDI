@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>IES SAN CLEMENTE</title>
+        <link rel="stylesheet" href="css/nav.css">
+    </head>
+    <body>
+        <!-- Encabezado -->
+        <header>
+            <img src="images/index/logo.png" alt="logo san clemente" class="logoSanClemente">
+        </header>
+        <main>
+            <!-- Contenido Principal -->
+            <div class="container">
+                <!-- Botón de Menú Hamburguesa -->
+                <button id="menuToggle" class="menu-toggle">&#9776;</button>
+            
+                <!-- Panel de Navegación -->
+                <nav class="panel" id="navPanel">
+                    <ul>
+                        <li><button>Current User</button></li>
+                        <li><button id="ciclosBtn" >Ciclos</button></li>
+                        <li><button id="modulosBtn" >Módulos</button></li>
+                        <li><button id="horariosBtn" >Horarios</button></li>
+                        <li><button id="alumnosBtn" >Alumnos</button></li>
+                        <li><button id="profesoresBtn" >Profesores</button></li>
+                    </ul>
+                    <button id="logoutBtn">Cerrar Sesión</button>
+                </nav>
+            
+                <!-- Frame de Horarios -->
+                <div id="horariosFrame" class="frame">
+
+                    <div class="content">
+                        <select class="cicloSelect">
+                            <option value="ciclo1">Ciclo 1</option>
+                            <option value="ciclo2">Ciclo 2</option>
+                            <option value="ciclo3">Ciclo 3</option>
+                        </select>
+
+                        <div id="horariosList" class="horarios">
+                            <!-- Horarios se generarán dinámicamente aquí -->
+                        </div>
+                    </div>
+
+                    <nav class="nav">
+                        <button class="dia" data-dia="Lunes">Lunes</button>
+                        <button class="dia active" data-dia="Martes">Martes</button>
+                        <button class="dia" data-dia="Miércoles">Miércoles</button>
+                        <button class="dia" data-dia="Jueves">Jueves</button>
+                        <button class="dia" data-dia="Viernes">Viernes</button>
+                    </nav>
+                    
+                </div>
+            </div>
+        </main>
+        <!-- Pie de Página -->
+        <footer>
+            <img src="images/index/logoXuntaClaro.png" alt="logoXunta" class="logoXunta">
+        </footer>
+        <script src="js/nav.js"></script>
+        <script src="js/horarios.js"></script>
+    </body>
+</html>
+
