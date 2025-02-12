@@ -1,0 +1,237 @@
+* {
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    height: 100%;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #FFFFFF;
+}
+
+
+/*header*/
+
+
+
+.niños {
+    width: 100%;
+    height: 300px;
+    margin: 0;
+    object-fit: cover;
+}
+
+nav {
+    display: flex;
+    gap: 2rem;
+
+}
+
+.san {
+    position: absolute;
+    top: 23%;
+    left: 37%;
+    width: 500px;
+    height: 80px;
+    z-index: 20;
+}
+
+.flecha {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.corte {
+    width: 56px;
+    height: 8vh;
+    background-color: #468DAE;
+    padding: 20px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 100% 100%);
+
+}
+
+.corte2 {
+    width: 50px;
+    height: 8vh;
+    background-color: #468DAE;
+    padding: 20px;
+    clip-path: polygon(100% 0, 100% 0, 0 100%, 0 0, 100% 0);
+
+}
+
+.bloque {
+    width: 140vh;
+    height: 8vh;
+    background-color: #468DAE;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #FFFFFF;
+    font-size: 4vh;
+    text-decoration: none;
+}
+
+
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #F4791B;
+    text-decoration: underline;
+    text-underline-offset: 9px;
+}
+
+/* Mantener el color naranja en el enlace activo */
+nav a.active {
+    color: #F4791B;
+    text-decoration: underline;
+    text-underline-offset: 9px;
+}
+
+/*main*/
+
+.text2{
+    margin-left: 45%;
+}
+
+.text1{
+    margin-top:4%;
+    margin-left: 45.5%;
+    
+}
+
+.btnadd{
+    margin-left: 46.5%;
+}
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    margin-bottom: 25.7vh;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+th {
+    background-color: #468DAE;
+    color: white;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+}
+
+
+form {
+    width: 450px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+button {
+    margin-left: 1%;
+    width: 8%;
+    padding: 10px;
+    background: #F4791B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+button:hover {
+    background: #c5651c;
+}
+
+
+/*footer*/
+
+
+footer {
+    background-color: #468DAE;
+    color: #FFFFFF;
+    width: 100%;
+    padding: 1rem;
+
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.redes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20%;
+}
+
+.logoxunta {
+    width: 80%;
+}
+
+.facebook, .youtube, .instagram {
+    width: 40px;
+    height: 40px;
+}
