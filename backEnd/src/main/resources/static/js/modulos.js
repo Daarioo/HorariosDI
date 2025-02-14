@@ -36,7 +36,7 @@ function agregarModulo(event) {
 }
 
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     // Obtener la URL actual
     const currentPage = window.location.pathname.split("/").pop();
 
@@ -49,4 +49,35 @@ document.addEventListener("DOMContentLoaded", function () {
             link.classList.add("active");
         }
     });
+
+    let json = await getModulos();
+    createTable(json)
 });
+
+ async function getModulos() {
+        const response = await fetch("/api/admin/modulos", { credentials: "include" });
+
+        if (!response.ok) {
+             throw new Error("Error al obtener los modulos");
+        }
+
+        const modulos = await response.json();
+        return modulos;
+    }
+
+function createTable(json){
+    let tbody = document.querySelector("#modulosTabla");
+    json.forEach((modulo) => {
+        let tr = document.createElement('tr');
+        let nombre = document.createElement("td");
+        nombre.innerText = modulo.nombre;
+        let codigo = document.createElement("td");
+                codigo.innerText = modulo.codigo;
+        let horasSem = document.createElement("td");
+        horasSem.innerText = modulo.
+
+        tr.append(nombre);
+        tr.append(codigo);
+        tbody.append(tr);
+    });
+}
