@@ -72,12 +72,23 @@ function createTable(json){
         let nombre = document.createElement("td");
         nombre.innerText = modulo.nombre;
         let codigo = document.createElement("td");
-                codigo.innerText = modulo.codigo;
+        codigo.innerText = modulo.codigo;
         let horasSem = document.createElement("td");
-        horasSem.innerText = modulo.
+        horasSem.innerText = modulo.horasSemana;
+        let horasTot= document.createElement("td");
+        horasTot.innerText = modulo.horasTotales;
+        let ciclo = document.createElement("td");
+        ciclo.innerText = modulo.ciclo.nombre;
+        let profe = document.createElement("td");
+        profe.innerText = modulo.profesor.nombre+" "+modulo.profesor.apellidos;
 
         tr.append(nombre);
         tr.append(codigo);
+        tr.append(horasSem);
+        tr.append(horasTot);
+        tr.append(ciclo);
+        tr.append(profe);
         tbody.append(tr);
+
     });
 }
