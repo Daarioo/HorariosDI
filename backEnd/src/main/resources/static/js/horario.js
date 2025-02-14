@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     obtenerUsuario();
 });
 
-let modulosExcluidos = []; // Array para guardar los módulos excluidos
+let modulosExcluidos = [];
 let usuario;
 let ciclo;
 
@@ -43,11 +43,6 @@ function cargarModulosSelect(data) {
     selectModulos.innerHTML = "";
     contenedorBotones.innerHTML = "";
 
-    if (!data.matriculas || !Array.isArray(data.matriculas) || data.matriculas.length === 0) {
-        console.warn("No hay matrículas disponibles.");
-        return;
-    }
-
     data.matriculas.forEach(matricula => {
         if (matricula.modulo && !modulosExcluidos.includes(matricula.modulo.nombre)) {
             let option = document.createElement("option");
@@ -60,20 +55,25 @@ function cargarModulosSelect(data) {
     modulosExcluidos.forEach(modulo => {
         let boton = document.createElement("button");
         boton.innerText = modulo + " ❌";
-        boton.classList.add("modulo-boton"); // Clase para estilos
+        boton.classList.add("modulo-boton");
         boton.addEventListener("click", function () {
             quitarModulo(modulo, data);
         });
         contenedorBotones.appendChild(boton);
     });
 
+    // 🔥 Eliminar event listeners anteriores para evitar duplicación
     let btnFiltrar = document.getElementById("btn-filtrar");
     let btnReset = document.getElementById("btn-reset");
 
-    btnFiltrar.replaceWith(btnFiltrar.cloneNode(true));
-    btnReset.replaceWith(btnReset.cloneNode(true));
+    let nuevoBtnFiltrar = btnFiltrar.cloneNode(true);
+    let nuevoBtnReset = btnReset.cloneNode(true);
 
-    document.getElementById("btn-filtrar").addEventListener("click", function () {
+    btnFiltrar.replaceWith(nuevoBtnFiltrar);
+    btnReset.replaceWith(nuevoBtnReset);
+
+    // Agregar event listeners solo una vez
+    nuevoBtnFiltrar.addEventListener("click", function () {
         let moduloSeleccionado = selectModulos.value;
         if (moduloSeleccionado && !modulosExcluidos.includes(moduloSeleccionado)) {
             modulosExcluidos.push(moduloSeleccionado);
@@ -82,7 +82,7 @@ function cargarModulosSelect(data) {
         loadSesion(data);
     });
 
-    document.getElementById("btn-reset").addEventListener("click", function () {
+    nuevoBtnReset.addEventListener("click", function () {
         modulosExcluidos = [];
         cargarModulosSelect(data);
         loadSesion(data);
@@ -100,75 +100,70 @@ function loadSesion(data) {
         return;
     }
 
-    let sesionesExpandida = [];
+    let sesionesOriginales = [];
     let horasSet = new Set();
 
     data.matriculas.forEach(matricula => {
         if (matricula.modulo && Array.isArray(matricula.modulo.sesiones)) {
-            if (modulosExcluidos.includes(matricula.modulo.nombre)) return; // Excluir módulos seleccionados
+            if (modulosExcluidos.includes(matricula.modulo.nombre)) return;
 
             matricula.modulo.sesiones.forEach(sesion => {
-                let horaInicio = parseInt(sesion.horaInicio.split(":")[0]);
-                let horaFin = parseInt(sesion.horaFin.split(":")[0]);
-
-                for (let hora = horaInicio; hora < horaFin; hora++) {
-                    let horaStr = `${hora.toString().padStart(2, "0")}:00`;
-                    sesionesExpandida.push({
-                        dia: sesion.dia,
-                        horaInicio: horaStr,
-                        horaFin: `${(hora + 1).toString().padStart(2, "0")}:00`,
-                        aula: sesion.aula,
-                        modulo: matricula.modulo.nombre
-                    });
-                    horasSet.add(horaStr);
-                }
+                let horaStr = `${sesion.horaInicio}-${sesion.horaFin}`;
+                sesionesOriginales.push({
+                    dia: sesion.dia,
+                    horaInicio: sesion.horaInicio,
+                    horaFin: sesion.horaFin,
+                    aula: sesion.aula,
+                    modulo: matricula.modulo.nombre
+                });
+                horasSet.add(sesion.horaInicio);
+                horasSet.add(sesion.horaFin);
             });
         }
     });
 
+    // Ordenar las horas para detectar huecos
+    let horasOrdenadas = Array.from(horasSet).sort();
+
     var head = document.createElement("thead");
     var filaHead = document.createElement("tr");
 
-        diasSemana.forEach(dia => {
-            var celda = document.createElement("th");
-            celda.innerText = dia;
-            filaHead.append(celda);
-        });
+    diasSemana.forEach(dia => {
+        var celda = document.createElement("th");
+        celda.innerText = dia;
+        filaHead.append(celda);
+    });
     head.append(filaHead);
-
-    let minHora = Math.min(...Array.from(horasSet).map(h => parseInt(h.split(":")[0])));
-    let maxHora = Math.max(...Array.from(horasSet).map(h => parseInt(h.split(":")[0])));
-
-    let horasOrdenadas = [];
-    for (let h = minHora; h <= maxHora; h++) {
-        horasOrdenadas.push(`${h.toString().padStart(2, "0")}:00-${(h + 1).toString().padStart(2, "0")}:00`);
-    }
 
     var body = document.createElement("tbody");
 
-    horasOrdenadas.forEach(hora => {
+    for (let i = 0; i < horasOrdenadas.length - 1; i++) {
+        let horaInicio = horasOrdenadas[i];
+        let horaFin = horasOrdenadas[i + 1];
+
         var fila = document.createElement("tr");
 
         var celdaHora = document.createElement("td");
-        celdaHora.innerText = hora;
+        celdaHora.innerText = `${horaInicio}-${horaFin}`;
         fila.append(celdaHora);
 
-        for (let i = 0; i < 5; i++) {
+        for (let j = 0; j < 5; j++) {
             var celda = document.createElement("td");
-            let diaSemana = diasSemana[i + 1];
+            let diaSemana = diasSemana[j + 1];
 
-            let sesion = sesionesExpandida.find(s => s.dia === diaSemana && `${s.horaInicio}-${s.horaFin}` === hora);
+            let sesion = sesionesOriginales.find(s => s.dia === diaSemana && s.horaInicio === horaInicio);
             if (sesion) {
                 celda.innerText = `${sesion.modulo} (${sesion.aula})`;
             } else {
-                celda.innerText = "";
+                celda.innerText = ""; // Espacio vacío en caso de que no haya sesión
             }
 
             fila.append(celda);
         }
 
         body.append(fila);
-    });
+    }
+
     tabla.append(head);
     tabla.append(body);
 }
@@ -201,7 +196,6 @@ function generarPDF() {
 
     let dataTabla = [];
     let headers = [];
-
 
     let filas = tabla.querySelectorAll("tr");
     filas.forEach((fila, index) => {
