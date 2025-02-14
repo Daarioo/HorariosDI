@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Módulos</title>
+    <link rel="stylesheet" href="/css/alumnos.css">
+    <script src="/js/alumnos.js"></script>
+</head>
+
+<body>
+    <header>
+        <section class="header_container">
+            <img src="/images/logo.png" alt="san" class="san">
+            <img src="/images/clase.jpg" alt="niños" class="niños">
+            <div class="flecha">
+                <div class="corte"></div>
+                <div class="bloque">
+                    <nav>
+                        <a href="ciclos">Ciclos</a>
+                        <a href="modulos">Módulos</a>
+                        <a href="horarios">Horarios</a>
+                        <a href="alumnos">Alumnos</a>
+                    </nav>
+                </div>
+                <div class="corte2"></div>
+            </div>
+        </section>
+    </header>
+    <main>
+        <h2 class="text2">Gestión de Alumnos</h2>
+        <div onload="init()">
+            <button id="openModal">Matricular Alumno</button>
+
+            <h2 class="text1">Alumnos añadidos</h2>
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Formulario de Matrícula</h2>
+                    <form id="matriculaForm">
+                        <label for="matricula">Número de Matrícula:</label>
+                        <input type="text" id="matricula" required>
+
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" required>
+
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" required>
+
+                        <label for="ciclos">Ciclos/Módulos:</label>
+                        <input type="text" id="ciclos" required>
+
+                        <button type="submit">Agregar</button>
+                    </form>
+                </div>
+            </div>
+
+            <table id="alumnosTable">
+                <thead>
+                    <tr>
+                        <th>Matrícula</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Ciclos/Módulos</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            </div>
+    </main>
+
+    <footer>
+
+        <article class="footer">
+            <div class="xunta">
+                <img src="./img/logoxunta.svg" alt="logoxunta" class="logoxunta">
+            </div>
+            <div class="redes">
+                <img src="./img/facebook .svg" alt="facebook" class="facebook">
+                <img src="./img/instagram .svg" alt="instagram" class="instagram">
+                <img src="./img/youtube .svg" alt="youtube" class="youtube">
+            </div>
+        </article>
+    </footer>
+</body>
+
+</html>
