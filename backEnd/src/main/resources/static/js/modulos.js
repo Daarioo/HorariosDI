@@ -232,3 +232,4 @@ function agregarFilaModulo(modulo) {
 
     tbody.appendChild(tr);
 }
+
