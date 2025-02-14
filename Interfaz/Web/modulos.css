@@ -1,11 +1,13 @@
 * {
     padding: 0;
     box-sizing: border-box;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
 
 html {
     scroll-behavior: smooth;
     height: 100%;
+
 }
 
 body {
@@ -38,7 +40,7 @@ nav {
     left: 37%;
     width: 500px;
     height: 80px;
-    z-index: 20;
+    z-index: 2;
 }
 
 .flecha {
@@ -115,9 +117,14 @@ nav a.active {
     margin-left: 46.5%;
 }
 
+.tabla_modulos{
+    display: flex;
+    justify-content: center;
+}
+
 
 table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
     margin-top: 20px;
     margin-bottom: 25.7vh;
@@ -143,14 +150,19 @@ th {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
+    z-index: 3;
+    
 }
 
 .modal-content {
     background-color: #fff;
-    margin: 15% auto;
+    margin: 7% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
+    width: 30%;
+    z-index:3;
+    border-radius: 10px;
+    
 }
 
 .close {
@@ -161,10 +173,10 @@ th {
 
 
 form {
-    width: 450px;
+    width: 100%;
     margin: 20px auto;
     padding: 20px;
-    background: #f9f9f9;
+    background: #468DAE;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: Arial, sans-serif;
@@ -173,6 +185,7 @@ form {
 label {
     display: block;
     font-weight: bold;
+    color: #fff;
 }
 
 input,
@@ -180,13 +193,12 @@ select {
     width: 100%;
     padding: 8px;
     margin-top: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #468DAE;
     border-radius: 4px;
     font-size: 14px;
 }
 
-button {
-    margin-left: 1%;
+.btnadd {
     width: 8%;
     padding: 10px;
     background: #F4791B;
@@ -202,6 +214,22 @@ button:hover {
     background: #c5651c;
 }
 
+.submit{
+    margin-left: 33%;
+    padding: 10px;
+    background: #F4791B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.mod1{
+    margin-left: 33%;
+    color: #468DAE ;
+}
 
 /*footer*/
 

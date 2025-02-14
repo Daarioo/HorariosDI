@@ -36,7 +36,7 @@
         <div id="modal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="cerrarModal()">&times;</span>
-                <h2>Agregar Módulo</h2>
+                <h2 class="mod1">Agregar Módulo</h2>
                 <form id="moduloForm" onsubmit="agregarModulo(event)">
                     <label>Nombre: <input type="text" id="nombre" required></label><br>
                     <label>Código: <input type="text" id="codigo" required></label><br>
@@ -56,26 +56,28 @@
                             <option value="Profesor2">Ana López</option>
                         </select>
                     </label><br>
-                    <button type="submit">Crear Módulo</button>
+                    <button type="submit" class="submit">Crear Módulo</button>
                 </form>
             </div>
         </div>
 
         <h2 class="text1">Módulos Agregados</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Código</th>
-                    <th>Horas/semana</th>
-                    <th>Horas totales</th>
-                    <th>Ciclo</th>
-                    <th>Profesor</th>
-                </tr>
-            </thead>
-            <tbody id="modulosTabla">
-            </tbody>
-        </table>
+        <div class="tabla_modulos">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Código</th>
+                        <th>Horas/semana</th>
+                        <th>Horas totales</th>
+                        <th>Ciclo</th>
+                        <th>Profesor</th>
+                    </tr>
+                </thead>
+                <tbody id="modulosTabla">
+                </tbody>
+            </table>
+        </div>
     </main>
     <footer>
 
