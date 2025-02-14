@@ -27,9 +27,14 @@ public class Modulo {
     @JsonIgnoreProperties("modulo")
     private List<Matricula> matriculas = new ArrayList<>();
 
+/*
     @OneToOne
     @JoinColumn(name = "id_profesor")
     @JsonIgnoreProperties("modulo")
+    private Profesor profesor;*/
+    @ManyToOne
+    @JoinColumn(name = "id_profesor", nullable = false)
+    @JsonIgnoreProperties({"modulo", "ciclo"})
     private Profesor profesor;
 
     @OneToMany(mappedBy = "modulo", cascade = CascadeType.ALL, orphanRemoval = true)

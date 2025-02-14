@@ -3,6 +3,9 @@ package com.example.pruebaHorarios.entities;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "profesor")
 public class Profesor {
@@ -13,24 +16,27 @@ public class Profesor {
     private String apellidos;
     private String email;
 
-    @OneToOne(mappedBy = "profesor")
-    @JsonIgnoreProperties({"profesor", "ciclo", "matriculas", "sesiones"})
-    private Modulo modulo;
+
+    @OneToMany(mappedBy = "profesor")
+    @JsonIgnoreProperties({"modulo","matriculas"})
+    private List<Modulo> modulos = new ArrayList<>();
+
 
     public Profesor(){}
 
-    public Profesor(int idProfesor, String nombre, String apellidos, String email, Modulo modulo) {
+    public Profesor(int idProfesor, String nombre, String apellidos, String email, List<Modulo> modulos) {
         this.idProfesor = idProfesor;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
-        this.modulo = modulo;
+        this.modulos = modulos;
     }
 
-    public Profesor(String nombre, String apellidos, String email, Modulo modulo) {
+    public Profesor(String nombre, String apellidos, String email, List<Modulo> modulos) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
+        this.modulos=modulos;
     }
 
     public Profesor(String nombre, String apellidos, String email) {
@@ -71,12 +77,12 @@ public class Profesor {
         this.email = email;
     }
 
-    public Modulo getModulo() {
-        return modulo;
+    public List<Modulo> getModulo() {
+        return modulos;
     }
 
-    public void setModulo(Modulo modulo) {
-        this.modulo = modulo;
+    public void setModulo(List<Modulo> modulo) {
+        this.modulos = modulo;
     }
 
     @Override
@@ -86,7 +92,7 @@ public class Profesor {
                 ", nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
                 ", email='" + email + '\'' +
-                ", modulo=" + modulo +
+                ", modulo=" + modulos +
                 '}';
     }
 }
