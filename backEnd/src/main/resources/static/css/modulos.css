@@ -201,7 +201,7 @@ select {
 .btnadd {
     width: 8%;
     padding: 10px;
-    background: #F4791B;
+    background: green;
     color: white;
     border: none;
     border-radius: 4px;
@@ -210,8 +210,8 @@ select {
     margin-top: 10px;
 }
 
-button:hover {
-    background: #c5651c;
+.btnadd:hover {
+    background: darkgreen;
 }
 
 .submit{
@@ -262,4 +262,33 @@ footer {
 .facebook, .youtube, .instagram {
     width: 40px;
     height: 40px;
+}
+
+
+
+.btn-editar, .btn-eliminar {
+    padding: 5px 10px;
+    margin: 2px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.btn-editar {
+    background-color: #F4B400; /* Amarillo */
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #d89a00;
+}
+
+.btn-eliminar {
+    background-color: #DB4437; /* Rojo */
+    color: white;
+}
+
+.btn-eliminar:hover {
+    background-color: #b53126;
 }

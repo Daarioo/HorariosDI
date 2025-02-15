@@ -65,33 +65,30 @@ document.addEventListener("DOMContentLoaded", async function () {
         return modulos;
     }
 
-function createTable(json){
+function createTable(json) {
     let tbody = document.querySelector("#modulosTabla");
+    tbody.innerHTML = ""; // Limpia la tabla antes de llenarla
+
     json.forEach((modulo) => {
-        let tr = document.createElement('tr');
-        let nombre = document.createElement("td");
-        nombre.innerText = modulo.nombre;
-        let codigo = document.createElement("td");
-        codigo.innerText = modulo.codigo;
-        let horasSem = document.createElement("td");
-        horasSem.innerText = modulo.horasSemana;
-        let horasTot= document.createElement("td");
-        horasTot.innerText = modulo.horasTotales;
-        let ciclo = document.createElement("td");
-        ciclo.innerText = modulo.ciclo.nombre;
-        let profe = document.createElement("td");
-        profe.innerText = modulo.profesor.nombre+" "+modulo.profesor.apellidos;
+        let tr = document.createElement("tr");
 
-        tr.append(nombre);
-        tr.append(codigo);
-        tr.append(horasSem);
-        tr.append(horasTot);
-        tr.append(ciclo);
-        tr.append(profe);
-        tbody.append(tr);
+        tr.innerHTML = `
+            <td>${modulo.nombre}</td>
+            <td>${modulo.codigo}</td>
+            <td>${modulo.horasSemana}</td>
+            <td>${modulo.horasTotales}</td>
+            <td>${modulo.ciclo.nombre}</td>
+            <td>${modulo.profesor.nombre} ${modulo.profesor.apellidos}</td>
+            <td>
+                <button class="btn-editar" onclick="editarModulo(${modulo.idModulo})">✏️</button>
+                <button class="btn-eliminar" onclick="eliminarModulo(${modulo.idModulo})">🗑️</button>
+            </td>
+        `;
 
+        tbody.appendChild(tr);
     });
 }
+
 
 // parte añadida en casa
 
@@ -151,6 +148,7 @@ async function cargarProfesores() {
 async function agregarModulo(event) {
     event.preventDefault();
 
+    let idModulo = document.querySelector("#moduloForm button[type='submit']").getAttribute("data-id");
     let nombre = document.getElementById("nombre").value;
     let codigo = document.getElementById("codigo").value;
     let horasSemana = document.getElementById("horasSemana").value;
@@ -163,40 +161,48 @@ async function agregarModulo(event) {
         return;
     }
 
-    let nuevoModulo = {
+    let moduloData = {
         nombre,
         codigo,
         horasSemana: parseInt(horasSemana),
         horasTotales: parseInt(horasTotales),
-        ciclo: { idCiclo: parseInt(cicloId) }, // Asociamos el ciclo por ID
-        profesor: { idProfesor: parseInt(profesorId) } // Asociamos el profesor por ID
+        ciclo: { idCiclo: parseInt(cicloId) },
+        profesor: { idProfesor: parseInt(profesorId) }
     };
 
-  try {
-      const response = await fetch("/api/admin/modulos", {
-          method: "POST",
-          credentials: "include",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(nuevoModulo)
-      });
+    try {
+        let response;
+        if (idModulo) {
+            // Modo edición: actualizar el módulo existente
+            response = await fetch(`/api/admin/modulos/${idModulo}`, {
+                method: "PUT",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(moduloData)
+            });
+        } else {
+            // Modo creación: agregar nuevo módulo
+            response = await fetch("/api/admin/modulos", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(moduloData)
+            });
+        }
 
-      if (!response.ok) throw new Error("Error al crear el módulo");
+        if (!response.ok) throw new Error("Error al guardar el módulo");
 
-      const moduloCreado = await response.json();
+        alert(idModulo ? "Módulo actualizado exitosamente" : "Módulo agregado exitosamente");
 
-      // SOLUCIÓN: Recargar datos completos antes de agregar a la tabla
-      const moduloCompleto = await fetch(`/api/admin/modulos/${moduloCreado.idModulo}`, { credentials: "include" })
-          .then(res => res.json());
+        cerrarModal();
+        document.getElementById("moduloForm").reset();
+        document.querySelector("#moduloForm button[type='submit']").removeAttribute("data-id");
 
-      alert("Módulo agregado exitosamente");
-      cerrarModal();
-      document.getElementById("moduloForm").reset();
-
-      agregarFilaModulo(moduloCompleto);  // Usamos el módulo con datos completos
-  } catch (error) {
-      console.error(error);
-      alert("No se pudo agregar el módulo.");
-  }
+        await cargarModulos();  // Recargar la tabla
+    } catch (error) {
+        console.error(error);
+        alert("No se pudo guardar el módulo.");
+    }
 }
 
 // Función para obtener y mostrar los módulos en la tabla
@@ -220,6 +226,7 @@ async function cargarModulos() {
 function agregarFilaModulo(modulo) {
     let tbody = document.querySelector("#modulosTabla");
     let tr = document.createElement("tr");
+    tr.setAttribute("data-id", modulo.idModulo);  // Guardamos el ID del módulo en el tr
 
     tr.innerHTML = `
         <td>${modulo.nombre}</td>
@@ -228,8 +235,60 @@ function agregarFilaModulo(modulo) {
         <td>${modulo.horasTotales}</td>
         <td>${modulo.ciclo.nombre}</td>
         <td>${modulo.profesor.nombre} ${modulo.profesor.apellidos}</td>
+        <td>
+            <button class="btn-editar" onclick="editarModulo(${modulo.idModulo})">✏️ Editar</button>
+            <button class="btn-eliminar" onclick="eliminarModulo(${modulo.idModulo})">🗑️ Eliminar</button>
+        </td>
     `;
 
     tbody.appendChild(tr);
 }
 
+
+async function editarModulo(idModulo) {
+    try {
+        const response = await fetch(`/api/admin/modulos/${idModulo}`, { credentials: "include" });
+        if (!response.ok) throw new Error("Error al obtener el módulo");
+
+        const modulo = await response.json();
+
+        // Cargar los datos en el formulario
+        document.getElementById("nombre").value = modulo.nombre;
+        document.getElementById("codigo").value = modulo.codigo;
+        document.getElementById("horasSemana").value = modulo.horasSemana;
+        document.getElementById("horasTotales").value = modulo.horasTotales;
+        document.getElementById("ciclo").value = modulo.ciclo.idCiclo;
+        document.getElementById("profesor").value = modulo.profesor.idProfesor;
+
+        // Guardar el ID del módulo en un atributo del botón de envío
+        let submitButton = document.querySelector("#moduloForm button[type='submit']");
+        submitButton.setAttribute("data-id", idModulo);
+
+        // Mostrar el modal
+        mostrarModal();
+    } catch (error) {
+        console.error(error);
+        alert("Error al cargar los datos del módulo.");
+    }
+}
+
+async function eliminarModulo(idModulo) {
+    if (!confirm("¿Seguro que deseas eliminar este módulo?")) return;
+
+    try {
+        const response = await fetch(`/api/admin/modulos/${idModulo}`, {
+            method: "DELETE",
+            credentials: "include"
+        });
+
+        if (!response.ok) throw new Error("Error al eliminar el módulo");
+
+        alert("Módulo eliminado exitosamente");
+
+        // Eliminar la fila de la tabla
+        document.querySelector(`tr[data-id='${idModulo}']`).remove();
+    } catch (error) {
+        console.error(error);
+        alert("No se pudo eliminar el módulo.");
+    }
+}
