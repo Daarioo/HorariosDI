@@ -103,13 +103,11 @@ nav a.active {
 /*main*/
 
 .text2{
-    margin-left: 45%;
+    text-align: center;
 }
 
 .text1{
-    margin-top:4%;
-    margin-left: 45.5%;
-    
+    text-align: center;
 }
 
 button {
@@ -167,18 +165,15 @@ input {
 }
 
 table {
-    width: 80%;
-    margin: 20px auto;
     border-collapse: collapse;
-    background: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 22vh;
+    margin: 20px auto;
 }
 
 th, td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
+    min-width: 240px;
 }
 
 th {
@@ -186,26 +181,8 @@ th {
     color: white;
 }
 
-
-
-.edit {
-    background-color: #2a911c;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-bottom: 1%;
-}
-
-.delete {
-    margin-top: 1%;
-    background-color: #e01c2f;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+td:last-child{
+    max-width: 241px;
 }
 
 .edit:hover {
@@ -247,4 +224,43 @@ footer {
 .facebook, .youtube, .instagram {
     width: 40px;
     height: 40px;
+}
+
+.btn-editar, .btn-eliminar {
+    padding: 5px 10px;
+    margin: 2px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+}
+
+.btn-editar {
+    background-color: #F4B400; /* Amarillo */
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #d89a00;
+}
+
+.btn-eliminar {
+    background-color: #DB4437; /* Rojo */
+    color: white;
+}
+
+.btn-eliminar:hover {
+    background-color: #b53126;
+}
+
+#openModal {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
 }

@@ -104,17 +104,13 @@ nav a.active {
 /*main*/
 
 .text2{
-    margin-left: 45%;
+    margin: 2% auto;
+    text-align: center;
 }
 
 .text1{
-    margin-top:4%;
-    margin-left: 45.5%;
-
-}
-
-.btnadd{
-    margin-left: 46.5%;
+    margin: 2% auto;
+    text-align: center;
 }
 
 .tabla_modulos{
@@ -126,8 +122,7 @@ nav a.active {
 table {
     width: 90%;
     border-collapse: collapse;
-    margin-top: 20px;
-    margin-bottom: 25.7vh;
+    margin: 20px auto;
 }
 
 th, td {
@@ -199,7 +194,8 @@ select {
 }
 
 .btnadd {
-    width: 8%;
+    display: block;
+    margin: 10px auto;
     padding: 10px;
     background: green;
     color: white;
@@ -207,7 +203,6 @@ select {
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 10px;
 }
 
 .btnadd:hover {
