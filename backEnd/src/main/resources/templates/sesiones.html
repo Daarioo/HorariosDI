@@ -41,20 +41,14 @@
                     <label>Código: <input type="text" id="codigo" required></label><br>
                     <label>Horas por semana: <input type="number" id="horasSemana" required></label><br>
                     <label>Horas totales: <input type="number" id="horasTotales" required></label><br>
-                    <label>Ciclo asociado:
-                        <select id="ciclo" required>
-                            <option value="">Selecciona un ciclo</option>
+                    <label>Módulo asociado:
+                        <select id="modulo" required>
+                            <option value="">Selecciona un módulo</option>
                             <option value="DAW">Desarrollo de Aplicaciones Web</option>
                             <option value="DAM">Desarrollo de Aplicaciones Multiplataforma</option>
                         </select>
                     </label><br>
-                    <label>Profesor asignado:
-                        <select id="profesor" required>
-                            <option value="">Selecciona un profesor</option>
-                            <option value="Profesor1">Juan Pérez</option>
-                            <option value="Profesor2">Ana López</option>
-                        </select>
-                    </label><br>
+                    <br>
                     <button type="submit">Guardar</button>
                 </form>
             </div>
@@ -64,12 +58,12 @@
         <table>
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Código</th>
-                    <th>Horas/semana</th>
-                    <th>Horas totales</th>
-                    <th>Ciclo</th>
-                    <th>Profesor</th>
+                    <th>Módulo</th>
+                    <th>Hora de inicio</th>
+                    <th>Hora de fin</th>
+                    <th>Dia</th>
+                    <th>Aula</th>
+                    <th>Curso académico</th>
                 </tr>
             </thead>
             <tbody id="sesionesTabla">
