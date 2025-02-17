@@ -1,3 +1,4 @@
+    
 function manageCycles() {
     const modal = document.getElementById("modal");
     const btnAdd = document.getElementById("btn-add");
