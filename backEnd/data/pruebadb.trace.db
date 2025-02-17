@@ -11287,3 +11287,18 @@ DROP INDEX UKfbduimca8ypfpa93bkuoh7uso_INDEX_C [90085-232]
 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
 	at java.base/java.lang.Thread.run(Thread.java:1583)
+2025-02-17 14:14:31.905027+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ciclo" not found (this database is empty); SQL statement:
+select c1_0.id_ciclo,c1_0.codigo,c1_0.descripcion,c1_0.duracion,c1_0.nombre from ciclo c1_0 [42104-232]
+2025-02-17 14:14:43.776137+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ciclo" not found (this database is empty); SQL statement:
+select c1_0.id_ciclo,c1_0.codigo,c1_0.descripcion,c1_0.duracion,c1_0.nombre from ciclo c1_0 [42104-232]
+2025-02-17 14:14:49.811498+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "ciclo" not found (this database is empty); SQL statement:
+select c1_0.id_ciclo,c1_0.codigo,c1_0.descripcion,c1_0.duracion,c1_0.nombre from ciclo c1_0 [42104-232]
+2025-02-17 14:14:51.256612+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found (this database is empty); SQL statement:
+select u1_0.id_usuario,u1_0.contraseña,u1_0.email,u1_0.nombre_usuario,u1_0.tipo from usuario u1_0 [42104-232]
+2025-02-17 14:15:13.940314+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found (this database is empty); SQL statement:
+select u1_0.id_usuario,u1_0.contraseña,u1_0.email,u1_0.nombre_usuario,u1_0.tipo from usuario u1_0 [42104-232]
