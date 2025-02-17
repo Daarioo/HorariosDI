@@ -38,23 +38,10 @@
                 <h2>Agregar Sesión</h2>
                 <form id="sesionForm" onsubmit="agregarSesion(event)">
                     <label>Módulo: <input type="text" id="nombre" required></label><br>
-                    <label>Curso: <input type="text" id="cursoAcademico" required></label><br>
-                    <label>Horas por semana: <input type="text" id="dia" required></label><br>
-                    <label>Horas totales: <input type="text" id="horaInicio" required></label><br>
-                    <label>Ciclo asociado:
-                        <select id="ciclo" required>
-                            <option value="">Selecciona un ciclo</option>
-                            <option value="DAW">Desarrollo de Aplicaciones Web</option>
-                            <option value="DAM">Desarrollo de Aplicaciones Multiplataforma</option>
-                        </select>
-                    </label><br>
-                    <label>Profesor asignado:
-                        <select id="profesor" required>
-                            <option value="">Selecciona un profesor</option>
-                            <option value="Profesor1">Juan Pérez</option>
-                            <option value="Profesor2">Ana López</option>
-                        </select>
-                    </label><br>
+                    <label>Curso académico: <input type="text" id="cursoAcademico" required></label><br>
+                    <label>Día: <input type="text" id="dia" required></label><br>
+                    <label>Hora de inicio: <input type="text" id="horaInicio" required></label><br>
+                    <label>Hora de fin: <input type="text" id="horaFin" required></label>
                     <button type="submit">Guardar</button>
                 </form>
             </div>
