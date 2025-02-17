@@ -151,6 +151,7 @@ th {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 3;
+    align-items: center;
     
 }
 
@@ -169,6 +170,10 @@ th {
     float: right;
     font-size: 28px;
     cursor: pointer;
+}
+
+.close:hover {
+    color: red;
 }
 
 
