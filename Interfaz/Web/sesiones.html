@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página Módulos</title>
-    <link rel="stylesheet" href="/css/modulos.css">
-    <script src="/js/modulos.js"></script>
+    <link rel="stylesheet" href="/css/sesiones.css">
+    <script src="/js/sesiones.js"></script>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
                     <nav>
                         <a href="ciclos">Ciclos</a>
                         <a href="modulos">Módulos</a>
-                        <a href="sesiones">Sesiones</a>
+                        <a href="horarios">Sesiones</a>
                         <a href="alumnos">Alumnos</a>
                     </nav>
                 </div>
@@ -29,13 +29,13 @@
         </section>
     </header>
     <main>
-        <button class="btnadd" id="abrirModal" onclick="mostrarModal()">Agregar Módulo</button>
+        <button class="btnadd" id="abrirModal" onclick="mostrarModal()">Agregar Sesión</button>
 
         <div id="modal" class="modal">
             <div class="modal-content">
                 <span class="close" onclick="cerrarModal()">&times;</span>
-                <h2>Agregar Módulo</h2>
-                <form id="moduloForm" onsubmit="agregarModulo(event)">
+                <h2>Agregar Sesión</h2>
+                <form id="moduloForm" onsubmit="agregarSesion(event)">
                     <label>Nombre: <input type="text" id="nombre" required></label><br>
                     <label>Código: <input type="text" id="codigo" required></label><br>
                     <label>Horas por semana: <input type="number" id="horasSemana" required></label><br>
@@ -59,7 +59,7 @@
             </div>
         </div>
 
-        <h2 class="text1">Módulos Agregados</h2>
+        <h2 class="text1">Sesiones Agregadas</h2>
         <table>
             <thead>
                 <tr>
@@ -71,7 +71,7 @@
                     <th>Profesor</th>
                 </tr>
             </thead>
-            <tbody id="modulosTabla">
+            <tbody id="sesionesTabla">
             </tbody>
         </table>
     </main>
