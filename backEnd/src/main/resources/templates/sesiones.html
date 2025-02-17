@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Módulos</title>
+    <link rel="stylesheet" href="/css/sesiones.css">
+    <script src="/js/sesiones.js"></script>
+</head>
+
+<body>
+    <header>
+        <section class="header_container">
+            <img src="/images/logo.png" alt="san" class="san">
+            <img src="/images/clase.jpg" alt="niños" class="niños">
+            <div class="flecha">
+                <div class="corte"></div>
+                <div class="bloque">
+                    <nav>
+                        <a href="ciclos">Ciclos</a>
+                        <a href="modulos">Módulos</a>
+                        <a href="sesiones">Sesiones</a>
+                        <a href="alumnos">Alumnos</a>
+                        <a href="profesores">Profesores</a>
+                    </nav>
+                </div>
+                <div class="corte2"></div>
+            </div>
+        </section>
+    </header>
+    <main>
+        <button class="btnadd" id="abrirModal" onclick="mostrarModal()">Agregar Sesión</button>
+
+        <div id="modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="cerrarModal()">&times;</span>
+                <h2>Agregar Sesión</h2>
+                <form id="moduloForm" onsubmit="agregarSesion(event)">
+                    <label>Nombre: <input type="text" id="nombre" required></label><br>
+                    <label>Código: <input type="text" id="codigo" required></label><br>
+                    <label>Horas por semana: <input type="number" id="horasSemana" required></label><br>
+                    <label>Horas totales: <input type="number" id="horasTotales" required></label><br>
+                    <label>Ciclo asociado:
+                        <select id="ciclo" required>
+                            <option value="">Selecciona un ciclo</option>
+                            <option value="DAW">Desarrollo de Aplicaciones Web</option>
+                            <option value="DAM">Desarrollo de Aplicaciones Multiplataforma</option>
+                        </select>
+                    </label><br>
+                    <label>Profesor asignado:
+                        <select id="profesor" required>
+                            <option value="">Selecciona un profesor</option>
+                            <option value="Profesor1">Juan Pérez</option>
+                            <option value="Profesor2">Ana López</option>
+                        </select>
+                    </label><br>
+                    <button type="submit">Guardar</button>
+                </form>
+            </div>
+        </div>
+
+        <h2 class="text1">Sesiones Agregadas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Código</th>
+                    <th>Horas/semana</th>
+                    <th>Horas totales</th>
+                    <th>Ciclo</th>
+                    <th>Profesor</th>
+                </tr>
+            </thead>
+            <tbody id="sesionesTabla">
+            </tbody>
+        </table>
+    </main>
+    <footer>
+
+        <article class="footer">
+            <div class="xunta">
+                <img src="/images/logoxunta.svg" alt="logoxunta" class="logoxunta">
+            </div>
+            <div class="redes">
+                <img src="/images/facebook.svg" alt="facebook" class="facebook">
+                <img src="/images/instagram.svg" alt="instagram" class="instagram">
+                <img src="/images/youtube.svg" alt="youtube" class="youtube">
+            </div>
+        </article>
+    </footer>
+
+</body>
+
+</html>
