@@ -22,6 +22,7 @@
                         <a href="modulos">Módulos</a>
                         <a href="sesiones">Sesiones</a>
                         <a href="alumnos">Alumnos</a>
+                        <a href="profesores">Profesores</a>
                     </nav>
                 </div>
                 <div class="corte2"></div>
@@ -35,11 +36,11 @@
             <div class="modal-content">
                 <span class="close" onclick="cerrarModal()">&times;</span>
                 <h2>Agregar Sesión</h2>
-                <form id="moduloForm" onsubmit="agregarSesion(event)">
-                    <label>Nombre: <input type="text" id="nombre" required></label><br>
-                    <label>Código: <input type="text" id="codigo" required></label><br>
-                    <label>Horas por semana: <input type="number" id="horasSemana" required></label><br>
-                    <label>Horas totales: <input type="number" id="horasTotales" required></label><br>
+                <form id="sesionForm" onsubmit="agregarSesion(event)">
+                    <label>Módulo: <input type="text" id="nombre" required></label><br>
+                    <label>Curso: <input type="text" id="cursoAcademico" required></label><br>
+                    <label>Horas por semana: <input type="text" id="dia" required></label><br>
+                    <label>Horas totales: <input type="text" id="horaInicio" required></label><br>
                     <label>Ciclo asociado:
                         <select id="ciclo" required>
                             <option value="">Selecciona un ciclo</option>
