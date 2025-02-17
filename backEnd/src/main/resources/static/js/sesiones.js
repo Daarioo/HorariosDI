@@ -1,294 +1,185 @@
+document.addEventListener("DOMContentLoaded", async function () {
+    await cargarModulos();  // Cargar módulos en el select
+    await cargarSesiones(); // Cargar sesiones en la tabla
+});
+
+// Función para abrir el modal
 function mostrarModal() {
-    document.getElementById("modal").style.display = "flex";
+    let modal = document.getElementById("modal");
+    modal.style.display = "block";
 }
 
+// Función para cerrar el modal
 function cerrarModal() {
-    document.getElementById("modal").style.display = "none";
-}
-
-window.onclick = function(event) {
-    if (event.target == document.getElementById("modal")) {
-        cerrarModal();
-    }
-};
-
-function agregarModulo(event) {
-    event.preventDefault();
-
-    let nombre = document.getElementById("nombre").value;
-    let codigo = document.getElementById("codigo").value;
-    let horasSemana = document.getElementById("horasSemana").value;
-    let horasTotales = document.getElementById("horasTotales").value;
-    let ciclo = document.getElementById("ciclo").value;
-    let profesor = document.getElementById("profesor").value;
-
-    if (!nombre || !codigo || !horasSemana || !horasTotales || !ciclo || !profesor) {
-        alert("Por favor, complete todos los campos");
-        return;
-    }
-
-    let tabla = document.getElementById("modulosTabla");
-    let fila = tabla.insertRow();
-    fila.innerHTML = `<td>${nombre}</td><td>${codigo}</td><td>${horasSemana}</td><td>${horasTotales}</td><td>${ciclo}</td><td>${profesor}</td>`;
-
+    let modal = document.getElementById("modal");
+    modal.style.display = "none";
     document.getElementById("moduloForm").reset();
-    cerrarModal();
+
+    let submitButton = document.querySelector("#moduloForm button[type='submit']");
+    submitButton.innerText = "Guardar";
+    submitButton.removeAttribute("data-id"); // Quitar el ID si estaba en modo edición
 }
 
-
-document.addEventListener("DOMContentLoaded", async function () {
-    // Obtener la URL actual
-    const currentPage = window.location.pathname.split("/").pop();
-
-    // Seleccionar todos los enlaces del nav
-    const links = document.querySelectorAll("nav a");
-
-    // Recorrer los enlaces y marcar el activo
-    links.forEach(link => {
-        if (link.getAttribute("href") === currentPage) {
-            link.classList.add("active");
-        }
-    });
-
-    let json = await getModulos();
-    createTable(json)
-});
-
- async function getModulos() {
-        const response = await fetch("/api/admin/modulos", { credentials: "include" });
-
-        if (!response.ok) {
-             throw new Error("Error al obtener los modulos");
-        }
-
-        const modulos = await response.json();
-        return modulos;
-    }
-
-function createTable(json) {
-    let tbody = document.querySelector("#modulosTabla");
-    tbody.innerHTML = ""; // Limpia la tabla antes de llenarla
-
-    json.forEach((modulo) => {
-        let tr = document.createElement("tr");
-
-        tr.innerHTML = `
-            <td>${modulo.nombre}</td>
-            <td>${modulo.codigo}</td>
-            <td>${modulo.horasSemana}</td>
-            <td>${modulo.horasTotales}</td>
-            <td>${modulo.ciclo.nombre}</td>
-            <td>${modulo.profesor.nombre} ${modulo.profesor.apellidos}</td>
-            <td>
-                <button class="btn-editar" onclick="editarModulo(${modulo.idModulo})">✏️</button>
-                <button class="btn-eliminar" onclick="eliminarModulo(${modulo.idModulo})">🗑️</button>
-            </td>
-        `;
-
-        tbody.appendChild(tr);
-    });
-}
-
-
-// parte añadida en casa
-
-document.addEventListener("DOMContentLoaded", async function () {
-    await cargarCiclos();
-    await cargarProfesores();
-    await cargarModulos();
-});
-
-// Función para obtener y llenar los ciclos en el select
-async function cargarCiclos() {
-    try {
-        const response = await fetch("/api/admin/ciclos", { credentials: "include" });
-        if (!response.ok) throw new Error("Error al obtener los ciclos");
-
-        const ciclos = await response.json();
-        let selectCiclo = document.getElementById("ciclo");
-
-        // Limpiar y agregar opciones dinámicas
-        selectCiclo.innerHTML = `<option value="">Selecciona un ciclo</option>`;
-        ciclos.forEach(ciclo => {
-            let option = document.createElement("option");
-            option.value = ciclo.idCiclo;  // Usamos el ID real del ciclo
-            option.textContent = ciclo.nombre;
-            selectCiclo.appendChild(option);
-        });
-    } catch (error) {
-        console.error(error);
-        alert("No se pudieron cargar los ciclos.");
-    }
-}
-
-// Función para obtener y llenar los profesores en el select
-async function cargarProfesores() {
-    try {
-        const response = await fetch("/api/admin/profesores", { credentials: "include" });
-        if (!response.ok) throw new Error("Error al obtener los profesores");
-
-        const profesores = await response.json();
-        let selectProfesor = document.getElementById("profesor");
-
-        // Limpiar y agregar opciones dinámicas
-        selectProfesor.innerHTML = `<option value="">Selecciona un profesor</option>`;
-        profesores.forEach(profesor => {
-            let option = document.createElement("option");
-            option.value = profesor.idProfesor;  // Usamos el ID real del profesor
-            option.textContent = `${profesor.nombre} ${profesor.apellidos}`;
-            selectProfesor.appendChild(option);
-        });
-    } catch (error) {
-        console.error(error);
-        alert("No se pudieron cargar los profesores.");
-    }
-}
-
-// Función para agregar un nuevo módulo
-async function agregarModulo(event) {
-    event.preventDefault();
-
-    let idModulo = document.querySelector("#moduloForm button[type='submit']").getAttribute("data-id");
-    let nombre = document.getElementById("nombre").value;
-    let codigo = document.getElementById("codigo").value;
-    let horasSemana = document.getElementById("horasSemana").value;
-    let horasTotales = document.getElementById("horasTotales").value;
-    let cicloId = document.getElementById("ciclo").value;
-    let profesorId = document.getElementById("profesor").value;
-
-    if (!nombre || !codigo || !horasSemana || !horasTotales || !cicloId || !profesorId) {
-        alert("Por favor, complete todos los campos.");
-        return;
-    }
-
-    let moduloData = {
-        nombre,
-        codigo,
-        horasSemana: parseInt(horasSemana),
-        horasTotales: parseInt(horasTotales),
-        ciclo: { idCiclo: parseInt(cicloId) },
-        profesor: { idProfesor: parseInt(profesorId) }
-    };
-
-    try {
-        let response;
-        if (idModulo) {
-            // Modo edición: actualizar el módulo existente
-            response = await fetch(`/api/admin/modulos/${idModulo}`, {
-                method: "PUT",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(moduloData)
-            });
-        } else {
-            // Modo creación: agregar nuevo módulo
-            response = await fetch("/api/admin/modulos", {
-                method: "POST",
-                credentials: "include",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(moduloData)
-            });
-        }
-
-        if (!response.ok) throw new Error("Error al guardar el módulo");
-
-        alert(idModulo ? "Módulo actualizado exitosamente" : "Módulo agregado exitosamente");
-
-        cerrarModal();
-        document.getElementById("moduloForm").reset();
-        document.querySelector("#moduloForm button[type='submit']").removeAttribute("data-id");
-
-        await cargarModulos();  // Recargar la tabla
-    } catch (error) {
-        console.error(error);
-        alert("No se pudo guardar el módulo.");
-    }
-}
-
-// Función para obtener y mostrar los módulos en la tabla
+// Obtener los módulos disponibles para llenar el select
 async function cargarModulos() {
     try {
         const response = await fetch("/api/admin/modulos", { credentials: "include" });
         if (!response.ok) throw new Error("Error al obtener los módulos");
 
         const modulos = await response.json();
-        let tbody = document.querySelector("#modulosTabla");
-        tbody.innerHTML = "";  // Limpiar la tabla antes de agregar nuevos módulos
+        let selectModulo = document.getElementById("modulo");
 
-        modulos.forEach(modulo => agregarFilaModulo(modulo));
+        selectModulo.innerHTML = `<option value="">Selecciona un módulo</option>`;
+        modulos.forEach(modulo => {
+            let option = document.createElement("option");
+            option.value = modulo.idModulo;
+            option.textContent = `${modulo.nombre} (${modulo.ciclo.nombre})`;
+            selectModulo.appendChild(option);
+        });
     } catch (error) {
         console.error(error);
-        alert("Error al cargar los módulos.");
+        alert("No se pudieron cargar los módulos.");
     }
 }
 
-// Función para agregar una fila a la tabla de módulos
-function agregarFilaModulo(modulo) {
-    let tbody = document.querySelector("#modulosTabla");
+// Obtener y mostrar todas las sesiones en la tabla
+async function cargarSesiones() {
+    try {
+        const response = await fetch("/api/admin/sesiones", { credentials: "include" });
+        if (!response.ok) throw new Error("Error al obtener las sesiones");
+
+        const sesiones = await response.json();
+        let tbody = document.querySelector("#sesionesTabla");
+        tbody.innerHTML = ""; // Limpiar tabla antes de llenarla
+
+        sesiones.forEach(sesion => agregarFilaSesion(sesion));
+    } catch (error) {
+        console.error(error);
+        alert("Error al cargar las sesiones.");
+    }
+}
+
+// Función para agregar una fila de sesión a la tabla
+function agregarFilaSesion(sesion) {
+    let tbody = document.querySelector("#sesionesTabla");
     let tr = document.createElement("tr");
-    tr.setAttribute("data-id", modulo.idModulo);  // Guardamos el ID del módulo en el tr
+    tr.setAttribute("data-id", sesion.idSesion); // Guardar ID en la fila
 
     tr.innerHTML = `
-        <td>${modulo.nombre}</td>
-        <td>${modulo.codigo}</td>
-        <td>${modulo.horasSemana}</td>
-        <td>${modulo.horasTotales}</td>
-        <td>${modulo.ciclo.nombre}</td>
-        <td>${modulo.profesor.nombre} ${modulo.profesor.apellidos}</td>
+        <td>${sesion.modulo.nombre} (${sesion.modulo.ciclo.nombre})</td>
+        <td>${sesion.horaInicio}</td>
+        <td>${sesion.horaFin}</td>
+        <td>${sesion.dia}</td>
+        <td>${sesion.aula}</td>
+        <td>${sesion.cursoAcademico}</td>
         <td>
-            <button class="btn-editar" onclick="editarModulo(${modulo.idModulo})">✏️ Editar</button>
-            <button class="btn-eliminar" onclick="eliminarModulo(${modulo.idModulo})">🗑️ Eliminar</button>
+            <button class="btn-editar" onclick="editarSesion(${sesion.idSesion})">✏️ Editar</button>
+            <button class="btn-eliminar" onclick="eliminarSesion(${sesion.idSesion})">🗑️ Eliminar</button>
         </td>
     `;
 
     tbody.appendChild(tr);
 }
 
+// Función para agregar o editar una sesión
+async function agregarSesion(event) {
+    event.preventDefault();
 
-async function editarModulo(idModulo) {
+    let idSesion = document.querySelector("#moduloForm button[type='submit']").getAttribute("data-id");
+    let horaInicio = document.getElementById("horaInicio").value;
+    let horaFin = document.getElementById("horaFin").value;
+    let dia = document.getElementById("dia").value;
+    let aula = document.getElementById("aula").value;
+    let cursoAcademico = document.getElementById("cursoAcademico").value;
+    let moduloId = document.getElementById("modulo").value;
+
+    if (!horaInicio || !horaFin || !dia || !aula || !cursoAcademico || !moduloId) {
+        alert("Por favor, complete todos los campos.");
+        return;
+    }
+
+    let sesionData = {
+        horaInicio,
+        horaFin,
+        dia,
+        aula,
+        cursoAcademico,
+        modulo: { idModulo: parseInt(moduloId) }
+    };
+
     try {
-        const response = await fetch(`/api/admin/modulos/${idModulo}`, { credentials: "include" });
-        if (!response.ok) throw new Error("Error al obtener el módulo");
+        let response;
+        if (idSesion) {
+            response = await fetch(`/api/admin/sesiones/${idSesion}`, {
+                method: "PUT",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(sesionData)
+            });
+        } else {
+            response = await fetch("/api/admin/sesiones", {
+                method: "POST",
+                credentials: "include",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(sesionData)
+            });
+        }
 
-        const modulo = await response.json();
+        if (!response.ok) throw new Error("Error al guardar la sesión");
 
-        // Cargar los datos en el formulario
-        document.getElementById("nombre").value = modulo.nombre;
-        document.getElementById("codigo").value = modulo.codigo;
-        document.getElementById("horasSemana").value = modulo.horasSemana;
-        document.getElementById("horasTotales").value = modulo.horasTotales;
-        document.getElementById("ciclo").value = modulo.ciclo.idCiclo;
-        document.getElementById("profesor").value = modulo.profesor.idProfesor;
+        alert(idSesion ? "Sesión actualizada exitosamente" : "Sesión agregada exitosamente");
 
-        // Guardar el ID del módulo en un atributo del botón de envío
-        let submitButton = document.querySelector("#moduloForm button[type='submit']");
-        submitButton.setAttribute("data-id", idModulo);
-
-        // Mostrar el modal
-        mostrarModal();
+        cerrarModal();
+        await cargarSesiones(); // Recargar la tabla
     } catch (error) {
         console.error(error);
-        alert("Error al cargar los datos del módulo.");
+        alert("No se pudo guardar la sesión.");
     }
 }
 
-async function eliminarModulo(idModulo) {
-    if (!confirm("¿Seguro que deseas eliminar este módulo?")) return;
+// Función para cargar datos de una sesión en el formulario para editar
+async function editarSesion(idSesion) {
+    try {
+        const response = await fetch(`/api/admin/sesiones/${idSesion}`, { credentials: "include" });
+        if (!response.ok) throw new Error("Error al obtener la sesión");
+
+        const sesion = await response.json();
+
+        document.getElementById("horaInicio").value = sesion.horaInicio;
+        document.getElementById("horaFin").value = sesion.horaFin;
+        document.getElementById("dia").value = sesion.dia;
+        document.getElementById("aula").value = sesion.aula;
+        document.getElementById("cursoAcademico").value = sesion.cursoAcademico;
+        document.getElementById("modulo").value = sesion.modulo.idModulo;
+
+        let submitButton = document.querySelector("#moduloForm button[type='submit']");
+        submitButton.setAttribute("data-id", idSesion);
+        submitButton.innerText = "Confirmar datos";
+
+        mostrarModal();
+    } catch (error) {
+        console.error(error);
+        alert("Error al cargar los datos de la sesión.");
+    }
+}
+
+// Función para eliminar una sesión
+async function eliminarSesion(idSesion) {
+    if (!confirm("¿Seguro que deseas eliminar esta sesión?")) return;
 
     try {
-        const response = await fetch(`/api/admin/modulos/${idModulo}`, {
+        const response = await fetch(`/api/admin/sesiones/${idSesion}`, {
             method: "DELETE",
             credentials: "include"
         });
 
-        if (!response.ok) throw new Error("Error al eliminar el módulo");
+        if (!response.ok) throw new Error("Error al eliminar la sesión");
 
-        alert("Módulo eliminado exitosamente");
+        alert("Sesión eliminada exitosamente");
 
-        // Eliminar la fila de la tabla
-        document.querySelector(`tr[data-id='${idModulo}']`).remove();
+        document.querySelector(`tr[data-id='${idSesion}']`).remove();
     } catch (error) {
         console.error(error);
-        alert("No se pudo eliminar el módulo.");
+        alert("No se pudo eliminar la sesión.");
     }
 }
