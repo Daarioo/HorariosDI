@@ -233,3 +233,78 @@ function generarPDF() {
 
     doc.save("Horario.pdf");
 }
+
+//Exportar a XML 
+
+document.getElementById("btn-xml").addEventListener("click", function () {
+    generarXML();
+});
+
+function generarXML() {
+    let tabla = document.querySelector("table");
+    if (!tabla) {
+        console.error("No se encontró la tabla.");
+        return;
+    }
+
+    let xmlDoc = document.implementation.createDocument(null, "Horario", null);
+    let rootElement = xmlDoc.documentElement;
+
+    let filas = tabla.querySelectorAll("tr");
+
+    filas.forEach((fila, index) => {
+        if (index === 0) return; // Omitir la cabecera
+
+        let sesionElement = xmlDoc.createElement("Sesion");
+        let celdas = fila.querySelectorAll("td");
+
+        celdas.forEach((celda, i) => {
+            let campo = ["Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"][i];
+            let elemento = xmlDoc.createElement(campo);
+            elemento.textContent = celda.innerText.trim();
+            sesionElement.appendChild(elemento);
+        });
+
+        rootElement.appendChild(sesionElement);
+    });
+
+    let serializer = new XMLSerializer();
+    let xmlString = serializer.serializeToString(xmlDoc);
+
+    let blob = new Blob([xmlString], { type: "application/xml" });
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "Horario.xml";
+    a.click();
+}
+
+//Exportar a XLSX
+
+document.getElementById("btn-xlsx").addEventListener("click", function () {
+    generarXLSX();
+});
+
+function generarXLSX() {
+    let tabla = document.querySelector("table");
+    if (!tabla) {
+        console.error("No se encontró la tabla.");
+        return;
+    }
+
+    let data = [];
+    let filas = tabla.querySelectorAll("tr");
+
+    filas.forEach(fila => {
+        let filaData = [];
+        fila.querySelectorAll("td, th").forEach(celda => {
+            filaData.push(celda.innerText.trim());
+        });
+        data.push(filaData);
+    });
+
+    let ws = XLSX.utils.aoa_to_sheet(data);
+    let wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Horario");
+
+    XLSX.writeFile(wb, "Horario.xlsx");
+}

@@ -121,7 +121,6 @@ button {
     cursor: pointer;
     border-radius: 5px;
     transition: 0.3s;
-    margin-left: 46%;
 }
 
 button:hover {
@@ -167,7 +166,7 @@ input {
 }
 
 table {
-    width: 80%;
+    width: 60%;
     margin: 20px auto;
     border-collapse: collapse;
     background: white;
@@ -195,11 +194,9 @@ th {
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    margin-bottom: 1%;
 }
 
 .delete {
-    margin-top: 1%;
     background-color: #e01c2f;
     color: white;
     padding: 5px 10px;
@@ -247,4 +244,10 @@ footer {
 .facebook, .youtube, .instagram {
     width: 40px;
     height: 40px;
+}
+
+.botons{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
 }

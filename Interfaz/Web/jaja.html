@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exportar Horario</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 20px; }
+        button { padding: 10px 15px; margin: 10px; font-size: 16px; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h1>Horario de Clases</h1>
+    <table border="1" id="horario">
+        <tr><th>Día</th><th>Materia</th><th>Hora</th></tr>
+        <tr><td>Lunes</td><td>Matemáticas</td><td>08:00 - 09:00</td></tr>
+        <tr><td>Martes</td><td>Historia</td><td>09:00 - 10:00</td></tr>
+        <tr><td>Miércoles</td><td>Inglés</td><td>10:00 - 11:00</td></tr>
+    </table>
+
+    <br>
+    <button onclick="exportToExcel()">Exportar a Excel</button>
+    <button onclick="exportToXML()">Exportar a XML</button>
+
+    <script>
+        function exportToExcel() {
+            let table = document.getElementById("horario");
+            let ws = XLSX.utils.table_to_sheet(table);
+            let wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Horario");
+            let excelBuffer = XLSX.write(wb, { bookType: "xlsx", type: "array" });
+            let blob = new Blob([excelBuffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+            saveAs(blob, "horario.xlsx");
+        }
+
+        function exportToXML() {
+            let rows = document.querySelectorAll("#horario tr");
+            let xmlContent = `<?xml version="1.0" encoding="UTF-8"?>\n<schedule>\n`;
+
+            for (let i = 1; i < rows.length; i++) {
+                let cells = rows[i].children;
+                xmlContent += `  <entry>\n`;
+                xmlContent += `    <day>${cells[0].textContent}</day>\n`;
+                xmlContent += `    <subject>${cells[1].textContent}</subject>\n`;
+                xmlContent += `    <time>${cells[2].textContent}</time>\n`;
+                xmlContent += `  </entry>\n`;
+            }
+            xmlContent += `</schedule>`;
+
+            let blob = new Blob([xmlContent], { type: "application/xml" });
+            saveAs(blob, "horario.xml");
+        }
+    </script>
+
+</body>
+</html>
