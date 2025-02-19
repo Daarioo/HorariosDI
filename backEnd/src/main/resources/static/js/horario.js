@@ -16,6 +16,7 @@ async function obtenerUsuario() {
 
         if (data.authenticated) {
             usuario = data.nombre;
+            document.getElementById("mensaje-bienvenida").innerText = `Bienvenido, ${usuario}`; // AÑADE EL NOMBRE AL MENSAJE
             getJson(data.id);
         } else {
             console.log("Usuario no autenticado");

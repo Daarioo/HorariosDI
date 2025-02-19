@@ -28,15 +28,20 @@
         </div>
     </section>
 
-    <label for="select-modulo">Filtrar módulo:</label>
-    <select id="select-modulo"></select>
+    <div class="centro">
+        <h2 id="mensaje-bienvenida"></h2>
 
-    <button id="btn-filtrar">Filtrar</button>
-    <button id="btn-reset">Restablecer</button>
-    <button id="btn-pdf">Generar PDF</button>
-    <button id="btn-xml" onclick="generarXML()">Exportar XML</button>
-    <button id="btn-xlsx" onclick="generarXLSX()">Exportar XLSX</button>
+        <label for="select-modulo">Filtrar módulo:</label>
+        <select id="select-modulo"></select>
 
+        <div>
+            <button id="btn-filtrar">Filtrar</button>
+            <button id="btn-reset">Restablecer</button>
+            <button id="btn-pdf">Generar PDF</button>
+            <button id="btn-xml" onclick="generarXML()">Exportar XML</button>
+            <button id="btn-xlsx" onclick="generarXLSX()">Exportar XLSX</button>
+        </div>
+    </div>
 
 
     <div id="tag-container"></div>

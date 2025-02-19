@@ -20,7 +20,6 @@ body {
 /*header*/
 
 
-
 .niños {
     width: 100%;
     height: 300px;
@@ -102,6 +101,45 @@ nav a.active {
 }
 
 
+
+
+/* CUERPO */
+
+#mensaje-bienvenida{
+color: #F4791B;
+}
+
+
+.centro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    margin-top: 50px; /* Espacio desde arriba */
+}
+
+#select-modulo {
+    margin: 15px 0; /* Espacio entre el selector y los botones */
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.centro div {
+    margin-top: 15px; /* Espacio entre el selector y los botones */
+}
+
+/* Estilos para los botones */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    }
+
+
 /* FOOTER */
 
 /*footer*/
@@ -179,13 +217,13 @@ th, td {
 }
 
 th{
-    background-color: #4A8BAC;
+    background-color: #468DAE;
     color: white;
     border: 0px;
 }
 
 th:first-child{
-    background-color: #4A8BAC;
+    background-color: #468DAE;
     color: white;
     border: 1px solid rgb(163, 163, 163);
 }
