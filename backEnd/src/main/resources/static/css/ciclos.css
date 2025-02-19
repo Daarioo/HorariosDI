@@ -38,7 +38,7 @@ nav {
     left: 37%;
     width: 500px;
     height: 80px;
-    z-index: 20;
+    z-index: 1;
 }
 
 .flecha {
@@ -191,7 +191,7 @@ strong{
     display: none;
     /* Oculto por defecto */
     position: fixed;
-    z-index: 1000;
+    z-index: 5;
     left: 0;
     top: 0;
     width: 100%;
@@ -318,17 +318,22 @@ footer {
 
 .redes {
     display: flex;
-    justify-content: space-around;
     align-items: center;
-    width: 18%;
+    justify-content: right;
+    width: 20%;
+    gap: 20px;
 }
 
 .logoxunta {
     width: 80%;
 }
 
-.facebook, .youtube, .instagram {
+.facebook, .instagram {
     width: 40px;
     height: 40px;
-    margin-left: 15px;
+}
+
+.youtube {
+    width: 50px;
+    height: 50px;
 }

@@ -39,7 +39,7 @@ nav {
     left: 37%;
     width: 500px;
     height: 80px;
-    z-index: 20;
+    z-index: 1;
 }
 
 .flecha {
@@ -136,6 +136,7 @@ button:hover {
     background-color: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
+    z-index: 5;
 }
 
 .modal-content {
@@ -212,18 +213,24 @@ footer {
 
 .redes {
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: right;
     width: 20%;
+    gap: 20px;
 }
 
 .logoxunta {
     width: 80%;
 }
 
-.facebook, .youtube, .instagram {
+.facebook, .instagram {
     width: 40px;
     height: 40px;
+}
+
+.youtube {
+    width: 50px;
+    height: 50px;
 }
 
 .btn-editar, .btn-eliminar {
