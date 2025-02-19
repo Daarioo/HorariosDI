@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="/js/horario.js" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.30/jspdf.plugin.autotable.min.js"></script>
     <link rel="stylesheet" href="/css/horario.css">
@@ -16,6 +17,10 @@
     <button id="btn-filtrar">Filtrar</button>
     <button id="btn-reset">Restablecer</button>
     <button id="btn-pdf">Generar PDF</button>
+    <button id="btn-xml" onclick="generarXML()">Exportar XML</button>
+    <button id="btn-xlsx" onclick="generarXLSX()">Exportar XLSX</button>
+
+
 
     <div id="tag-container"></div>
     <table>

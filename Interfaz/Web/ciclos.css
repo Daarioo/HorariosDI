@@ -5,6 +5,7 @@
 
 html {
     scroll-behavior: smooth;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
 
 body {
@@ -12,6 +13,8 @@ body {
     margin: 0;
     background-color: #FFFFFF;
 }
+
+
 
 
 /*header*/
@@ -27,7 +30,6 @@ body {
 nav {
     display: flex;
     gap: 2rem;
-
 }
 
 .san {
@@ -36,7 +38,7 @@ nav {
     left: 37%;
     width: 500px;
     height: 80px;
-    z-index: 20;
+    z-index: 2;
 }
 
 .flecha {
@@ -82,6 +84,7 @@ nav a {
     color: white;
     padding: 10px;
     transition: color 0.3s;
+    
 }
 
 nav a:hover {
@@ -109,7 +112,6 @@ h1 {
 #cycle-container {
     display: flex;
     gap: 20px;
-    background-color: #9e9c9c ;
     flex-wrap: wrap;
     justify-content: center;
     padding: 20px;
@@ -118,7 +120,7 @@ h1 {
 }
 
 .cycle-card {
-    background: #f8f9fa;
+    background-color: #468DAE ;
     border: 1px solid #ddd;
     border-radius: 8px;
     padding: 15px;
@@ -143,6 +145,19 @@ h1 {
     border: none;
     cursor: pointer;
     border-radius: 4px;
+}
+
+.cycle-card > p {
+    color :#fff;
+}
+
+strong{
+    color :#fff;
+}
+
+.cycle-card > h3{
+    color: #000; 
+    margin-left: 40%;
 }
 
 .edit {
@@ -175,41 +190,8 @@ h1 {
     margin-left: 900px;
 }
 
-.modal {
-    display: none;
-    /* Oculto por defecto */
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Fondo semi-transparente */
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s linear 0.3s, opacity 0.3s linear;
-}
 
-.modal {
-    display: none;
-    /* Oculto por defecto */
-    position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    /* Fondo semi-transparente */
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s linear 0.3s, opacity 0.3s linear;
-}
+
 
 /* Mostrar modal cuando esté activo */
 .modal.show {
@@ -220,26 +202,36 @@ h1 {
 }
 
 /* Contenido del modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 5;
+    align-items: center;
+}
+
 .modal-content {
-    background: #fff;
+    background-color: #fff;
+    margin: 7% auto;
     padding: 20px;
+    border: 1px solid #888;
+    width: 30%;
+    height: 65%;
+    z-index:5;
     border-radius: 10px;
-    width: 90%;
-    max-width: 400px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    text-align: center;
-    animation: fadeIn 0.3s ease-in-out;
+    
 }
 
 /* Botón de cierre */
 .close {
-    position: absolute;
-    right: 20px;
-    top: 10px;
-    font-size: 24px;
+    float: right;
+    font-size: 28px;
     cursor: pointer;
-    color: #333;
-    transition: color 0.3s;
 }
 
 .close:hover {
@@ -248,9 +240,13 @@ h1 {
 
 /* Estilos del formulario */
 form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    width: 100%;
+    margin: 20px auto;
+    padding: 20px;
+    background: #468DAE;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
 }
 
 label {
@@ -258,6 +254,8 @@ label {
     text-align: left;
     display: block;
     margin-top: 10px;
+    margin-bottom: 5px;
+    color: #fff;
 }
 
 input,
@@ -271,7 +269,7 @@ textarea {
 
 textarea {
     resize: none;
-    height: 80px;
+    height: 140px;
 }
 
 button {
@@ -287,7 +285,19 @@ button {
 }
 
 button:hover {
-    background-color: #0056b3;
+    background: #c5651c;
+}
+
+.submit{
+    margin-left: 40%;
+    padding: 10px;
+    background: #F4791B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top:5%;
 }
 
 /* Animación de entrada */

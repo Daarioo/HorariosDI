@@ -1,7 +1,6 @@
 * {
     padding: 0;
     box-sizing: border-box;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
 
 html {
@@ -81,7 +80,6 @@ nav {
 }
 
 
-
 nav a {
     text-decoration: none;
     color: white;
@@ -105,16 +103,14 @@ nav a.active {
 /*main*/
 
 .text2{
-    margin-left: 44.5%;
+    text-align: center;
 }
 
 .text1{
-    margin-top:4%;
-    margin-left: 44.9%;
-    
+    text-align: center;
 }
 
-.add{
+button {
     background-color: #F4791B;
     color: white;
     border: none;
@@ -123,19 +119,7 @@ nav a.active {
     cursor: pointer;
     border-radius: 5px;
     transition: 0.3s;
-    margin-top: 10%;
-}
-
-.add2 {
-    background-color: #F4791B;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    border-radius: 5px;
-    transition: 0.3s;
-    margin-left: 46.3%;
+    margin-left: 46%;
 }
 
 button:hover {
@@ -181,18 +165,15 @@ input {
 }
 
 table {
-    width: 80%;
-    margin: 20px auto;
     border-collapse: collapse;
-    background: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    margin-bottom: 23vh;
+    margin: 20px auto;
 }
 
 th, td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
+    min-width: 240px;
 }
 
 th {
@@ -200,26 +181,8 @@ th {
     color: white;
 }
 
-
-
-.edit {
-    background-color: #2a911c;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
-    margin-bottom: 1%;
-}
-
-.delete {
-    margin-top: 1%;
-    background-color: #e01c2f;
-    color: white;
-    padding: 5px 10px;
-    border: none;
-    cursor: pointer;
-    border-radius: 5px;
+td:last-child{
+    max-width: 241px;
 }
 
 .edit:hover {
@@ -229,7 +192,6 @@ th {
 .delete:hover {
     background-color: #c82333;
 }
-
 
 /*footer*/
 
@@ -264,19 +226,41 @@ footer {
     height: 40px;
 }
 
-.movil{
-    display: none;
+.btn-editar, .btn-eliminar {
+    padding: 5px 10px;
+    margin: 2px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
 }
 
-@media screen and (max-width: 680px) {
-    .movil {
-        display: block;
-        position: fixed; /* Ocupa toda la pantalla */
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        border: none; /* Elimina bordes */
-        z-index: 9999; /* Asegura que esté sobre otros elementos */
-      }
+.btn-editar {
+    background-color: #F4B400; /* Amarillo */
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #d89a00;
+}
+
+.btn-eliminar {
+    background-color: #DB4437; /* Rojo */
+    color: white;
+}
+
+.btn-eliminar:hover {
+    background-color: #b53126;
+}
+
+#openModal {
+    display: block;
+    margin: 10px auto;
+    padding: 10px;
+    background: green;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
 }
