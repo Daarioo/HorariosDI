@@ -6,7 +6,6 @@
 html {
     scroll-behavior: smooth;
     height: 100%;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
 }
 
 body {
@@ -39,7 +38,7 @@ nav {
     left: 37%;
     width: 500px;
     height: 80px;
-    z-index: 2;
+    z-index: 20;
 }
 
 .flecha {
@@ -121,6 +120,7 @@ button {
     cursor: pointer;
     border-radius: 5px;
     transition: 0.3s;
+    margin-left: 46%;
 }
 
 button:hover {
@@ -130,81 +130,43 @@ button:hover {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
     align-items: center;
 }
 
 .modal-content {
-    background-color: #fff;
-    margin: 7% auto;
+    background: white;
     padding: 20px;
-    border: 1px solid #888;
-    width: 30%;
-    height: 62%;
-    z-index:5;
     border-radius: 10px;
-    
+    width: 300px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .close {
     float: right;
-    font-size: 28px;
     cursor: pointer;
-}
-
-.close:hover {
-    color: red;
+    font-size: 20px;
 }
 
 form {
-    width: 100%;
-    margin: 20px auto;
-    padding: 20px;
-    background: #468DAE;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
-label {
-    font-weight: bold;
-    text-align: left;
-    display: block;
-    margin-top: 10px;
-    margin-bottom: 5px;
-    color: #fff;
-}
-
-.submit{
-    margin-left: 40%;
-    padding: 10px;
-    background: #F4791B;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    margin-top:5%;
-}
-
-input,
-select {
-    width: 100%;
+input {
     padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #468DAE;
-    border-radius: 4px;
-    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
 
 table {
-    width: 60%;
+    width: 80%;
     margin: 20px auto;
     border-collapse: collapse;
     background: white;
@@ -232,9 +194,11 @@ th {
     border: none;
     cursor: pointer;
     border-radius: 5px;
+    margin-bottom: 1%;
 }
 
 .delete {
+    margin-top: 1%;
     background-color: #e01c2f;
     color: white;
     padding: 5px 10px;
@@ -284,8 +248,19 @@ footer {
     height: 40px;
 }
 
-.botons{
-    display: flex;
-    justify-content: center;
-    gap: 15px;
+.movil{
+    display: none;
+}
+
+@media screen and (max-width: 680px) {
+    .movil {
+        display: block;
+        position: fixed; /* Ocupa toda la pantalla */
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        border: none; /* Elimina bordes */
+        z-index: 9999; /* Asegura que esté sobre otros elementos */
+      }
 }

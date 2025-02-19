@@ -1,3 +1,154 @@
+* {
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+}
+
+html {
+    scroll-behavior: smooth;
+    height: 100%;
+
+}
+
+body {
+    padding: 0;
+    margin: 0;
+    background-color: #FFFFFF;
+}
+
+
+/*header*/
+
+
+
+.niños {
+    width: 100%;
+    height: 300px;
+    margin: 0;
+    object-fit: cover;
+}
+
+nav {
+    display: flex;
+    gap: 2rem;
+
+}
+
+.san {
+    position: absolute;
+    top: 23%;
+    left: 37%;
+    width: 500px;
+    height: 80px;
+    z-index: 2;
+}
+
+.flecha {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.corte {
+    width: 56px;
+    height: 8vh;
+    background-color: #468DAE;
+    padding: 20px;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 100% 100%);
+
+}
+
+.corte2 {
+    width: 50px;
+    height: 8vh;
+    background-color: #468DAE;
+    padding: 20px;
+    clip-path: polygon(100% 0, 100% 0, 0 100%, 0 0, 100% 0);
+
+}
+
+.bloque {
+    width: 140vh;
+    height: 8vh;
+    background-color: #468DAE;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    color: #FFFFFF;
+    font-size: 4vh;
+    text-decoration: none;
+}
+
+
+nav a {
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #F4791B;
+    text-decoration: underline;
+    text-underline-offset: 9px;
+}
+
+/* Mantener el color naranja en el enlace activo */
+nav a.active {
+    color: #F4791B;
+    text-decoration: underline;
+    text-underline-offset: 9px;
+}
+
+
+/* FOOTER */
+
+/*footer*/
+
+
+footer {
+    background-color: #468DAE;
+    color: #FFFFFF;
+    width: 100%;
+    padding: 1rem;
+
+}
+
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.redes {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 20%;
+}
+
+.logoxunta {
+    width: 80%;
+}
+
+.facebook, .youtube, .instagram {
+    width: 40px;
+    height: 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+/* ESTILOS DA LA TABLA DEL HORARIO */
+
 table{
     margin: 80px auto;
     border-collapse: separate;
