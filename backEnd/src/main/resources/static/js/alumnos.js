@@ -51,8 +51,6 @@ async function agregarAlumno() {
             nombreUsuario: document.getElementById("nombre").value,
             tipo: "ALUMNO"
     };
-
-    console.log(nuevoAlumno);
     
     try {
         const response = await fetch("/api/usuarios", {
