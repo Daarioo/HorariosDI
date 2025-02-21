@@ -65,6 +65,20 @@ public class AlumnoController {
         return ResponseEntity.ok(nuevaMatricula);
     }
 
+    @PutMapping("/matricula/{idMatricula}")
+    public ResponseEntity<Matricula> actualizarMatricula(@PathVariable int idMatricula, @RequestBody Matricula matricula) {
+        Matricula actualizada = matriculaService.actualizarMatricula(idMatricula, matricula);
+        return actualizada != null ? ResponseEntity.ok(actualizada) : ResponseEntity.notFound().build();
+    }
+
+    @DeleteMapping("/matricula/{idMatricula}")
+    public ResponseEntity<Void> eliminarMatricula(@PathVariable int idMatricula) {
+        return matriculaService.eliminarMatricula(idMatricula) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+    }
+
+
+
+
     @GetMapping("/sesion")
     public ResponseEntity<List<Sesion>> obtenerSesiones() {
         List<Sesion> sesiones = sesionService.obtenerSesiones();

@@ -15,6 +15,13 @@ function mostrarModal() {
 
 function cerrarModal() {
     document.getElementById("modal").style.display = "none";
+
+    // Restablecer el formulario para crear una nueva matrícula
+    const matriculaForm = document.getElementById("matriculaForm");
+    matriculaForm.onsubmit = function (event) {
+        event.preventDefault();
+        formalizarMatricula(event);  // Llamar la función de formalizar matrícula
+    };
 }
 
 // Cierra modal si se hace clic fuera del contenido
@@ -165,7 +172,7 @@ async function cargarMatriculas() {
                 <td>${matricula.modulo.nombre}</td>
                 <td>
                             <button class="btn-editar" onclick="editarMatricula(${matricula.id})">✏️ Editar</button>
-                            <button class="btn-eliminar" onclick="eliminarMatricula(${modulo.id})">🗑️ Eliminar</button>
+                            <button class="btn-eliminar" onclick="eliminarMatricula(${matricula.id})">🗑️ Eliminar</button>
                         </td>
             `;
             tbody.appendChild(tr);
@@ -198,5 +205,102 @@ async function obtenerUsuario() {
         }
     } catch (error) {
         console.error("Error al obtener usuario:", error);
+    }
+}
+
+
+// Editar matrícula
+async function editarMatricula(idMatricula) {
+    try {
+        // Obtener los datos de la matrícula seleccionada
+        const response = await fetch(`/api/alumno/matricula/${idMatricula}`, { credentials: "include" });
+        if (!response.ok) throw new Error("Error al obtener la matrícula");
+
+        const matricula = await response.json();
+
+        // Rellenar el formulario del modal con los datos de la matrícula
+        document.getElementById("numMatricula").value = matricula.numMatricula;
+        document.getElementById("ciclo").value = matricula.cicloFormativo.idCiclo;
+        document.getElementById("modulo").value = matricula.modulo.idModulo;
+
+        // Mostrar el modal para editar
+        mostrarModal();
+
+        // Cambiar el texto del botón a "Actualizar matrícula"
+        const submitButton = document.querySelector("button[type='submit']");
+
+
+        // Cambiar la acción del formulario para que ejecute la actualización
+        const matriculaForm = document.getElementById("matriculaForm");
+        matriculaForm.onsubmit = function (event) {
+            event.preventDefault();  // Prevenir la acción por defecto del formulario
+            actualizarMatricula(idMatricula);  // Llamar la función de actualización con el id
+        };
+
+    } catch (error) {
+        console.error(error);
+        alert("No se pudo obtener la matrícula para editar.");
+    }
+}
+// Actualizar matrícula
+async function actualizarMatricula(idMatricula) {
+    let cicloId = document.getElementById("ciclo").value;
+    let moduloId = document.getElementById("modulo").value;
+    let numMatricula = document.getElementById("numMatricula").value;
+
+    // Verificar que los datos son válidos
+    if (!numMatricula || !cicloId || !moduloId) {
+        alert("Por favor, complete todos los campos.");
+        return;
+    }
+
+    let matriculaData = {
+        numMatricula: numMatricula,
+        usuario: { idUsuario: usuarioId, tipo: "ALUMNO" },
+        cicloFormativo: { idCiclo: parseInt(cicloId) },
+        modulo: { idModulo: parseInt(moduloId) }
+    };
+
+    try {
+        const response = await fetch(`/api/alumno/matricula/${idMatricula}`, {
+            method: "PUT", // Método PUT para actualizar
+            credentials: "include",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(matriculaData)
+        });
+
+        if (!response.ok) throw new Error("Error al actualizar la matrícula");
+
+        alert("Matrícula actualizada con éxito");
+        cerrarModal();  // Cerrar el modal después de la actualización
+        cargarMatriculas();  // Recargar las matrículas
+
+    } catch (error) {
+        console.error(error);
+        alert("No se pudo actualizar la matrícula.");
+    }
+}
+// Eliminar matrícula
+async function eliminarMatricula(idMatricula) {
+    const confirmacion = confirm("¿Estás seguro de que deseas eliminar esta matrícula?");
+
+    if (confirmacion) {
+        try {
+            const response = await fetch(`/api/alumno/matricula/${idMatricula}`, {
+                method: "DELETE", // El método HTTP para eliminar
+                credentials: "include"
+            });
+
+            if (!response.ok) throw new Error("Error al eliminar la matrícula");
+
+            alert("Matrícula eliminada con éxito");
+            cargarMatriculas(); // Recargar las matrículas después de eliminar
+
+        } catch (error) {
+            console.error(error);
+            alert("No se pudo eliminar la matrícula.");
+        }
     }
 }
