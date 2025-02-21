@@ -10,57 +10,60 @@
 </head>
 
 <body>
-    <header>
-        <section class="header_container">
-            <img src="/images/logo.png" alt="san" class="san">
-            <img src="/images/clase.jpg" alt="niños" class="niños">
-            <div class="flecha">
-                <div class="corte"></div>
-                <div class="bloque">
-                    <nav>
-                        <a href="ciclos">Ciclos</a>
-                        <a href="modulos">Módulos</a>
-                        <a href="sesiones">Sesiones</a>
-                        <a href="alumnos">Alumnos</a>
-                        <a href="profesores">Profesores</a>
-                    </nav>
-                </div>
-                <div class="corte2"></div>
-            </div>
-        </section>
-    </header>
-
-    <main>
-        <h1>Ciclos Formativos</h1>
-        <button id="btn-add" onclick="openModal()">Añadir Ciclo</button>
-        <div id="cycle-container">
-
-        </div>
-
-        <div id="modal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <h2>Añadir Ciclo</h2>
-                <form id="cycle-form">
-                    <label for="code">Código:</label>
-                    <input type="text" id="code" required>
-
-                    <label for="name">Nombre:</label>
-                    <input type="text" id="name" required>
-
-                    <label for="duration">Duración:</label>
-                    <input type="number" id="duration" required>
-
-                    <label for="description">Descripción:</label>
-                    <textarea id="description" required></textarea>
-
-                    <button type="submit">Guardar</button>
-                </form>
-            </div>
-        </div>
+    <main id="movil">
+        <iframe src="ciclos_movil" frameborder="0"  ></iframe>
     </main>
-    
-    <footer>
+    <main id="desktop">
+        <header>
+            <section class="header_container">
+                <img src="/images/logo.png" alt="san" class="san">
+                <img src="/images/clase.jpg" alt="niños" class="niños">
+                <div class="flecha">
+                    <div class="corte"></div>
+                    <div class="bloque">
+                        <nav>
+                            <a href="ciclos">Ciclos</a>
+                            <a href="modulos">Módulos</a>
+                            <a href="sesiones">Sesiones</a>
+                            <a href="alumnos">Alumnos</a>
+                            <a href="profesores">Profesores</a>
+                        </nav>
+                    </div>
+                    <div class="corte2"></div>
+                </div>
+            </section>
+        </header>
+
+        <main>
+            <h1>Ciclos Formativos</h1>
+            <button id="btn-add" onclick="openModal()">Añadir Ciclo</button>
+            <div id="cycle-container">
+
+            </div>
+
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <h2>Añadir Ciclo</h2>
+                    <form id="cycle-form">
+                        <label for="code">Código:</label>
+                        <input type="text" id="code" required>
+
+                        <label for="name">Nombre:</label>
+                        <input type="text" id="name" required>
+
+                        <label for="duration">Duración:</label>
+                        <input type="number" id="duration" required>
+
+                        <label for="description">Descripción:</label>
+                        <textarea id="description" required></textarea>
+
+                        <button type="submit">Guardar</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+        <footer>
             <article class="footer">
                 <div class="xunta">
                     <img src="/images/logoxunta.svg" alt="logoxunta" class="logoxunta">
@@ -71,7 +74,11 @@
                     <img src="/images/youtube.svg" alt="youtube" class="youtube">
                 </div>
             </article>
-    </footer>
+        </footer>
+    </main>
+
+    
+
 </body>
 
 </html>

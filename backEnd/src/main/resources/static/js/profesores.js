@@ -159,17 +159,18 @@ document.addEventListener("DOMContentLoaded", function () {
 async function getProfesores() {
     const response = await fetch("/api/admin/profesores", { credentials: "include" });
 
-    if (!response.ok) {
-         throw new Error("Error al obtener los profesores");
-    }
+        if (!response.ok) {
+             throw new Error("Error al obtener los profesores");
+        }
 
-    const profesores = await response.json();
-    createTable(profesores);
+        const profesores = await response.json();
+        createTable(profesores);
 }
 
 function createTable(json) {
     let tbody = document.querySelector("#profesoresTable>tbody");
     tbody.innerHTML = "";
+    // let modulos = getModulos(id);
 
     json.forEach((profesor) => {
         let tr = document.createElement("tr");
@@ -186,3 +187,15 @@ function createTable(json) {
         tbody.appendChild(tr);
     });
 }
+
+/*
+async function getModulos(id){
+    const response = await fetch("/api/admin/modulos", { credentials: "include" });
+
+    if (!response.ok) {
+         throw new Error("Error al obtener los profesores");
+    }
+
+    const modulos = await response.json();
+    return modulos.filter((modulo)=>modulo.idProfesor == id);
+}*/

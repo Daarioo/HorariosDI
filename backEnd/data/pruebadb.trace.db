@@ -11302,3 +11302,9 @@ select u1_0.id_usuario,u1_0.contraseña,u1_0.email,u1_0.nombre_usuario,u1_0.tipo
 2025-02-17 14:15:13.940314+01:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "usuario" not found (this database is empty); SQL statement:
 select u1_0.id_usuario,u1_0.contraseña,u1_0.email,u1_0.nombre_usuario,u1_0.tipo from usuario u1_0 [42104-232]
+2025-02-19 10:48:52.860997+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "profesor" not found (this database is empty); SQL statement:
+select p1_0.id_profesor,p1_0.apellidos,p1_0.email,p1_0.nombre from profesor p1_0 [42104-232]
+2025-02-19 10:49:57.755982+01:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "profesor" not found (this database is empty); SQL statement:
+select p1_0.id_profesor,p1_0.apellidos,p1_0.email,p1_0.nombre from profesor p1_0 [42104-232]
