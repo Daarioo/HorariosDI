@@ -11308,3 +11308,71 @@ select p1_0.id_profesor,p1_0.apellidos,p1_0.email,p1_0.nombre from profesor p1_0
 2025-02-19 10:49:57.755982+01:00 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "profesor" not found (this database is empty); SQL statement:
 select p1_0.id_profesor,p1_0.apellidos,p1_0.email,p1_0.nombre from profesor p1_0 [42104-232]
+2025-02-21 19:26:59.982752+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]modulo"; se esperaba "MERGE"
+Syntax error in SQL statement "[*]modulo"; expected "MERGE"; SQL statement:
+modulo [42001-232]
+2025-02-21 19:27:02.830109+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "[*]modulo"; se esperaba "MERGE"
+Syntax error in SQL statement "[*]modulo"; expected "MERGE"; SQL statement:
+modulo [42001-232]
+2025-02-21 19:29:09.502036+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where id=28"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where id=28"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where id=28 [42001-232]
+2025-02-21 19:29:45.626477+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where id = 28"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where id = 28"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where id = 28 [42001-232]
+2025-02-21 19:30:21.607127+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = 9999"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = 9999"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = 9999 [42001-232]
+2025-02-21 19:30:29.864406+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = '9999'"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = '9999'"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = '9999' [42001-232]
+2025-02-21 19:30:35.056241+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = '9999'"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = '9999'"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = '9999' [42001-232]
+2025-02-21 19:30:49.378488+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = 9999"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = 9999"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = 9999 [42001-232]
+2025-02-21 19:30:50.234185+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = 9999"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = 9999"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = 9999 [42001-232]
+2025-02-21 19:30:50.449620+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = 9999"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = 9999"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = 9999 [42001-232]
+2025-02-21 19:30:50.626149+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = 9999"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = 9999"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = 9999 [42001-232]
+2025-02-21 19:30:50.817413+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = 9999"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = 9999"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = 9999 [42001-232]
+2025-02-21 19:30:50.985673+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = 9999"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = 9999"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = 9999 [42001-232]
+2025-02-21 19:30:51.169155+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = 9999"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = 9999"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = 9999 [42001-232]
+2025-02-21 19:30:51.346157+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = 9999"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = 9999"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = 9999 [42001-232]
+2025-02-21 19:30:51.537730+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = 9999"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = 9999"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = 9999 [42001-232]
+2025-02-21 19:30:51.729156+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Error de Sintaxis en sentencia SQL "DELETE [*]* FROM matricula where num_matricula = 9999"; se esperaba "identifier"
+Syntax error in SQL statement "DELETE [*]* FROM matricula where num_matricula = 9999"; expected "identifier"; SQL statement:
+DELETE * FROM matricula where num_matricula = 9999 [42001-232]

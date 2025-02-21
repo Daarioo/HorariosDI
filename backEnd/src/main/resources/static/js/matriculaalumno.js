@@ -1,0 +1,202 @@
+document.addEventListener("DOMContentLoaded", () => {
+    (async function () {
+        await obtenerUsuario(); // ✅ Ahora sí podemos usar await
+        cargarCiclos();
+        cargarMatriculas();
+    })();
+});
+let usuario;
+let usuarioId;
+
+// Mostrar y cerrar modal
+function mostrarModal() {
+    document.getElementById("modal").style.display = "flex";
+}
+
+function cerrarModal() {
+    document.getElementById("modal").style.display = "none";
+}
+
+// Cierra modal si se hace clic fuera del contenido
+window.onclick = function (event) {
+    if (event.target == document.getElementById("modal")) {
+        cerrarModal();
+    }
+};
+
+// Cargar ciclos disponibles
+async function cargarCiclos() {
+    try {
+        const response = await fetch("/api/admin/ciclos", { credentials: "include" });
+        if (!response.ok) throw new Error("Error al obtener ciclos");
+
+        const ciclosCargados = await response.json();
+        ciclos = ciclosCargados;
+        let selectCiclo = document.getElementById("ciclo");
+        selectCiclo.innerHTML = `<option value="">Seleccione un ciclo</option>`;
+
+        selectCiclo.addEventListener("change", function () {
+                const valorSeleccionado = selectCiclo.value;
+                cargarModulos(valorSeleccionado);
+        });
+
+        ciclosCargados.forEach(ciclo => {
+            let option = document.createElement("option");
+            option.value = ciclo.idCiclo;
+            option.textContent = ciclo.nombre;
+            selectCiclo.append(option);
+        });
+
+        console.log(ciclos);
+    } catch (error) {
+        console.error(error);
+        alert("No se pudieron cargar los ciclos.");
+    }
+}
+
+// Cargar módulos cuando se seleccione un ciclo
+async function cargarModulos() {
+    let cicloId = document.getElementById("ciclo").value;
+    if (!cicloId) return;
+
+    try {
+        const response = await fetch(`/api/admin/ciclos/${cicloId}`, { credentials: "include" });
+
+        if (!response.ok) throw new Error("Error al obtener módulos");
+
+        const ciclo = await response.json(); // El JSON contiene el ciclo y sus módulos
+        let modulos = ciclo.modulos; // Extraemos los módulos del ciclo
+
+        let selectModulo = document.getElementById("modulo");
+        selectModulo.innerHTML = `<option value="">Seleccione un módulo</option>`;
+
+        modulos.forEach(modulo => {
+            let option = document.createElement("option");
+            option.value = modulo.idModulo; // ID del módulo
+            option.textContent = modulo.nombre; // Nombre del módulo
+            selectModulo.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error(error);
+        alert("No se pudieron cargar los módulos.");
+    }
+}
+
+// Formalizar matrícula
+async function formalizarMatricula(event) {
+    event.preventDefault();
+
+    let cicloId = document.getElementById("ciclo").value;
+    let moduloId = document.getElementById("modulo").value;
+    let numMatricula = document.getElementById("numMatricula").value; // Obtener numMatricula del formulario
+
+    // Verificar que el usuario esté definido
+    if (!usuario || !usuario.id) {
+        alert("Error: No se ha podido obtener el usuario. Intenta recargar la página.");
+        return;
+    }
+
+    if (!numMatricula || !cicloId || !moduloId) {
+        alert("Por favor, complete todos los campos.");
+        return;
+    }
+
+  let matriculaData = {
+      numMatricula: numMatricula,
+      usuario: { idUsuario: usuarioId, tipo: "ALUMNO" },
+      cicloFormativo: { idCiclo: parseInt(cicloId) }, // Aquí cambiamos para que sea un objeto con el id
+      modulo: { idModulo: parseInt(moduloId) }
+  };
+
+    console.log(matriculaData);
+
+    try {
+        const response = await fetch("/api/alumno/matricula", {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(matriculaData)
+        });
+
+        if (!response.ok) throw new Error("Error al matricular el módulo");
+
+        alert("Matrícula realizada con éxito");
+        cerrarModal();
+        cargarMatriculas();
+
+    } catch (error) {
+        console.error(error);
+        alert("No se pudo formalizar la matrícula.");
+    }
+}
+
+
+// Cargar matrículas en la tabla
+async function cargarMatriculas() {
+    try {
+        // Verificar que el usuario está definido
+        if (!usuario) {
+            await obtenerUsuario(); // Si no está, lo obtenemos
+        }
+
+        // Verificamos de nuevo por seguridad
+        if (!usuario || !usuario.id) {
+            console.error("No se pudo obtener el usuario autenticado.");
+            alert("No se pudo obtener la información del usuario.");
+            return;
+        }
+
+        // Obtener las matrículas del usuario autenticado
+        const matriculasResponse = await fetch(`/api/alumno/${usuario.id}`, { credentials: "include" });
+        if (!matriculasResponse.ok) throw new Error("Error al obtener matrículas");
+
+        const alumno = await matriculasResponse.json();
+        const matriculas = alumno.matriculas; // Extraer las matrículas del usuario
+
+        let tbody = document.getElementById("matriculasTabla");
+        tbody.innerHTML = ""; // Limpiar la tabla antes de agregar nuevas filas
+
+        matriculas.forEach(matricula => {
+            let tr = document.createElement("tr");
+            tr.innerHTML = `
+                <td>${matricula.numMatricula}</td>
+                <td>${matricula.cicloFormativo.nombre}</td>
+                <td>${matricula.modulo.nombre}</td>
+                <td>
+                            <button class="btn-editar" onclick="editarMatricula(${matricula.id})">✏️ Editar</button>
+                            <button class="btn-eliminar" onclick="eliminarMatricula(${modulo.id})">🗑️ Eliminar</button>
+                        </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        console.log("Matrículas cargadas correctamente", matriculas);
+
+    } catch (error) {
+        console.error(error);
+        alert("No se pudieron cargar las matrículas.");
+    }
+}
+
+
+async function obtenerUsuario() {
+    try {
+        const response = await fetch('/api/usuarios/info', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const data = await response.json();
+
+        if (data.authenticated) {
+            usuario = data;
+            usuarioId = usuario.id;
+            console.log(usuario);
+            console.log(data);
+        } else {
+            console.log("Usuario no autenticado");
+        }
+    } catch (error) {
+        console.error("Error al obtener usuario:", error);
+    }
+}

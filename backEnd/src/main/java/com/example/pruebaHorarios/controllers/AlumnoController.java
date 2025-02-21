@@ -59,6 +59,12 @@ public class AlumnoController {
         return matricula.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @PostMapping("/matricula")
+    public ResponseEntity<Matricula> crearMatricula(@RequestBody Matricula matricula) {
+        Matricula nuevaMatricula = matriculaService.crearMatricula(matricula);
+        return ResponseEntity.ok(nuevaMatricula);
+    }
+
     @GetMapping("/sesion")
     public ResponseEntity<List<Sesion>> obtenerSesiones() {
         List<Sesion> sesiones = sesionService.obtenerSesiones();

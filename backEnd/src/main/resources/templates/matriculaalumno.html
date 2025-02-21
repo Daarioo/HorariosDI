@@ -1,10 +1,83 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrícula de alumno</title>
+    <link rel="stylesheet" href="/css/matriculaalumno.css">
+    <script defer src="/js/matriculaalumno.js"></script>
 </head>
 <body>
+
+<section class="header_container">
+    <img src="/images/logo.png" alt="san" class="san">
+    <img src="/images/clase.jpg" alt="niños" class="niños">
+    <div class="flecha">
+        <div class="corte"></div>
+        <div class="bloque">
+            <nav>
+                <a href="horarios">Horario</a>
+                <a href="matriculaalumno" class="active">Matrícula</a>
+            </nav>
+        </div>
+        <div class="corte2"></div>
+    </div>
+</section>
+
+<main>
+    <h2 class="text1" id="mensaje-bienvenida"></h2>
+
+    <button class="btnadd" id="abrirModal" onclick="mostrarModal()">Matricular módulo</button>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <h2>Formalizar Matrícula</h2>
+
+            <form id="matriculaForm" onsubmit="formalizarMatricula(event)">
+                <label for="numMatricula">Número de matrícula:</label>
+                <input type="text" id="numMatricula" required>
+                <label for="ciclo">Selecciona un ciclo:</label>
+                <select id="ciclo" required onchange="cargarModulos()">
+                    <option value="">Seleccione un ciclo</option>
+                </select>
+
+                <label for="modulo">Selecciona un módulo:</label>
+                <select id="modulo" required>
+                    <option value="">Seleccione un módulo</option>
+                </select>
+
+                <button type="submit" class="submit">Formalizar Matrícula</button>
+            </form>
+        </div>
+    </div>
+
+    <h2 class="text1">Módulos matriculados</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Número de matrícula</th>
+            <th>Ciclo</th>
+            <th>Nombre del Módulo</th>
+        </tr>
+        </thead>
+        <tbody id="matriculasTabla">
+        </tbody>
+    </table>
+</main>
+
+<footer>
+    <article class="footer">
+        <div class="xunta">
+            <img src="/images/logoxunta.svg" alt="logoxunta" class="logoxunta">
+        </div>
+        <div class="redes">
+            <img src="/images/facebook.svg" alt="facebook" class="facebook">
+            <img src="/images/instagram.svg" alt="instagram" class="instagram">
+            <img src="/images/youtube.svg" alt="youtube" class="youtube">
+        </div>
+    </article>
+</footer>
 
 </body>
 </html>
