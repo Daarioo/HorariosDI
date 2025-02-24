@@ -7,7 +7,6 @@
 html {
     scroll-behavior: smooth;
     height: 100%;
-
 }
 
 body {
@@ -16,10 +15,7 @@ body {
     background-color: #FFFFFF;
 }
 
-
 /*header*/
-
-
 
 .niños {
     width: 100%;
@@ -31,7 +27,6 @@ body {
 nav {
     display: flex;
     gap: 2rem;
-
 }
 
 .san {
@@ -97,7 +92,6 @@ nav a:hover {
     text-underline-offset: 9px;
 }
 
-/* Mantener el color naranja en el enlace activo */
 nav a.active {
     color: #F4791B;
     text-decoration: underline;
@@ -106,21 +100,15 @@ nav a.active {
 
 /*main*/
 
-.text2{
+.text2, .text1 {
     margin: 2% auto;
     text-align: center;
 }
 
-.text1{
-    margin: 2% auto;
-    text-align: center;
-}
-
-.tabla_modulos{
+.tabla_modulos {
     display: flex;
     justify-content: center;
 }
-
 
 table {
     width: 90%;
@@ -149,7 +137,6 @@ th {
     height: 100%;
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 5;
-
 }
 
 .modal-content {
@@ -158,9 +145,8 @@ th {
     padding: 20px;
     border: 1px solid #888;
     width: 30%;
-    z-index:3;
+    z-index: 3;
     border-radius: 10px;
-
 }
 
 .close {
@@ -168,7 +154,6 @@ th {
     font-size: 28px;
     cursor: pointer;
 }
-
 
 form {
     width: 100%;
@@ -178,6 +163,9 @@ form {
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 }
 
 label {
@@ -212,32 +200,33 @@ select {
     background: darkgreen;
 }
 
-.submit{
-    margin-left: 33%;
-    padding: 10px;
+.submit {
+    margin: 10px auto;
+    padding: 10px 20px;
     background: #F4791B;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 10px;
+    width: auto;  /* Aseguramos que el botón no sea más ancho de lo necesario */
+    display: block;
+    text-align: center;  /* Asegura que el texto del botón esté centrado */
 }
 
-.mod1{
+
+.mod1 {
     margin-left: 33%;
-    color: #468DAE ;
+    color: #468DAE;
 }
 
 /*footer*/
-
 
 footer {
     background-color: #468DAE;
     color: #FFFFFF;
     width: 100%;
     padding: 1rem;
-
 }
 
 .footer {
@@ -278,7 +267,7 @@ footer {
 }
 
 .btn-editar {
-    background-color: #F4B400; /* Amarillo */
+    background-color: #F4B400;
     color: white;
 }
 
@@ -287,7 +276,7 @@ footer {
 }
 
 .btn-eliminar {
-    background-color: #DB4437; /* Rojo */
+    background-color: #DB4437;
     color: white;
 }
 
