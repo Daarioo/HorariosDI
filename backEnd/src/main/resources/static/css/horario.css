@@ -30,41 +30,44 @@ body {
 nav {
     display: flex;
     gap: 2rem;
-
 }
 
 .san {
     position: absolute;
-    top: 23%;
-    left: 37%;
+    top: 210px;
+    left: calc(50% - 250px);
     width: 500px;
     height: 80px;
     z-index: 2;
 }
 
 .flecha {
+    position: relative;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    top: -4px;
 }
 
 .corte {
-    width: 56px;
+    width: 60px;
     height: 8vh;
     background-color: #468DAE;
     padding: 20px;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 100% 100%);
-
+    clip-path: polygon(0 0, calc(100% - 2px) 0, 100% 0, 100% 100%, calc(100% - 2px) 100%);
+    position: relative;
+    right: -2px;
 }
 
 .corte2 {
-    width: 50px;
+    width: 60px;
     height: 8vh;
     background-color: #468DAE;
     padding: 20px;
-    clip-path: polygon(100% 0, 100% 0, 0 100%, 0 0, 100% 0);
-
+    clip-path: polygon(0 0, 2px 0, 100% 0, 2px 100%, 0 100%);
+    position: relative;
+    left: -2px;
 }
 
 .bloque {
@@ -79,17 +82,16 @@ nav {
     text-decoration: none;
 }
 
-
 nav a {
     text-decoration: none;
     color: white;
     padding: 10px;
     transition: color 0.3s;
+    font-size: 2rem;
 }
 
 nav a:hover {
     color: #F4791B;
-    text-decoration: underline;
     text-underline-offset: 9px;
 }
 
@@ -99,8 +101,6 @@ nav a.active {
     text-decoration: underline;
     text-underline-offset: 9px;
 }
-
-
 
 
 /* CUERPO */
@@ -116,7 +116,7 @@ color: #F4791B;
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-top: 50px; /* Espacio desde arriba */
+    margin-top: 30px; /* Espacio desde arriba */
 }
 
 #select-modulo {
@@ -180,20 +180,10 @@ footer {
     height: 50px;
 }
 
-
-
-
-
-
-
-
-
-
-
 /* ESTILOS DA LA TABLA DEL HORARIO */
 
 table{
-    margin: 80px auto;
+    margin: 10px auto;
     border-collapse: separate;
     border-spacing: 0px;
     border: 1px solid rgb(163, 163, 163);
@@ -244,6 +234,7 @@ th:first-child{
     margin-right: 25px;
     border: solid 2px #4A8BAC;
     background-color: white;
+    color: black;
 }
 
 .modulo-boton:active{
