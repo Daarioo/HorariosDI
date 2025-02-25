@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
           link.classList.add("active");
       }
   });
-
+  obtenerUsuario();
   init();
   getProfesores();
 });
@@ -199,3 +199,23 @@ async function getModulos(id){
     const modulos = await response.json();
     return modulos.filter((modulo)=>modulo.idProfesor == id);
 }*/
+
+async function obtenerUsuario() {
+    try {
+        const response = await fetch('/api/usuarios/info', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const data = await response.json();
+
+        if (data.authenticated) {
+            usuario = data.nombre;
+            let nombre = document.getElementById("usuarioFooter");
+            nombre.innerText = usuario;
+        } else {
+            console.log("Usuario no autenticado");
+        }
+    } catch (error) {
+        console.error("Error al obtener usuario:", error);
+    }
+}

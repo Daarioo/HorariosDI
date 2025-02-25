@@ -180,6 +180,24 @@ footer {
     height: 50px;
 }
 
+.logout{
+    display: flex;
+    gap: 10px;
+}
+
+@media screen and (max-width: 1000px){
+    .logout{
+        display: inline;
+    }
+}
+
+footer a{
+    color: white;
+}
+
+footer p{
+    margin: 0px;
+}
 /* ESTILOS DA LA TABLA DEL HORARIO */
 
 table{

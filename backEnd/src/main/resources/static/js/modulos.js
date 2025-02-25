@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             link.classList.add("active");
         }
     });
-
+    obtenerUsuario();
     let json = await getModulos();
     createTable(json)
 });
@@ -290,5 +290,25 @@ async function eliminarModulo(idModulo) {
     } catch (error) {
         console.error(error);
         alert("No se pudo eliminar el módulo.");
+    }
+}
+
+async function obtenerUsuario() {
+    try {
+        const response = await fetch('/api/usuarios/info', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const data = await response.json();
+
+        if (data.authenticated) {
+            usuario = data.nombre;
+            let nombre = document.getElementById("usuarioFooter");
+            nombre.innerText = usuario;
+        } else {
+            console.log("Usuario no autenticado");
+        }
+    } catch (error) {
+        console.error("Error al obtener usuario:", error);
     }
 }

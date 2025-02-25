@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     (async function () {
+        getUsuario();
         await obtenerUsuario();
         cargarCiclos();
         cargarMatriculas();
@@ -291,5 +292,25 @@ async function eliminarMatricula(idMatricula) {
             console.error(error);
             alert("No se pudo eliminar la matrícula.");
         }
+    }
+}
+
+async function getUsuario() {
+    try {
+        const response = await fetch('/api/usuarios/info', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const data = await response.json();
+
+        if (data.authenticated) {
+            usuario = data.nombre;
+            let nombre = document.getElementById("usuarioFooter");
+            nombre.innerText = usuario;
+        } else {
+            console.log("Usuario no autenticado");
+        }
+    } catch (error) {
+        console.error("Error al obtener usuario:", error);
     }
 }

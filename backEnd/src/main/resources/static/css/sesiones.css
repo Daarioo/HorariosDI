@@ -268,6 +268,25 @@ footer {
     height: 50px;
 }
 
+.logout{
+    display: flex;
+    gap: 10px;
+}
+
+@media screen and (max-width: 1000px){
+    .logout{
+        display: inline;
+    }
+}
+
+footer a{
+    color: white;
+}
+
+footer p{
+    margin: 0px;
+}
+
 .btn-editar, .btn-eliminar {
     padding: 5px 10px;
     margin: 2px;

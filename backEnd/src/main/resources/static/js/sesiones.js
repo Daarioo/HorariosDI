@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", async function () {
     await cargarModulos();  // Cargar módulos en el select
     await cargarSesiones(); // Cargar sesiones en la tabla
+    obtenerUsuario();
 });
 
 // Función para abrir el modal
@@ -181,5 +182,25 @@ async function eliminarSesion(idSesion) {
     } catch (error) {
         console.error(error);
         alert("No se pudo eliminar la sesión.");
+    }
+}
+
+async function obtenerUsuario() {
+    try {
+        const response = await fetch('/api/usuarios/info', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const data = await response.json();
+
+        if (data.authenticated) {
+            usuario = data.nombre;
+            let nombre = document.getElementById("usuarioFooter");
+            nombre.innerText = usuario;
+        } else {
+            console.log("Usuario no autenticado");
+        }
+    } catch (error) {
+        console.error("Error al obtener usuario:", error);
     }
 }

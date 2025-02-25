@@ -226,16 +226,34 @@ function manageCycles() {
 document.addEventListener("DOMContentLoaded", manageCycles());
 
 document.addEventListener("DOMContentLoaded", function () {
-    // Obtener la URL actual
     const currentPage = window.location.pathname.split("/").pop();
 
-    // Seleccionar todos los enlaces del nav
     const links = document.querySelectorAll("nav a");
 
-    // Recorrer los enlaces y marcar el activo
     links.forEach(link => {
         if (link.getAttribute("href") === currentPage) {
             link.classList.add("active");
         }
     });
+    obtenerUsuario();
 });
+
+async function obtenerUsuario() {
+    try {
+        const response = await fetch('/api/usuarios/info', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const data = await response.json();
+
+        if (data.authenticated) {
+            usuario = data.nombre;
+            let nombre = document.getElementById("usuarioFooter");
+            nombre.innerText = usuario;
+        } else {
+            console.log("Usuario no autenticado");
+        }
+    } catch (error) {
+        console.error("Error al obtener usuario:", error);
+    }
+}

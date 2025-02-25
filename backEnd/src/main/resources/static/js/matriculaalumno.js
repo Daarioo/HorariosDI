@@ -198,8 +198,8 @@ async function obtenerUsuario() {
         if (data.authenticated) {
             usuario = data;
             usuarioId = usuario.id;
-            console.log(usuario);
-            console.log(data);
+            let nombre = document.getElementById("usuarioFooter");
+            nombre.innerText = usuario.nombre;
         } else {
             console.log("Usuario no autenticado");
         }
