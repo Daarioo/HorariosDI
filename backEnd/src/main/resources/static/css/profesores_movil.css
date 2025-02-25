@@ -1,0 +1,16 @@
+/* Frame de profesores */
+#listaProfes{
+    margin-top: 16%;
+    height: 300px;
+}
+
+
+.profesor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #d3d3d3;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
