@@ -302,3 +302,26 @@ footer a{
 footer p{
     margin: 0px;
 }
+
+#movil{
+    display: none;
+}
+
+@media screen and (max-width: 680px) {
+    #movil {
+        display: block;
+    }
+
+    #movil > iframe {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        border: none;
+    }
+
+    #desktop{
+        display: none;
+    }
+}
