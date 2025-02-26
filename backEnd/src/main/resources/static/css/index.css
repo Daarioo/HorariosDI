@@ -35,7 +35,7 @@ body{
 .logo{
     display: block;
     max-width: 500px;
-    margin: auto;
+    margin-left: 15px;
 }
 
 .flecha{    
@@ -52,7 +52,9 @@ body{
     height: 100%;
     background-color: #FFFFFF;
     padding: 20px;
-    clip-path: polygon(0 0, calc(100% + 2px) 0, calc(100% + 2px) 100%, 100% 100%, 0 0);
+    clip-path: polygon(0 0, calc(100% - 2px) 0, 100% 0, 100% 100%, calc(100% - 2px) 100%);
+    position: relative;
+    right: -2px;
 }
 
 .bloque{
@@ -83,10 +85,6 @@ a:hover{
 
 
 /*main*/
-
-main{
-    height: 81vh;
-}
 
 .guirifoto{
     z-index: -1;
@@ -167,8 +165,9 @@ main{
     color: #FFFFFF;
     border-radius: 5px;
     border: none;
-    font-size: 14px;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
     transition: background-color 0.3s ease;
 }
 
@@ -191,7 +190,9 @@ main{
 /*footer*/
 
 footer{
+    display: flex;
     width: 100%;
+    height: fit-content;
 }
 
 .flecha_2{    
@@ -203,15 +204,16 @@ footer{
 
 .corte_2{
     width: 50px;
-    height: 8vh;
     background-color: #FFFFFF;
-    clip-path: polygon(0 0, 100% 0, 0 100%, 100% 100%, 0% 100%);
-
+    /*clip-path: polygon(-6px 0px, 0px 0px, 100% 100%, -6px 100%, -6px 0px);*/
+    clip-path: polygon(0% 0, 2px 0, 100% 100%, 0 100%);
+    position: relative;
+    right: 2px;
 }
 
 .bloque_2{
-    width: 100%;
-    height: 8vh;
+    width: 75%;
+    min-width: 400px;
     background-color: #FFFFFF;
     display: flex;
     justify-content: end;
@@ -221,10 +223,11 @@ footer{
     text-decoration: none;
     display: flex;
     justify-content: start;
+    padding: 4px;
 }
 
 .xunta{
-    width: 40vh;
+    width: 400px;
     padding: 1vh;
 }
 
@@ -247,5 +250,14 @@ footer{
 
     .logo{
         width: 90%;
+        margin-top: 5px;
+    }
+
+    .bloque_2{
+        width: 100%;
+    }
+
+    .corte_2{
+        display: none;
     }
 }
