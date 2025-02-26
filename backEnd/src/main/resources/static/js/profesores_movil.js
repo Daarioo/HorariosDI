@@ -1,152 +1,209 @@
+document.addEventListener("DOMContentLoaded", function () {
+    obtenerUsuario();
+    getProfesores();
+
+});
+
 const btnAgregar = document.getElementById("botonAgregar4");
 const listProfes = document.getElementById("listaProfes");
 
-// Función para crear el modal de ingreso de datos (Agregar alumno)
-function crearModalProfe() {
-  const modal = document.createElement("div");
-  modal.id = "modalProfesor";
-  modal.className = "modal";
-  modal.innerHTML = `
-    <div class="modal-contenido">
-      <h3>Nuevo profesor</h3>
-      <form id="formProfesor">
-      
-        <label>Nombre </label>
-        <input type="text" placeholder="Nombre" required
-        <label>Apellidos</label>      
-        <input type="text" placeholder="apellido" required>
-        <label>Correo electrónico</label>
-        <input type="email" placeholder="Correo electrónico" required>
-        
-        <div class="modal-botones">
-          <button type="button" class="cancelar">Cancelar</button>
-          <button type="submit">Agregar</button>
-        </div>
-      </form>
-    </div>
-  `;
-  document.body.appendChild(modal);
+
+
+async function getProfesores() {
+    try {
+        const response = await fetch("/api/admin/profesores", { credentials: "include" });
+        if (!response.ok) throw new Error("Error al obtener los profesores");
+        const profesores = await response.json();
+        mostrarProfesores(profesores);
+    } catch (error) {
+        console.error("Error:", error);
+    }
 }
 
-// Event listener para el botón de agregar alumno
-btnAgregar.addEventListener("click", function() {
-  // Crear modal si no existe
-  if (!document.getElementById("modalProfesor")) {
-    crearModalProfe();
-  }
-  
-  const modal = document.getElementById("modalProfesor");
-  const form = document.getElementById("formProfesor");
-  const inputs = form.getElementsByTagName("input");
-  
-  modal.style.display = "flex"; // Mostrar el modal centrado
-  
-  // Configurar botón de cancelar
-  modal.querySelector(".cancelar").addEventListener("click", () => {
-    modal.style.display = "none";
-    form.reset();
-  });
-  
-  // Manejar el envío del formulario para agregar un nuevo alumno
-  form.onsubmit = (e) => {
-    e.preventDefault();
-    const profeCount = listProfes.getElementsByClassName("profesor").length;
-    const nuevoProfe = document.createElement("div");
-    
-    // Extraer valores de los inputs
-    const nombre = inputs[0].value || `profesor ${profeCount + 1}`;
-    const apellidos = inputs[1].value;
-    const correo = inputs[2].value;
-    
-    // Guardar datos en atributos data para usarlos en edición
-    nuevoProfe.dataset.nombre = nombre;
-    nuevoProfe.dataset.apellidos = apellidos;
-    nuevoProfe.dataset.correo = correo;
-    
-    nuevoProfe.classList.add("profesor");
-    nuevoProfe.innerHTML = `
-      <span>${nombre}</span>
-      <div class="acciones">
-        <button class="ver">👁️</button>
-        <button class="eliminar"  id="verAlu" >❌</button>
-      </div>
-    `;
-    
-    listProfes.appendChild(nuevoProfe);
-    modal.style.display = "none";
-    form.reset();
-  };
+function mostrarProfesores(profesores) {
+    listProfes.innerHTML = "";
+    profesores.forEach(profesor => {
+        const nuevoProfe = document.createElement("div");
+        nuevoProfe.classList.add("profesor");
+        nuevoProfe.dataset.id = profesor.idProfesor;
+        nuevoProfe.dataset.nombre = profesor.nombre;
+        nuevoProfe.dataset.apellidos = profesor.apellidos;
+        nuevoProfe.dataset.correo = profesor.email;
+
+        nuevoProfe.innerHTML = `
+            <div class="profesor-info">
+                <span><strong>${profesor.nombre} ${profesor.apellidos}</strong></span>
+            </div>
+            <div class="acciones">
+                <button class="ver">✏️</button>
+                <button class="eliminar">❌</button>
+            </div>
+        `;
+        listProfes.appendChild(nuevoProfe);
+    });
+}
+
+
+btnAgregar.addEventListener("click", function () {
+    mostrarModalAgregar();
 });
 
-// Eliminar alumno al hacer clic en el botón de eliminar
-listProfes.addEventListener("click", function(event) {
-  if (event.target.classList.contains("eliminar")) {
-    event.target.closest(".profesor").remove();
-  }
-  
-  // Al hacer clic en "ver", abrir la ventana emergente para editar
-  if (event.target.classList.contains("ver")) {
+function mostrarModalAgregar() {
+    const modal = crearModal("Nuevo Profesor", "Agregar");
+    modal.onsubmit = async (e) => {
+        e.preventDefault();
+        await agregarProfesor(modal);
+        modal.closest(".modal").remove();
+        crearModalConfirmacion("Profesor agregado correctamente");
+    };
+}
+
+async function agregarProfesor(modal) {
+    const nuevoProfesor = obtenerDatosFormulario(modal);
+    try {
+        const response = await fetch("/api/admin/profesores", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(nuevoProfesor),
+            credentials: "include"
+        });
+        if (!response.ok) throw new Error("Error al agregar el profesor");
+        getProfesores();
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+listProfes.addEventListener("click", function (event) {
     const profElement = event.target.closest(".profesor");
-    crearModalVerEditarProfe(profElement);
-  }
+    if (!profElement) return;
+
+    if (event.target.classList.contains("eliminar")) {
+        borrarProfesor(profElement.dataset.id);
+    } else if (event.target.classList.contains("ver")) {
+        mostrarModalEditar(profElement);
+    }
 });
 
-// Función para crear la ventana emergente (modal) de ver y editar alumno
-function crearModalVerEditarProfe(profElement) {
-  // Crear el modal
-  const modalProfe = document.createElement("div");
-  modalProfe.className = "modal";
-  modalProfe.id = "modalVerEditarProfe";
-  
-  // Recuperar los datos existentes
-  const nombre = profElement.dataset.nombre || "";
-  const apellidos = profElement.dataset.apellidos || "";
-  const correo = profElement.dataset.correo || "";
-  
-  modalProfe.innerHTML = `
-    <div class="modal-contenido">
-      <h3>Editar Datos del Profesor</h3>
-      <form id="formVerEditarProfe">
+function mostrarModalEditar(profElement) {
+    const modal = crearModal("Editar Profesor", "Guardar cambios", profElement);
+    modal.onsubmit = async (e) => {
+        e.preventDefault();
+        await editarProfesor(profElement.dataset.id, modal);
+        modal.closest(".modal").remove();
+        crearModalConfirmacion("Profesor editado correctamente");
+    };
+}
 
-        <label>Nombre</label>
-        <input type="text" placeholder="Nombre " value="${nombre}" required>
-        <label>Apellidos</label>
-        <input type="text" placeholder="Apellidos" value="${apellidos}" required>
-        <label>correo</label>
-        <input type="email" placeholder="correo" value="${correo}">
-        <div class="modal-botones">
+async function editarProfesor(id, modal) {
+    const updatedProfesor = obtenerDatosFormulario(modal);
+    try {
+        const response = await fetch(`/api/admin/profesores/${id}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(updatedProfesor),
+            credentials: "include"
+        });
+        if (!response.ok) throw new Error("Error al actualizar el profesor");
+        getProfesores();
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
 
-          <button type="button" class="cancelar">Cancelar</button>
-          <button type="submit">Guardar cambios</button>
+async function borrarProfesor(id) {
+    try {
+        const response = await fetch(`/api/admin/profesores/${id}`, {
+            method: "DELETE",
+            credentials: "include"
+        });
+        if (!response.ok) throw new Error("Error al eliminar el profesor");
+        getProfesores();
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+function crearModalConfirmacion(mensaje) {
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    modal.innerHTML = `
+        <div class="modal-contenido">
+            <p>${mensaje}</p>
+            <button id="cerrarConfirmacion">Cerrar</button>
         </div>
-      </form>
-    </div>
-  `;
-  
-  document.body.appendChild(modalProfe);
-  modalProfe.style.display = "flex";
-  
-  const form = modalProfe.querySelector("form");
-  
-  // Configurar botón de cancelar
-  modalProfe.querySelector(".cancelar").addEventListener("click", () => {
-    modalProfe.remove();
-  });
-  
-  // Manejar el envío del formulario para guardar cambios
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
+    `;
+    document.body.appendChild(modal);
+    modal.style.display = "flex";
+
+    // Estilos para el botón de cerrar
+    const botonCerrar = document.getElementById("cerrarConfirmacion");
+    botonCerrar.style.padding = "10px 20px";
+    botonCerrar.style.backgroundColor = "#007bff";
+    botonCerrar.style.color = "white";
+    botonCerrar.style.border = "none";
+    botonCerrar.style.borderRadius = "5px";
+    botonCerrar.style.cursor = "pointer";
+    botonCerrar.style.fontSize = "16px";
+
+    // Efecto de hover
+    botonCerrar.addEventListener("mouseover", () => {
+        botonCerrar.style.backgroundColor = "#0056b3";
+    });
+    botonCerrar.addEventListener("mouseout", () => {
+        botonCerrar.style.backgroundColor = "#007bff";
+    });
+
+    // Evento para cerrar el modal
+    botonCerrar.addEventListener("click", () => modal.remove());
+}
+
+
+function crearModal(titulo, botonTexto, profElement = null) {
+    const modal = document.createElement("div");
+    modal.className = "modal";
+    modal.innerHTML = `
+        <div class="modal-contenido">
+            <h3>${titulo}</h3>
+            <form>
+                <label>Nombre</label>
+                <input type="text" value="${profElement ? profElement.dataset.nombre : ""}" required>
+                <label>Apellidos</label>
+                <input type="text" value="${profElement ? profElement.dataset.apellidos : ""}" required>
+                <label>Correo electrónico</label>
+                <input type="email" value="${profElement ? profElement.dataset.correo : ""}" required>
+                <div class="modal-botones">
+                    <button type="button" class="cancelar">Cancelar</button>
+                    <button type="submit">${botonTexto}</button>
+                </div>
+            </form>
+        </div>
+    `;
+    document.body.appendChild(modal);
+    modal.style.display = "flex";
+    modal.querySelector(".cancelar").addEventListener("click", () => modal.remove());
+    return modal.querySelector("form");
+}
+
+function obtenerDatosFormulario(form) {
     const inputs = form.getElementsByTagName("input");
-    const nuevoNombre = inputs[0].value;
-    const nuevoApellidos = inputs[1].value;
-    const nuevoCorreo = inputs[2].value;
-    
-    // Actualizar datos en el alumno
-    profElement.dataset.nombre = nuevoNombre;
-    profElement.dataset.apellidos = nuevoApellidos;
-    profElement.dataset.correo = nuevoCorreo;
-    profElement.querySelector("span").textContent = nuevoNombre;
-    
-    modalProfe.remove();
-  });
+    return {
+        nombre: inputs[0].value,
+        apellidos: inputs[1].value,
+        email: inputs[2].value
+    };
+}
+
+async function obtenerUsuario() {
+    try {
+        const response = await fetch('/api/usuarios/info', {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const data = await response.json();
+        if (data.authenticated) {
+            document.getElementById("usuarioFooter").innerText = data.nombre;
+        }
+    } catch (error) {
+        console.error("Error al obtener usuario:", error);
+    }
 }
