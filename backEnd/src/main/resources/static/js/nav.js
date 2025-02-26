@@ -15,25 +15,25 @@ menuToggle.addEventListener("click", function () {
 
 // Redirecciones al hacer clic en los botones
 ciclos.addEventListener("click", function () {
-  window.location.href = "ciclos.html";
+  window.top.location.href = "ciclos";
 });
 
 modulos.addEventListener("click", function () {
-  window.location.href = "modulos.html";
+  window.top.location.href = "modulos";
 });
 
 horarios.addEventListener("click", function () {
-  window.location.href = "horario.html";
+  window.top.location.href = "horario";
 });
 
 alumnos.addEventListener("click", function () {
-  window.location.href = "alumnos.html";
+  window.top.location.href = "alumnos";
 });
 
 profesores.addEventListener("click", function () {
-  window.location.href = "profesores.html";
+  window.top.location.href = "profesores";
 });
 
 logoutBtn.addEventListener("click", function () {
-  window.location.href = "index.html"; // Redirige al usuario a la página de inicio de sesión
+  window.top.location.href = "index"; // Redirige al usuario a la página de inicio de sesión
 });
