@@ -3,13 +3,19 @@
     box-sizing: border-box;
 }
 
-html{
+html {
     scroll-behavior: smooth;
+    height: 100%;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+    overflow: hidden;
 }
 
 body{
     margin:0;
+    height: 100%;
     background-color: #468DAE;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 /*header*/
@@ -19,17 +25,17 @@ body{
     flex-direction: row;
     justify-content: space-between;
     background-color: #468DAE;
-    padding: 10px
+    gap: 15px;
 }
 
 .logo_container{
-    margin-top: 10px;
-    margin-bottom: 10px ;
-    gap: 1rem;
+    margin: 10px auto;
 }
 
 .logo{
-    width: 500px;
+    display: block;
+    max-width: 500px;
+    margin: auto;
 }
 
 .flecha{    
@@ -37,20 +43,21 @@ body{
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    width: 100%;
 }
 
 .corte{
+    position: relative;
     width: 50px;
-    height: 8vh;
+    height: 100%;
     background-color: #FFFFFF;
     padding: 20px;
-    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%, 100% 100%);
-
+    clip-path: polygon(0 0, calc(100% + 2px) 0, calc(100% + 2px) 100%, 100% 100%, 0 0);
 }
 
 .bloque{
-    width: 140vh;
-    height: 8vh;
+    width: 100%;
+    height: 100%;
     background-color: #FFFFFF;
     display: flex;
     justify-content: end;
@@ -183,12 +190,15 @@ main{
 
 /*footer*/
 
+footer{
+    width: 100%;
+}
+
 .flecha_2{    
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: center;
-    margin-left: 1vh;
 }
 
 .corte_2{
@@ -200,7 +210,7 @@ main{
 }
 
 .bloque_2{
-    width: 140vh;
+    width: 100%;
     height: 8vh;
     background-color: #FFFFFF;
     display: flex;
@@ -219,66 +229,23 @@ main{
 }
 
 @media screen and (max-width: 680px) {
-    /* Header */
-    .header_container {
-        padding: 10px 5px;
+    .flecha{
+        display: none;
     }
 
-    .logo {
-        width: 60%;
+    .logo{
+        margin: auto;
     }
 
-    .bloque {
-        font-size: 1.5vh;
-        border-radius: 100%;
-        background-color: ;
+    body{
+        justify-items: center;
     }
 
-    /* Main */
-    .guirifoto {
-       display: none;
+    .guirifoto{
+        display: none;
     }
 
-    .main_container {
-        width: 100%;
-        padding: 1.5rem;
-    }
-
-    .circulo {
-        width: 12vh;
-        height: 12vh;
-    }
-
-    .user {
-        width: 8vh;
-    }
-
-    .text_is {
-        font-size: 2vh;
-    }
-
-    .login{
-        margin: 0,2%,0,2%;
-    }
-
-    .login input[type="text"],
-    .login input[type="password"] {
-        height: 5vh;
-        font-size: 0.9rem;
-    }
-
-    .button {
-        height: 5vh;
-        font-size: 0.9rem;
-    }
-
-    .olv {
-        font-size: 1.2vh;
-    }
-
-    /* Footer */
-    .xunta {
-        width: 60%;
-        padding: 5%;
+    .logo{
+        width: 90%;
     }
 }

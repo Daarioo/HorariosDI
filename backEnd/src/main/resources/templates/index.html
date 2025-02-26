@@ -9,51 +9,48 @@
 </head>
 
 <body>
-<header>
-    <section class="header_container">
-        <div class="logo_container">
-            <a href="index.html"><img src="/images/logo.png" alt="logo" class="logo"></a>
-        </div>
+    <header>
+        <section class="header_container">
+            <div class="logo_container">
+                <img src="/images/logo.png" alt="logo" class="logo">
+            </div>
 
-        <div class="flecha">
-            <div class="corte"></div>
-            <div class="bloque">
-                <span>No tienes cuenta? &nbsp;<a href="login"><b>Registrate</b></a></span>
+            <div class="flecha">
+                <div class="corte"></div>
+                <div class="bloque"></div>
+            </div>
+        </section>
+    </header>
+    <main>
+        <section class="main_container_padre">
+            <img src="/images/guiri.png" alt="guiri" class="guirifoto">
+            <div class="main_container">
+                <div class="circulo">
+                    <img src="/images/userIcon.svg" alt="user" class="user">
+                </div>
+                <div class="is">
+                    <span class="text_is">Inicio de Sesión</span>
+                </div>
+                <div class="login">
+                    <form action="/login" method="post">
+                        <input type="text" name="username" placeholder="Correo electrónico" required>
+                        <input type="password" name="password" placeholder="Contraseña" required>
+                        <button class="button" type="submit">Confirmar</button>
+                    </form>
+                </div>
+                <a href="#" class="olv">¿Olvidaste tu contraseña?</a>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="flecha_2">
+            <div class="bloque_2">
+                <img src="images/logoxuna.png" alt="xunta" class="xunta">
+            </div>
+            <div class="corte_2">
             </div>
         </div>
-    </section>
-</header>
-<main>
-    <section class="main_container_padre">
-        <img src="/images/guiri.png" alt="guiri" class="guirifoto">
-        <div class="main_container">
-            <div class="circulo">
-                <img src="/images/userIcon.svg" alt="user" class="user">
-            </div>
-            <div class="is">
-                <span class="text_is">Inicio de Sesión</span>
-            </div>
-            <div class="login">
-                <form action="/login" method="post">
-                    <input type="text" name="username" placeholder="Correo electrónico" required>
-                    <input type="password" name="password" placeholder="Contraseña" required>
-                    <button class="button" type="submit">Confirmar</button>
-                </form>
-            </div>
-            <a href="#" class="olv">¿Olvidaste tu contraseña?</a>
-        </div>
-    </section>
-</main>
-<footer>
-    <div class="flecha_2">
-        <div class="bloque_2">
-            <img src="images/logoxuna.png" alt="xunta" class="xunta">
-        </div>
-        <div class="corte_2">
-        </div>
-    </div>
-
-</footer>
+    </footer>
 </body>
 
 </html>
