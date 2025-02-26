@@ -15,11 +15,11 @@ menuToggle.addEventListener("click", function () {
 
 // Redirecciones al hacer clic en los botones
 ciclos.addEventListener("click", function () {
-  window.location.href = "ciclos.html";
+  window.location.href = "/templates/ciclos_movil.html";
 });
 
 modulos.addEventListener("click", function () {
-  window.location.href = "modulos.html";
+  window.location.href = "modulos_movil.html";
 });
 
 horarios.addEventListener("click", function () {
@@ -27,11 +27,11 @@ horarios.addEventListener("click", function () {
 });
 
 alumnos.addEventListener("click", function () {
-  window.location.href = "alumnos.html";
+  window.location.href = "alumnos_movil.html";
 });
 
 profesores.addEventListener("click", function () {
-  window.location.href = "profesores.html";
+  window.location.href = "profesores_movil.html";
 });
 
 logoutBtn.addEventListener("click", function () {

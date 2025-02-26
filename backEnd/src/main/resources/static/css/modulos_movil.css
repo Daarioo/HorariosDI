@@ -1,19 +1,18 @@
-/* Frame de alumnos */
-  
+/* Frame de módulos */
+ 
   /* Estilos de cada alumno */
-  .alumno {
+  .modulo {
+    background-color:#d3d3d3;
+    border-radius: 5px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #d3d3d3;
     padding: 10px;
     margin-bottom: 10px;
-    border-radius: 5px;
   }
 
-  #listaAlumnos{
+  #listaModulos{
     margin-top: 16%;
     height: 300px;
-  }
+}
   
-
