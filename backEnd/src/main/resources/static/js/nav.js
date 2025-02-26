@@ -23,7 +23,7 @@ modulos.addEventListener("click", function () {
 });
 
 horarios.addEventListener("click", function () {
-  window.top.location.href = "horario";
+  window.top.location.href = "sesiones";
 });
 
 alumnos.addEventListener("click", function () {
