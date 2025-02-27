@@ -228,6 +228,9 @@ select {
     color: #468DAE ;
 }
 
+
+
+
 /*footer*/
 
 
@@ -271,6 +274,10 @@ footer {
     display: flex;
     gap: 10px;
 }
+
+
+
+
 
 @media screen and (max-width: 1000px){
     .logout{
@@ -316,6 +323,9 @@ footer p{
 #movil{
     display: none;
 }
+
+
+
 
 @media screen and (max-width: 680px) {
     #movil {
