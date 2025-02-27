@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 // Función para abrir el modal
 function mostrarModal() {
     let modal = document.getElementById("modal");
-    modal.style.display = "block";
+    modal.style.display = "flex";
 }
 
 // Función para cerrar el modal

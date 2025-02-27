@@ -41,24 +41,24 @@
                     <span class="close" onclick="cerrarModal()">&times;</span>
                     <h2>Agregar Módulo</h2>
                     <form id="moduloForm" onsubmit="agregarModulo(event)">
-                        <label>Nombre: <input type="text" id="nombre" required></label><br>
-                        <label>Código: <input type="text" id="codigo" required></label><br>
-                        <label>Horas por semana: <input type="number" id="horasSemana" required></label><br>
-                        <label>Horas totales: <input type="number" id="horasTotales" required></label><br>
+                        <label>Nombre: <input type="text" id="nombre" required></label>
+                        <label>Código: <input type="text" id="codigo" required></label>
+                        <label>Horas por semana: <input type="number" id="horasSemana" required></label>
+                        <label>Horas totales: <input type="number" id="horasTotales" required></label>
                         <label>Ciclo asociado:
                             <select id="ciclo" required>
                                 <option value="">Selecciona un ciclo</option>
                                 <option value="DAW">Desarrollo de Aplicaciones Web</option>
                                 <option value="DAM">Desarrollo de Aplicaciones Multiplataforma</option>
                             </select>
-                        </label><br>
+                        </label>
                         <label>Profesor asignado:
                             <select id="profesor" required>
                                 <option value="">Selecciona un profesor</option>
                                 <option value="Profesor1">Juan Pérez</option>
                                 <option value="Profesor2">Ana López</option>
                             </select>
-                        </label><br>
+                        </label>
                         <button type="submit">Guardar</button>
                     </form>
                 </div>

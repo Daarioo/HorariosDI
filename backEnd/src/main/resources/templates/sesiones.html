@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página Módulos</title>
+    <title>Página Sesiones</title>
     <link rel="stylesheet" href="/css/sesiones.css">
     <script src="/js/sesiones.js"></script>
 </head>
@@ -42,19 +42,18 @@
                 <span class="close" onclick="cerrarModal()">&times;</span>
                 <h2>Agregar Sesión</h2>
                 <form id="moduloForm" onsubmit="agregarSesion(event)">
-                    <label>Hora de inicio: <input type="text" id="horaInicio" required></label><br>
-                    <label>Hora de fin: <input type="text" id="horaFin" required></label><br>
-                    <label>Día: <input type="text" id="dia" required></label><br>
-                    <label>Aula: <input type="text" id="aula" required></label><br>
-                    <label>Curso académico: <input type="text" id="cursoAcademico" required></label><br>
+                    <label>Hora de inicio: <input type="text" id="horaInicio" required></label>
+                    <label>Hora de fin: <input type="text" id="horaFin" required></label>
+                    <label>Día: <input type="text" id="dia" required></label>
+                    <label>Aula: <input type="text" id="aula" required></label>
+                    <label>Curso académico: <input type="text" id="cursoAcademico" required></label>
                     <label>Módulo asociado:
                         <select id="modulo" required>
                             <option value="">Selecciona un módulo</option>
                             <option value="DAW">Desarrollo de Aplicaciones Web</option>
                             <option value="DAM">Desarrollo de Aplicaciones Multiplataforma</option>
                         </select>
-                    </label><br>
-                    <br>
+                    </label>
                     <button type="submit">Guardar</button>
                 </form>
             </div>
