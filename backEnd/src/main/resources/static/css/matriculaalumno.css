@@ -202,7 +202,7 @@ select {
     background: darkgreen;
 }
 
-button {
+form > button {
     background: green;
     color: white;
     border: none;
@@ -282,6 +282,7 @@ footer p{
     cursor: pointer;
     font-size: 16px;
     border-radius: 4px;
+    vertical-align: middle
 }
 
 .btn-editar {
@@ -294,8 +295,15 @@ footer p{
 }
 
 .btn-eliminar {
-    background-color: #DB4437;
+    background-color: #DB4437; /* Rojo */
     color: white;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-eliminar > img {
+    width: 20px;
+    margin-right: 5px;
 }
 
 .btn-eliminar:hover {

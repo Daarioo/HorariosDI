@@ -191,7 +191,7 @@ function createTable(json) {
         <td><a href="matriculasadmin/${alumno.idUsuario}">Ver matriculas</a></td>
         <td>
                 <button class="btn-editar" onclick="modalEditarAlumno(${alumno.idUsuario})">✏️ Editar</button>
-                <button class="btn-eliminar" onclick="borrarAlumno(${alumno.idUsuario})">🗑️ Eliminar</button>
+                <button class="btn-eliminar" onclick="borrarAlumno(${alumno.idUsuario})"><img src="/images/bin.svg"/> Eliminar</button>
         </td>`
 
         tr.innerHTML = htmlRow;

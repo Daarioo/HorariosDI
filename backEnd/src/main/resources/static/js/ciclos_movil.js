@@ -1,155 +1,160 @@
-const btnAgregar = document.getElementById("botonAgregar5");
-const listaCiclos = document.getElementById("listaCiclos");
+document.addEventListener("DOMContentLoaded", async function () {
+    const btnAgregar = document.getElementById("botonAgregar5");
+    const listaCiclos = document.getElementById("listaCiclos");
+    let cicloEditando = null;
 
-// Función para crear el modal de ingreso de datos
-function crearModalCiclo() {
-    const modal = document.createElement("div");
-    modal.id = "modalCiclo";
-    modal.className = "modal";
-    modal.innerHTML = `
-        <div class="modal-contenido">
-            <h3>Nuevo Ciclo</h3>
-            <form id="formCiclo">
-
-                <input type="text" id="codigoCiclo" placeholder="Código" required>
-                <input type="text" id="nombreCiclo" placeholder="Nombre del ciclo" required>
-                <input type="number" id="duracionCiclo" placeholder="Duración en horas" required>
-                <textarea id="descripcionCiclo" placeholder="Descripción"></textarea>
-
-                <div class="modal-botones">
-                    <button type="button" class="cancelar">Cancelar</button>
-                    <button type="submit">Agregar</button>
-                </div>
-            </form>
-        </div>
-    `;
-    document.body.appendChild(modal);
-
-    document.getElementById("formCiclo").addEventListener("submit", function (e) {
-        e.preventDefault();
-        agregarCiclo();
-    });
-
-    document.querySelector(".cancelar").addEventListener("click", function () {
-        modal.remove();
-    });
-}
-
-// Evento para abrir el modal al hacer clic en "Agregar"
-btnAgregar.addEventListener("click", function () {
-    if (!document.getElementById("modalCiclo")) {
+    btnAgregar.addEventListener("click", () => {
         crearModalCiclo();
-    }
-    document.getElementById("modalCiclo").style.display = "flex";
-});
+    });
 
-// Función para agregar un ciclo a la lista
-function agregarCiclo() {
-    const codigo = document.getElementById("codigoCiclo").value.trim();
-    const nombre = document.getElementById("nombreCiclo").value.trim();
-    const duracion = document.getElementById("duracionCiclo").value.trim();
-    const descripcion = document.getElementById("descripcionCiclo").value.trim();
+    async function getCiclos() {
+        try {
+            const response = await fetch("/api/admin/ciclos", { credentials: "include" });
+            if (!response.ok) throw new Error("Error al obtener ciclos");
 
-    if (!codigo || !nombre || !duracion) {
-        alert("Por favor, complete los campos obligatorios.");
-        return;
-    }
-
-    const nuevoCiclo = document.createElement("div");
-    nuevoCiclo.classList.add("ciclo");
-    nuevoCiclo.dataset.codigo = codigo;
-    nuevoCiclo.dataset.nombre = nombre;
-    nuevoCiclo.dataset.duracion = duracion;
-    nuevoCiclo.dataset.descripcion = descripcion;
-
-    nuevoCiclo.innerHTML = `
-        <span>${nombre} (${codigo})</span>
-        <div class="acciones">
-            <button class="ver">👁️</button>
-            <button class="eliminar">❌</button>
-        </div>
-    `;
-
-    listaCiclos.appendChild(nuevoCiclo);
-    document.getElementById("modalCiclo").remove();
-}
-
-// Evento para manejar la eliminación y edición de ciclos
-listaCiclos.addEventListener("click", function (event) {
-    if (event.target.classList.contains("eliminar")) {
-        event.target.closest(".ciclo").remove();
-    }
-
-    if (event.target.classList.contains("ver")) {
-        const cicloElement = event.target.closest(".ciclo");
-        if (cicloElement) {
-            crearModalVerEditarCiclo(cicloElement);
+            const ciclos = await response.json();
+            listaCiclos.innerHTML = "";
+            ciclos.forEach(ciclo => {
+                agregarCicloDOM(ciclo.codigo, ciclo.nombre, ciclo.duracion, ciclo.descripcion, ciclo.idCiclo);
+            });
+        } catch (error) {
+            console.error("Error:", error);
         }
     }
-});
 
-// Función para crear la ventana emergente (modal) de ver y editar ciclo
-function crearModalVerEditarCiclo(cicloElement) {
-    const modal = document.createElement("div");
-    modal.className = "modal";
-    modal.id = "modalVerEditarCiclo";
+    function crearModalCiclo(ciclo = null) {
+        const modal = document.createElement("div");
+        modal.id = "modalCiclo";
+        modal.className = "modal";
+        modal.innerHTML = `
+            <div class="modal-contenido">
+                <h3>${ciclo ? "Editar Ciclo" : "Nuevo Ciclo"}</h3>
+                <form id="formCiclo">
+                    <input type="text" id="codigoCiclo" placeholder="Código" value="${ciclo?.codigo || ''}" required>
+                    <input type="text" id="nombreCiclo" placeholder="Nombre del ciclo" value="${ciclo?.nombre || ''}" required>
+                    <input type="number" id="duracionCiclo" placeholder="Duración en horas" value="${ciclo?.duracion || ''}" required>
+                    <textarea id="descripcionCiclo" placeholder="Descripción">${ciclo?.descripcion || ''}</textarea>
+                    <div class="modal-botones">
+                        <button type="button" class="cancelar">Cancelar</button>
+                        <button type="submit">${ciclo ? "Guardar" : "Agregar"}</button>
+                    </div>
+                </form>
+            </div>
+        `;
 
-    // Recuperar los datos existentes
-    const codigo = cicloElement.dataset.codigo || "";
-    const nombre = cicloElement.dataset.nombre || "";
-    const duracion = cicloElement.dataset.duracion || "";
-    const descripcion = cicloElement.dataset.descripcion || "";
+        document.body.appendChild(modal);
+        modal.style.display = "flex";
 
-    modal.innerHTML = `
-        <div class="modal-contenido">
-            <h3>Editar Datos del Ciclo</h3>
-            <form id="formVerEditarCiclo">
-                <label>Código</label>
-                <input type="text" id="editCodigoCiclo" value="${codigo}" required>
-                <label>Nombre</label>
-                <input type="text" id="editNombreCiclo" value="${nombre}" required>
-                <label>Duración</label>
-                <input type="number" id="editDuracionCiclo" value="${duracion}" required>
-                <div>Descripción</div>
-                <textarea id="editDescripcionCiclo">${descripcion}</textarea>
-                <div class="modal-botones">
-                    <button type="button" class="cancelar">Cancelar</button>
-                    <button type="submit">Guardar cambios</button>
-                </div>
-            </form>
-        </div>
-    `;
+        document.querySelector(".cancelar").addEventListener("click", () => modal.remove());
 
-    document.body.appendChild(modal);
-    modal.style.display = "flex";
+        document.getElementById("formCiclo").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const cicloData = {
+                codigo: document.getElementById("codigoCiclo").value.trim(),
+                nombre: document.getElementById("nombreCiclo").value.trim(),
+                duracion: document.getElementById("duracionCiclo").value.trim(),
+                descripcion: document.getElementById("descripcionCiclo").value.trim()
+            };
 
-    document.querySelector(".cancelar").addEventListener("click", function () {
-        modal.remove();
-    });
+            if (ciclo) {
+                await updateCiclo(ciclo.idCiclo, cicloData);
+            } else {
+                await crearCiclo(cicloData);
+            }
 
-    document.getElementById("formVerEditarCiclo").addEventListener("submit", function (e) {
-        e.preventDefault();
-        actualizarCiclo(cicloElement);
-    });
-}
-
-// Función para actualizar los datos del ciclo
-function actualizarCiclo(cicloElement) {
-    const nuevoCodigo = document.getElementById("editCodigoCiclo").value.trim();
-    const nuevoNombre = document.getElementById("editNombreCiclo").value.trim();
-    const nuevaDuracion = document.getElementById("editDuracionCiclo").value.trim();
-    const nuevaDescripcion = document.getElementById("editDescripcionCiclo").value.trim();
-
-    if (!nuevoCodigo || !nuevoNombre || !nuevaDuracion) {
-        alert("Por favor, complete los campos obligatorios.");
-        return;
+            modal.remove();
+            await getCiclos();
+        });
     }
 
-    cicloElement.dataset.codigo = nuevoCodigo;
-    cicloElement.dataset.nombre = nuevoNombre;
-    cicloElement.dataset.duracion = nuevaDuracion;
-    cicloElement.dataset.descripcion = nuevaDescripcion;
-    cicloElement.querySelector("span").textContent = `${nuevoNombre} (${nuevoCodigo})`;
+    function agregarCicloDOM(codigo, nombre, duracion, descripcion, id) {
+        const ciclo = document.createElement("div");
+        ciclo.className = "ciclo";
+        ciclo.dataset.id = id;
+        ciclo.innerHTML = `
+            <span>${nombre} (${codigo})</span>
+            <div class="acciones">
+                <button class="ver">👁️</button>
+                <button class="eliminar">❌</button>
+            </div>
+        `;
 
-    document.getElementById("modalVerEditarCiclo").remove();
+        ciclo.querySelector(".ver").addEventListener("click", () => {
+            crearModalCiclo({ codigo, nombre, duracion, descripcion, idCiclo: id });
+        });
+
+        ciclo.querySelector(".eliminar").addEventListener("click", async () => {
+            await deleteCiclo(id);
+            ciclo.remove();
+        });
+
+        listaCiclos.appendChild(ciclo);
+    }
+
+    async function crearCiclo(ciclo) {
+        try {
+            const response = await fetch("/api/admin/ciclos", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(ciclo),
+                credentials: "include"
+            });
+
+            if (!response.ok) throw new Error("Error al crear el ciclo");
+
+            console.log("Ciclo creado");
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    async function updateCiclo(id, ciclo) {
+        try {
+            const response = await fetch(`/api/admin/ciclos/${id}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(ciclo),
+                credentials: "include"
+            });
+
+            if (!response.ok) throw new Error("Error al actualizar el ciclo");
+
+            console.log(`Ciclo con ID ${id} actualizado`);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    async function deleteCiclo(id) {
+        try {
+            const response = await fetch(`/api/admin/ciclos/${id}`, {
+                method: "DELETE",
+                credentials: "include"
+            });
+
+            if (!response.ok) throw new Error("Error al eliminar ciclo");
+
+            console.log(`Ciclo con ID ${id} eliminado`);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    }
+
+    await getCiclos();
+    obtenerUsuario();
+});
+
+async function obtenerUsuario() {
+    try {
+        const response = await fetch('/api/usuarios/info', { credentials: 'include' });
+        const data = await response.json();
+
+        if (data.authenticated) {
+            document.getElementById("usuarioFooter").innerText = data.nombre;
+        } else {
+            console.log("Usuario no autenticado");
+        }
+    } catch (error) {
+        console.error("Error al obtener usuario:", error);
+    }
 }

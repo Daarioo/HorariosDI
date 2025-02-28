@@ -210,7 +210,7 @@ select {
     font-size: 16px;
 }
 
-button {
+form > button {
     background: green;
     color: white;
     border: none;
@@ -230,9 +230,6 @@ button:hover {
     margin-left: 33%;
     color: #468DAE ;
 }
-
-
-
 
 /*footer*/
 
@@ -278,10 +275,6 @@ footer {
     gap: 10px;
 }
 
-
-
-
-
 @media screen and (max-width: 1000px){
     .logout{
         display: inline;
@@ -303,6 +296,7 @@ footer p{
     cursor: pointer;
     font-size: 16px;
     border-radius: 4px;
+    vertical-align: middle
 }
 
 .btn-editar {
@@ -317,6 +311,13 @@ footer p{
 .btn-eliminar {
     background-color: #DB4437; /* Rojo */
     color: white;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-eliminar > img {
+    width: 20px;
+    margin-right: 5px;
 }
 
 .btn-eliminar:hover {
@@ -326,9 +327,6 @@ footer p{
 #movil{
     display: none;
 }
-
-
-
 
 @media screen and (max-width: 680px) {
     #movil {

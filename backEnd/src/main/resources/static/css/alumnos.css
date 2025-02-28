@@ -185,7 +185,7 @@ select {
     font-size: 16px;
 }
 
-button {
+form > button {
     background: green;
     color: white;
     border: none;
@@ -210,7 +210,7 @@ th, td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
-    min-width: 240px;
+    min-width: 150px;
 }
 
 th {
@@ -295,6 +295,7 @@ footer p{
     cursor: pointer;
     font-size: 16px;
     border-radius: 4px;
+    vertical-align: middle
 }
 
 .btn-editar {
@@ -309,6 +310,13 @@ footer p{
 .btn-eliminar {
     background-color: #DB4437; /* Rojo */
     color: white;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-eliminar > img {
+    width: 20px;
+    margin-right: 5px;
 }
 
 .btn-eliminar:hover {

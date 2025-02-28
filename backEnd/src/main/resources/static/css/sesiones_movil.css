@@ -14,3 +14,11 @@
     height: 300px;
 }
 
+.modal select {
+    width: 100%; /* Que el select respete el ancho del contenedor */
+    max-width: 100%; /* Evitar que se salga */
+    box-sizing: border-box; /* Asegura que el padding no aumente el tamaño */
+    overflow: hidden; /* Prevenir que se salga si el contenido es largo */
+}
+
+

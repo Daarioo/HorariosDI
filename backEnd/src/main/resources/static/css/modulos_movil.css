@@ -2,13 +2,13 @@
  
   /* Estilos de cada alumno */
   .modulo {
-    background-color:#d3d3d3;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    margin-bottom: 10px;
+   display: flex;
+       justify-content: space-between;
+       align-items: center;
+       background: #d3d3d3;
+       padding: 10px;
+       border-radius: 5px;
+       margin-bottom: 10px;
   }
 
   #listaModulos{
