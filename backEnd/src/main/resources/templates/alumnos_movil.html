@@ -12,12 +12,11 @@
 <body>
     <!-- Encabezado -->
     <header>
-        <img src="images/index/logo.png" alt="logo san clemente" class="logoSanClemente">
+        <img src="/images/logo.png" alt="logo san clemente" class="logoSanClemente">
     </header>
 
     <main>
-        <!-- Contenido Principal -->
-        <div class="container">
+
             <!-- Botón de Menú Hamburguesa -->
             <button id="menuToggle" class="menu-toggle">&#9776;</button>
 
@@ -37,14 +36,7 @@
             <!-- Frame de Alumnos -->
             <div id="alumnosFrame" class="frame">
 
-                <div id="toolbar">
-                    <select class="cicloSelect">
-                        <option value="ciclo1">Ciclo 1</option>
-                        <option value="ciclo2">Ciclo 2</option>
-                        <option value="ciclo3">Ciclo 3</option>
-                    </select>
-                    <button id="botonAgregar3" class="botonAgregar">+</button>
-                </div>
+                <button id="botonAgregar3" class="botonAgregar">+</button>
 
                 <div id="listaAlumnos" class="lista">
                     <!-- Los alumnos se agregarán aquí -->
@@ -58,13 +50,17 @@
                 </div>
 
             </div>
-        </div>
+
     </main>
 
 
     <!-- Pie de Página -->
     <footer>
-        <img src="images/index/logoXuntaClaro.png" alt="logoXunta" class="logoXunta">
+        <article class="footer">
+            <div class="xunta">
+                <img src="/images/logoxunta.svg" alt="logoxunta" class="logoxunta">
+            </div>
+        </article>
     </footer>
     <script src="/js/nav.js"></script>
     <script src="/js/alumnos_movil.js"></script>
