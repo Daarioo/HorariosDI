@@ -166,7 +166,7 @@ async function cargarMatriculas() {
                 <td>${matricula.modulo.nombre}</td>
                 <td>
                     <button class="btn-editar" onclick="editarMatricula(${matricula.id})">✏️ Editar</button>
-                    <button class="btn-eliminar" onclick="eliminarMatricula(${matricula.id})">🗑️ Eliminar</button>
+                    <button class="btn-eliminar" onclick="eliminarMatricula(${matricula.id})"><img src="/images/bin.svg"/> Eliminar</button>
                 </td>
             `;
             tbody.appendChild(tr);

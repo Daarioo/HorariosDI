@@ -237,7 +237,7 @@ function agregarFilaModulo(modulo) {
         <td>${modulo.profesor.nombre} ${modulo.profesor.apellidos}</td>
         <td>
             <button class="btn-editar" onclick="editarModulo(${modulo.idModulo})">✏️ Editar</button>
-            <button class="btn-eliminar" onclick="eliminarModulo(${modulo.idModulo})">🗑️ Eliminar</button>
+            <button class="btn-eliminar" onclick="eliminarModulo(${modulo.idModulo})"><img src="/images/bin.svg"/> Eliminar</button>
         </td>
     `;
 

@@ -202,7 +202,7 @@ select {
     font-size: 16px;
 }
 
-button {
+form > button {
     background: green;
     color: white;
     border: none;
@@ -217,6 +217,7 @@ button {
 button:hover {
     background: darkgreen;
 }
+
 table {
     width: 80%;
     margin: 20px auto;
@@ -243,6 +244,7 @@ th {
     cursor: pointer;
     font-size: 16px;
     border-radius: 4px;
+    vertical-align: middle
 }
 
 .btn-editar {
@@ -257,6 +259,13 @@ th {
 .btn-eliminar {
     background-color: #DB4437; /* Rojo */
     color: white;
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-eliminar > img {
+    width: 20px;
+    margin-right: 5px;
 }
 
 .btn-eliminar:hover {

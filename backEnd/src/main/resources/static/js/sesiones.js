@@ -1,6 +1,13 @@
 document.addEventListener("DOMContentLoaded", async function () {
     await cargarModulos();  // Cargar módulos en el select
     await cargarSesiones(); // Cargar sesiones en la tabla
+    const currentPage = window.location.pathname.split("/").pop();
+    const links = document.querySelectorAll("nav a");
+    links.forEach(link => {
+          if (link.getAttribute("href") === currentPage) {
+              link.classList.add("active");
+          }
+      });
     obtenerUsuario();
 });
 
@@ -75,7 +82,7 @@ function agregarFilaSesion(sesion) {
         <td>${sesion.cursoAcademico}</td>
         <td>
             <button class="btn-editar" onclick="editarSesion(${sesion.idSesion})">✏️ Editar</button>
-            <button class="btn-eliminar" onclick="eliminarSesion(${sesion.idSesion})">🗑️ Eliminar</button>
+            <button class="btn-eliminar" onclick="eliminarSesion(${sesion.idSesion})"><img src="/images/bin.svg"/> Eliminar</button>
         </td>
     `;
 

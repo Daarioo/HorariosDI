@@ -85,12 +85,16 @@ function manageCycles() {
 
     function createCycleHTML(code, name, duration, description) {
         return `
-            <h3>${name}</h3>
-            <p><strong>Código:</strong> ${code}</p>
-            <p><strong>Duración:</strong> ${duration}</p>
-            <p><strong>Descripción:</strong> ${description}</p>
-            <button class='edit'>Editar</button>
-            <button class='delete'>Eliminar</button>
+            <div id="dataContainer">
+                <h3>${name}</h3>
+                <p><strong>Código:</strong> ${code}</p>
+                <p><strong>Duración:</strong> ${duration}</p>
+                <p><strong>Descripción:</strong> ${description}</p>
+            </div>
+            <div id="buttonContainer">
+                <button class='edit'>Editar</button>
+                <button class='delete'><img src="/images/bin.svg"/></button>
+            </div>
         `;
     }
 

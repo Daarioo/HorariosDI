@@ -179,7 +179,7 @@ function createTable(json) {
 
         htmlRow += `<td>
                 <button class="btn-editar" onclick="modalEditarProfesor(${profesor.idProfesor})">✏️ Editar</button>
-                <button class="btn-eliminar" onclick="borrarProfesor(${profesor.idProfesor})">🗑️ Eliminar</button>
+                <button class="btn-eliminar" onclick="borrarProfesor(${profesor.idProfesor})"><img src="/images/bin.svg"/> Eliminar</button>
         </td>`
 
         tr.innerHTML = htmlRow;
