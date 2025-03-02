@@ -1,3 +1,7 @@
+let alumnos;
+let pagina = 1;
+const tamanhoPagina = 12;
+
 function mostrarModal() {
     document.getElementById("modal").style.display = "flex";
 }
@@ -167,35 +171,33 @@ async function getAlumnos() {
         }
 
         const usuarios = await response.json();
-        createTable(usuarios.filter((usuario)=> usuario.tipo == "ALUMNO"));
+        alumnos = usuarios.filter((usuario)=> usuario.tipo == "ALUMNO");
+        cargarPágina();
     }
 
-function createTable(json) {
+function agregarFilaAlumno(alumno) {
     let tbody = document.querySelector("#alumnosTable>tbody");
-    tbody.innerHTML = "";
 
-    json.forEach((alumno) => {
-        let tr = document.createElement("tr");
+    let tr = document.createElement("tr");
 
-        htmlRow = ` <td>${alumno.email}</td> <td>${alumno.nombreUsuario}</td>`;
+    htmlRow = ` <td>${alumno.email}</td> <td>${alumno.nombreUsuario}</td>`;
 
-        if(alumno.contraseña == "abc123.."){
-            htmlRow += `<td>No cambiada</td>`;
-        } else {
-            htmlRow += `<td>Cambiada</td>`;
-        }
+    if(alumno.contraseña == "abc123.."){
+        htmlRow += `<td>No cambiada</td>`;
+    } else {
+        htmlRow += `<td>Cambiada</td>`;
+    }
 
-        htmlRow += `
+    htmlRow += `
         <td><a href="matriculasadmin/${alumno.idUsuario}">Ver matriculas</a></td>
         <td>
-                <button class="btn-editar" onclick="modalEditarAlumno(${alumno.idUsuario})">✏️ Editar</button>
-                <button class="btn-eliminar" onclick="borrarAlumno(${alumno.idUsuario})"><img src="/images/bin.svg"/> Eliminar</button>
-        </td>`
+            <button class="btn-editar" onclick="modalEditarAlumno(${alumno.idUsuario})">✏️ Editar</button>
+            <button class="btn-eliminar" onclick="borrarAlumno(${alumno.idUsuario})"><img src="/images/bin.svg"/> Eliminar</button>
+        </td>`;
 
-        tr.innerHTML = htmlRow;
+    tr.innerHTML = htmlRow;
 
-        tbody.appendChild(tr);
-    });
+    tbody.appendChild(tr);
 }
 
 async function obtenerUsuario() {
@@ -216,4 +218,55 @@ async function obtenerUsuario() {
     } catch (error) {
         console.error("Error al obtener usuario:", error);
     }
+}
+
+function cargarPágina(){
+    const alumnosTabla = document.querySelector("#alumnosTable tbody");
+    alumnosTabla.innerHTML = "";
+    for(let i = tamanhoPagina * (pagina - 1); i < tamanhoPagina * (pagina - 1) + tamanhoPagina; i++){
+        if(i < alumnos.length){
+            agregarFilaAlumno(alumnos[i]);
+        }
+    }
+    const pagesContainer = document.querySelector("#pagesContainer");
+    let paginasTotales = Math.ceil(alumnos.length / tamanhoPagina);
+    pagesContainer.innerHTML = "";
+
+    if(pagina > 4){
+        pagesContainer.innerHTML += `
+            <button onclick="cambiarPagina(1)">1</button>
+            <span>...</span>
+            <button onclick="cambiarPagina(${pagina - 2})">${pagina - 2}</button>
+            <button onclick="cambiarPagina(${pagina - 1})">${pagina - 1}</button>
+            <button id="activeBtn">${pagina}</button>
+        `;
+    } else {
+        for(let i=1; i <= pagina; i++){
+            if(i == pagina){
+                pagesContainer.innerHTML += `<button id="activeBtn">${i}</button>`;
+            } else {
+                pagesContainer.innerHTML += `<button onclick="cambiarPagina(${i})">${i}</button>`;
+            }
+        }
+    }
+
+    let cond = paginasTotales - pagina;
+
+    if(cond > 2){
+        pagesContainer.innerHTML += `
+            <button onclick="cambiarPagina(${pagina + 1})">${pagina + 1}</button>
+            <button onclick="cambiarPagina(${pagina + 2})">${pagina + 2}</button>
+            <span>...</span>
+            <button onclick="cambiarPagina(${paginasTotales})">${paginasTotales}</button>
+        `;
+    } else {
+        for(let i=pagina + 1; i<=paginasTotales; i++){
+            pagesContainer.innerHTML += `<button onclick="cambiarPagina(${i})">${i}</button>`;
+        }
+    }
+}
+
+function cambiarPagina(numero){
+    pagina = numero;
+    cargarPágina();
 }

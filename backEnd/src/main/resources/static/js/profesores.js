@@ -1,3 +1,7 @@
+let profesores;
+let pagina = 1;
+const tamanhoPagina = 12;
+
 function mostrarModal() {
     document.getElementById("modal").style.display = "flex";
 }
@@ -139,13 +143,10 @@ async function borrarProfesor(id) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  // Obtener la URL actual
   const currentPage = window.location.pathname.split("/").pop();
 
-  // Seleccionar todos los enlaces del nav
   const links = document.querySelectorAll("nav a");
 
-  // Recorrer los enlaces y marcar el activo
   links.forEach(link => {
       if (link.getAttribute("href") === currentPage) {
           link.classList.add("active");
@@ -159,46 +160,28 @@ document.addEventListener("DOMContentLoaded", function () {
 async function getProfesores() {
     const response = await fetch("/api/admin/profesores", { credentials: "include" });
 
-        if (!response.ok) {
-             throw new Error("Error al obtener los profesores");
-        }
-
-        const profesores = await response.json();
-        createTable(profesores);
-}
-
-function createTable(json) {
-    let tbody = document.querySelector("#profesoresTable>tbody");
-    tbody.innerHTML = "";
-    // let modulos = getModulos(id);
-
-    json.forEach((profesor) => {
-        let tr = document.createElement("tr");
-
-        htmlRow = ` <td>${profesor.nombre} ${profesor.apellidos}</td> <td>${profesor.email}</td>`;
-
-        htmlRow += `<td>
-                <button class="btn-editar" onclick="modalEditarProfesor(${profesor.idProfesor})">✏️ Editar</button>
-                <button class="btn-eliminar" onclick="borrarProfesor(${profesor.idProfesor})"><img src="/images/bin.svg"/> Eliminar</button>
-        </td>`
-
-        tr.innerHTML = htmlRow;
-
-        tbody.appendChild(tr);
-    });
-}
-
-/*
-async function getModulos(id){
-    const response = await fetch("/api/admin/modulos", { credentials: "include" });
-
     if (!response.ok) {
          throw new Error("Error al obtener los profesores");
     }
 
-    const modulos = await response.json();
-    return modulos.filter((modulo)=>modulo.idProfesor == id);
-}*/
+    profesores = await response.json();
+    cargarPágina();
+}
+
+function agregarFilaProfesor(profesor) {
+    let tbody = document.querySelector("#profesoresTable tbody");
+    let tr = document.createElement("tr");
+
+    htmlRow = ` <td>${profesor.nombre} ${profesor.apellidos}</td> <td>${profesor.email}</td>`;
+
+    htmlRow += `<td>
+            <button class="btn-editar" onclick="modalEditarProfesor(${profesor.idProfesor})">✏️ Editar</button>
+            <button class="btn-eliminar" onclick="borrarProfesor(${profesor.idProfesor})"><img src="/images/bin.svg"/> Eliminar</button>
+    </td>`
+
+    tr.innerHTML = htmlRow;
+    tbody.appendChild(tr);
+}
 
 async function obtenerUsuario() {
     try {
@@ -218,4 +201,55 @@ async function obtenerUsuario() {
     } catch (error) {
         console.error("Error al obtener usuario:", error);
     }
+}
+
+function cargarPágina(){
+    const profesoresTabla = document.querySelector("#profesoresTable tbody");
+    profesoresTabla.innerHTML = "";
+    for(let i = tamanhoPagina * (pagina - 1); i < tamanhoPagina * (pagina - 1) + tamanhoPagina; i++){
+        if(i < profesores.length){
+            agregarFilaProfesor(profesores[i]);
+        }
+    }
+    const pagesContainer = document.querySelector("#pagesContainer");
+    let paginasTotales = Math.ceil(profesores.length / tamanhoPagina);
+    pagesContainer.innerHTML = "";
+
+    if(pagina > 4){
+        pagesContainer.innerHTML += `
+            <button onclick="cambiarPagina(1)">1</button>
+            <span>...</span>
+            <button onclick="cambiarPagina(${pagina - 2})">${pagina - 2}</button>
+            <button onclick="cambiarPagina(${pagina - 1})">${pagina - 1}</button>
+            <button id="activeBtn">${pagina}</button>
+        `;
+    } else {
+        for(let i=1; i <= pagina; i++){
+            if(i == pagina){
+                pagesContainer.innerHTML += `<button id="activeBtn">${i}</button>`;
+            } else {
+                pagesContainer.innerHTML += `<button onclick="cambiarPagina(${i})">${i}</button>`;
+            }
+        }
+    }
+
+    let cond = paginasTotales - pagina;
+
+    if(cond > 2){
+        pagesContainer.innerHTML += `
+            <button onclick="cambiarPagina(${pagina + 1})">${pagina + 1}</button>
+            <button onclick="cambiarPagina(${pagina + 2})">${pagina + 2}</button>
+            <span>...</span>
+            <button onclick="cambiarPagina(${paginasTotales})">${paginasTotales}</button>
+        `;
+    } else {
+        for(let i=pagina + 1; i<=paginasTotales; i++){
+            pagesContainer.innerHTML += `<button onclick="cambiarPagina(${i})">${i}</button>`;
+        }
+    }
+}
+
+function cambiarPagina(numero){
+    pagina = numero;
+    cargarPágina();
 }
