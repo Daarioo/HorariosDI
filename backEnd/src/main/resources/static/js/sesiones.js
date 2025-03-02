@@ -218,7 +218,9 @@ function cargarPágina(){
     const sesionesTabla = document.querySelector("#sesionesTabla");
     sesionesTabla.innerHTML = "";
     for(let i = tamanhoPagina * (pagina - 1); i < tamanhoPagina * (pagina - 1) + tamanhoPagina; i++){
-        agregarFilaSesion(sesiones[i]);
+        if(i < sesiones.length){
+            agregarFilaSesion(sesiones[i]);
+        }
     }
     const pagesContainer = document.querySelector("#pagesContainer");
     let paginasTotales = Math.ceil(sesiones.length / tamanhoPagina);

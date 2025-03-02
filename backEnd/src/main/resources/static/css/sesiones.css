@@ -371,11 +371,12 @@ footer p{
             color: white;
             font-weight: bold;
             cursor: pointer;
-            padding: 4px 9.2px;
         }
     }
 
     #activeBtn{
+        border: 2px solid #468DAE;
         font-weight: bold;
+        transform: scale(1.15);
     }
 }

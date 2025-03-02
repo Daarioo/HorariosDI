@@ -346,3 +346,35 @@ footer p{
         display: none;
     }
 }
+
+#pagesContainer{
+    display: flex;
+    margin: auto;
+    margin-bottom: 20px;
+    width: 30%;
+    gap: 10px;
+    justify-content: center;
+
+    & button{
+        font-size: 18px;
+        border: 1px solid #468DAE;
+        border-radius: 5px;
+        background-color: white;
+        color: #468DAE;
+        padding: 4px 10px;
+        text-align: center;
+
+        &:hover{
+            background-color: #468DAE;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    }
+
+    #activeBtn{
+        border: 2px solid #468DAE;
+        font-weight: bold;
+        transform: scale(1.15);
+    }
+}
