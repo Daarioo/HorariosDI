@@ -1,3 +1,7 @@
+let sesiones;
+let pagina = 1;
+const tamanhoPagina = 12;
+
 document.addEventListener("DOMContentLoaded", async function () {
     await cargarModulos();  // Cargar módulos en el select
     await cargarSesiones(); // Cargar sesiones en la tabla
@@ -56,18 +60,16 @@ async function cargarSesiones() {
         const response = await fetch("/api/admin/sesiones", { credentials: "include" });
         if (!response.ok) throw new Error("Error al obtener las sesiones");
 
-        const sesiones = await response.json();
+        sesiones = await response.json();
         let tbody = document.querySelector("#sesionesTabla");
-        tbody.innerHTML = ""; // Limpiar tabla antes de llenarla
-
-        sesiones.forEach(sesion => agregarFilaSesion(sesion));
+        tbody.innerHTML = "";
+        cargarPágina();
     } catch (error) {
         console.error(error);
         alert("Error al cargar las sesiones.");
     }
 }
 
-// Función para agregar una fila de sesión a la tabla
 function agregarFilaSesion(sesion) {
     let tbody = document.querySelector("#sesionesTabla");
     let tr = document.createElement("tr");
@@ -210,4 +212,53 @@ async function obtenerUsuario() {
     } catch (error) {
         console.error("Error al obtener usuario:", error);
     }
+}
+
+function cargarPágina(){
+    const sesionesTabla = document.querySelector("#sesionesTabla");
+    sesionesTabla.innerHTML = "";
+    for(let i = tamanhoPagina * (pagina - 1); i < tamanhoPagina * (pagina - 1) + tamanhoPagina; i++){
+        agregarFilaSesion(sesiones[i]);
+    }
+    const pagesContainer = document.querySelector("#pagesContainer");
+    let paginasTotales = Math.ceil(sesiones.length / tamanhoPagina);
+    pagesContainer.innerHTML = "";
+
+    if(pagina > 4){
+        pagesContainer.innerHTML += `
+            <button onclick="cambiarPagina(1)">1</button>
+            <span>...</span>
+            <button onclick="cambiarPagina(${pagina - 2})">${pagina - 2}</button>
+            <button onclick="cambiarPagina(${pagina - 1})">${pagina - 1}</button>
+            <button id="activeBtn">${pagina}</button>
+        `;
+    } else {
+        for(let i=1; i <= pagina; i++){
+            if(i == pagina){
+                pagesContainer.innerHTML += `<button id="activeBtn">${i}</button>`;
+            } else {
+                pagesContainer.innerHTML += `<button onclick="cambiarPagina(${i})">${i}</button>`;
+            }
+        }
+    }
+
+    let cond = paginasTotales - pagina;
+
+    if(cond > 2){
+        pagesContainer.innerHTML += `
+            <button onclick="cambiarPagina(${pagina + 1})">${pagina + 1}</button>
+            <button onclick="cambiarPagina(${pagina + 2})">${pagina + 2}</button>
+            <span>...</span>
+            <button onclick="cambiarPagina(${paginasTotales})">${paginasTotales}</button>
+        `;
+    } else {
+        for(let i=pagina + 1; i<=paginasTotales; i++){
+            pagesContainer.innerHTML += `<button onclick="cambiarPagina(${i})">${i}</button>`;
+        }
+    }
+}
+
+function cambiarPagina(numero){
+    pagina = numero;
+    cargarPágina();
 }

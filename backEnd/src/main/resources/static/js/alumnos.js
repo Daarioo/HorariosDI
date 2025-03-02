@@ -185,8 +185,6 @@ function createTable(json) {
             htmlRow += `<td>Cambiada</td>`;
         }
 
-        console.log(alumno);
-
         htmlRow += `
         <td><a href="matriculasadmin/${alumno.idUsuario}">Ver matriculas</a></td>
         <td>
