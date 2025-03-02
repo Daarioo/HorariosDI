@@ -1,113 +1,104 @@
+document.addEventListener("DOMContentLoaded", async function () {
+    await cargarCiclos();
+    await cargarProfesores();
+    await cargarModulos();
+});
+
 const btnAgregar = document.getElementById("botonAgregar1");
 const lista = document.getElementById("listaModulos");
 
-// Función para crear el modal de ingreso de datos
-function crearModalModulo() {
-    const modal = document.createElement("div");
-    modal.id = "modalModulo";
-    modal.className = "modal";
-    modal.innerHTML = `
-        <div class="modal-contenido">
-            <h3>Nuevo Módulo</h3>
-            <form id="formModulo">
-                <input type="text" id="codigoModulo" placeholder="Código" required>
-                <input type="text" id="nombreModulo" placeholder="Nombre módulo" required>
-                <input type="number" id="horasSem" placeholder="Horas semanales">
-                <input type="number" id="horasTot" placeholder="Horas totales">
-                <div class="modal-botones">
-                    <button type="button" class="cancelar">Cancelar</button>
-                    <button type="submit">Agregar</button>
-                </div>
-            </form>
-        </div>
-    `;
-    document.body.appendChild(modal);
-
-    document.getElementById("formModulo").addEventListener("submit", function (e) {
-        e.preventDefault();
-        agregarModulo();
-    });
-
-    document.querySelector(".cancelar").addEventListener("click", function () {
-        modal.remove();
-    });
-}
-
-// Evento para abrir el modal al hacer clic en "Agregar"
+// Mostrar Modal
 btnAgregar.addEventListener("click", function () {
-    if (!document.getElementById("modalModulo")) {
-        crearModalModulo();
-    }
-    document.getElementById("modalModulo").style.display = "flex";
+    crearModalModulo();
 });
 
-// Función para agregar un módulo a la lista
-function agregarModulo() {
-    const codigo = document.getElementById("codigoModulo").value.trim();
-    const nombre = document.getElementById("nombreModulo").value.trim();
-    const familia = document.getElementById("familiaModulo").value.trim();
+async function cargarCiclos() {
+    try {
+        const response = await fetch("/api/admin/ciclos", { credentials: "include" });
+        if (!response.ok) throw new Error("Error al obtener los ciclos");
 
-    if (!codigo || !nombre) {
-        alert("Por favor, complete los campos obligatorios.");
-        return;
+        const ciclos = await response.json();
+        window.ciclos = ciclos;
+    } catch (error) {
+        console.error(error);
+        alert("No se pudieron cargar los ciclos.");
     }
+}
 
-    const nuevoModulo = document.createElement("div");
-    nuevoModulo.classList.add("modulo");
-    nuevoModulo.dataset.codigo = codigo;
-    nuevoModulo.dataset.nombre = nombre;
-    nuevoModulo.dataset.familia = familia;
+async function cargarProfesores() {
+    try {
+        const response = await fetch("/api/admin/profesores", { credentials: "include" });
+        if (!response.ok) throw new Error("Error al obtener los profesores");
 
-    nuevoModulo.innerHTML = `
-        <span>${nombre} (${codigo})</span>
+        const profesores = await response.json();
+        window.profesores = profesores;
+    } catch (error) {
+        console.error(error);
+        alert("No se pudieron cargar los profesores.");
+    }
+}
+
+async function cargarModulos() {
+    try {
+        const response = await fetch("/api/admin/modulos", { credentials: "include" });
+        if (!response.ok) throw new Error("Error al obtener los módulos");
+
+        const modulos = await response.json();
+        lista.innerHTML = "";
+
+        modulos.forEach(modulo => {
+            agregarModuloLista(modulo);
+        });
+    } catch (error) {
+        console.error(error);
+        alert("No se pudieron cargar los módulos.");
+    }
+}
+
+function agregarModuloLista(modulo) {
+    const div = document.createElement("div");
+    div.className = "modulo";
+    div.dataset.id = modulo.idModulo;
+    div.dataset.nombre = modulo.nombre;
+    div.dataset.codigo = modulo.codigo;
+    div.dataset.horasSemana = modulo.horasSemana;
+    div.dataset.horasTotales = modulo.horasTotales;
+    div.dataset.idCiclo = modulo.ciclo?.idCiclo;  // Añadir
+    div.dataset.idProfesor = modulo.profesor?.idProfesor;  // Añadir
+
+    div.innerHTML = `
+        <span>${modulo.nombre} (${modulo.codigo})</span>
         <div class="acciones">
             <button class="ver">👁️</button>
             <button class="eliminar">❌</button>
         </div>
     `;
 
-    lista.appendChild(nuevoModulo);
-    document.getElementById("modalModulo").remove();
+    lista.appendChild(div);
 }
 
-// Evento para manejar la eliminación y edición de módulos
-lista.addEventListener("click", function (event) {
-    if (event.target.classList.contains("eliminar")) {
-        event.target.closest(".modulo").remove();
-    }
 
-    if (event.target.classList.contains("ver")) {
-        const moduloElement = event.target.closest(".modulo");
-        if (moduloElement) {
-            crearModalVerEditarModulo(moduloElement);
-        }
-    }
-});
-
-// Función para crear la ventana emergente (modal) de ver y editar módulo
-function crearModalVerEditarModulo(moduloElement) {
+function crearModalModulo(modulo = {}) {
     const modal = document.createElement("div");
     modal.className = "modal";
-    modal.id = "modalVerEditarModulo";
-
-    // Recuperar los datos existentes
-    const codigo = moduloElement.dataset.codigo || "";
-    const nombre = moduloElement.dataset.nombre || "";
-    const familia = moduloElement.dataset.familia || "";
-
     modal.innerHTML = `
         <div class="modal-contenido">
-            <h3>Editar Datos del Módulo</h3>
-            <form id="formVerEditarModulo">
-                <label>Código</label>
-                <input type="text" id="editCodigoModulo" value="${codigo}" required>
-                <label>Nombre</label>
-                <input type="text" id="editNombreModulo" value="${nombre}" required>
-                <label>Familia Profesional</label>
-                <input type="text" id="editFamiliaModulo" value="${familia}">
+            <h3>${modulo.idModulo ? "Editar Módulo" : "Nuevo Módulo"}</h3>
+            <form id="formModulo">
+                <input type="hidden" id="idModulo" value="${modulo.idModulo || ''}">
+                <input type="text" id="nombreModulo" placeholder="Nombre módulo" value="${modulo.nombre || ''}" required>
+                <input type="text" id="codigoModulo" placeholder="Código" value="${modulo.codigo || ''}" required>
+                <input type="number" id="horasSemana" placeholder="Horas por semana" value="${modulo.horasSemana || ''}" required>
+                <input type="number" id="horasTotales" placeholder="Horas totales" value="${modulo.horasTotales || ''}" required>
+                <select id="cicloModulo">
+                    ${window.ciclos.map(c => `<option value="${c.idCiclo}" ${modulo.ciclo?.idCiclo === c.idCiclo ? "selected" : ""}>${c.nombre}</option>`).join('')}
+                </select>
+                <select id="profesorModulo">
+                    ${window.profesores.map(p => `<option value="${p.idProfesor}" ${modulo.profesor?.idProfesor === p.idProfesor ? "selected" : ""}>${p.nombre} ${p.apellidos}</option>`).join('')}
+                </select>
                 <div class="modal-botones">
                     <button type="button" class="cancelar">Cancelar</button>
-                    <button type="submit">Guardar cambios</button>
+                    <button type="submit">${modulo.idModulo ? "Guardar" : "Agregar"}</button>
                 </div>
             </form>
         </div>
@@ -116,31 +107,104 @@ function crearModalVerEditarModulo(moduloElement) {
     document.body.appendChild(modal);
     modal.style.display = "flex";
 
-    document.querySelector(".cancelar").addEventListener("click", function () {
-        modal.remove();
-    });
+    modal.querySelector(".cancelar").onclick = () => modal.remove();
 
-    document.getElementById("formVerEditarModulo").addEventListener("submit", function (e) {
+    modal.querySelector("#formModulo").onsubmit = (e) => {
         e.preventDefault();
-        actualizarModulo(moduloElement);
-    });
+        guardarModulo(modulo.idModulo);
+    };
 }
 
-// Función para actualizar los datos del módulo
-function actualizarModulo(moduloElement) {
-    const nuevoCodigo = document.getElementById("editCodigoModulo").value.trim();
-    const nuevoNombre = document.getElementById("editNombreModulo").value.trim();
-    const nuevaFamilia = document.getElementById("editFamiliaModulo").value.trim();
+async function guardarModulo(idModulo) {
+    const nombre = document.getElementById("nombreModulo").value.trim();
+    const codigo = document.getElementById("codigoModulo").value.trim();
+    const horasSemana = document.getElementById("horasSemana").value.trim();
+    const horasTotales = document.getElementById("horasTotales").value.trim();
+    const cicloId = document.getElementById("cicloModulo").value;
+    const profesorId = document.getElementById("profesorModulo").value;
 
-    if (!nuevoCodigo || !nuevoNombre) {
-        alert("Por favor, complete los campos obligatorios.");
+    if (!nombre || !codigo || !horasSemana || !horasTotales || !cicloId || !profesorId) {
+        alert("Todos los campos son obligatorios");
         return;
     }
 
-    moduloElement.dataset.codigo = nuevoCodigo;
-    moduloElement.dataset.nombre = nuevoNombre;
-    moduloElement.dataset.familia = nuevaFamilia;
-    moduloElement.querySelector("span").textContent = `${nuevoNombre} (${nuevoCodigo})`;
+    // Ahora comprobamos que las horas sean realmente números válidos
+    if (isNaN(horasSemana) || isNaN(horasTotales) || horasSemana <= 0 || horasTotales <= 0) {
+        alert("Las horas deben ser números mayores que 0");
+        return;
+    }
 
-    document.getElementById("modalVerEditarModulo").remove();
+    const modulo = {
+        nombre,
+        codigo,
+        horasSemana: parseInt(horasSemana),  // Convertimos SOLO si son válidos
+        horasTotales: parseInt(horasTotales),
+        ciclo: { idCiclo: parseInt(cicloId) },
+        profesor: { idProfesor: parseInt(profesorId) }
+    };
+
+    try {
+        const url = idModulo ? `/api/admin/modulos/${idModulo}` : "/api/admin/modulos";
+        const method = idModulo ? "PUT" : "POST";
+
+        const response = await fetch(url, {
+            method,
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify(modulo)
+        });
+
+        if (!response.ok) throw new Error("Error al guardar el módulo");
+
+        alert(idModulo ? "Módulo actualizado" : "Módulo agregado");
+        document.querySelector(".modal").remove();
+        cargarModulos();
+    } catch (error) {
+        console.error(error);
+        alert("No se pudo guardar el módulo");
+    }
+}
+
+lista.addEventListener("click", function (e) {
+    const moduloElement = e.target.closest(".modulo");
+    if (e.target.classList.contains("ver")) {
+        const modulo = {
+            idModulo: moduloElement.dataset.id,
+            nombre: moduloElement.dataset.nombre,
+            codigo: moduloElement.dataset.codigo,
+            horasSemana: parseInt(moduloElement.dataset.horasSemana), // Ahora sí
+            horasTotales: parseInt(moduloElement.dataset.horasTotales), // Ahora sí
+            ciclo: {
+                idCiclo: moduloElement.dataset.idCiclo
+            },
+            profesor: {
+                idProfesor: moduloElement.dataset.idProfesor
+            }
+        };
+        crearModalModulo(modulo);
+    }
+
+    if (e.target.classList.contains("eliminar")) {
+        const id = moduloElement.dataset.id;
+        eliminarModulo(id);
+    }
+});
+
+async function eliminarModulo(id) {
+    if (!confirm("¿Seguro que deseas eliminar este módulo?")) return;
+
+    try {
+        const response = await fetch(`/api/admin/modulos/${id}`, {
+            method: "DELETE",
+            credentials: "include"
+        });
+
+        if (!response.ok) throw new Error("Error al eliminar el módulo");
+
+        alert("Módulo eliminado");
+        cargarModulos();
+    } catch (error) {
+        console.error(error);
+        alert("No se pudo eliminar el módulo");
+    }
 }
