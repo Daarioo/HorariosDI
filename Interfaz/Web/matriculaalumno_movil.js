@@ -10,19 +10,19 @@ function crearModalModulo() {
         <div class="modal-contenido">
             <h3>Nuevo Módulo</h3>
             <form id="formModulo">
-                <h4>Numero de Matricula:</h4>
-                <input type="text" id="numeroMatricula"  required>
+                <h4>Número de Matrícula:</h4>
+                <input type="text" id="numeroMatricula" required>
                 <h4>Ciclo:</h4>
                 <select id="selectCiclo" required>
-                <option value="C1">DAM</option>
-                <option value="C2">DAW</option>
-                <option value="C3">ASIR</option>
+                    <option value="DAM">DAM</option>
+                    <option value="DAW">DAW</option>
+                    <option value="ASIR">ASIR</option>
                 </select>
-                <h4>Modulo:</h4>
+                <h4>Módulo:</h4>
                 <select id="selectModulo" required>
-                <option value="M1">Programación</option>
-                <option value="M2">Bases de Datos</option>
-                <option value="M3">Lenguaje de Marcas</option>
+                    <option value="Programación">Programación</option>
+                    <option value="Bases de Datos">Bases de Datos</option>
+                    <option value="Lenguaje de Marcas">Lenguaje de Marcas</option>
                 </select>
                 <div class="modal-botones">
                     <button type="button" class="cancelar">Cancelar</button>
@@ -53,23 +53,23 @@ btnAgregar.addEventListener("click", function () {
 
 // Función para agregar un módulo a la lista
 function agregarModulo() {
-    const codigo = document.getElementById("codigoModulo").value.trim();
-    const nombre = document.getElementById("nombreModulo").value.trim();
-    const familia = document.getElementById("familiaModulo").value.trim();
+    const matricula = document.getElementById("numeroMatricula").value.trim();
+    const ciclo = document.getElementById("selectCiclo").value;
+    const modulo = document.getElementById("selectModulo").value;
 
-    if (!codigo || !nombre) {
-        alert("Por favor, complete los campos obligatorios.");
+    if (!matricula) {
+        alert("Por favor, introduzca el número de matrícula.");
         return;
     }
 
     const nuevoModulo = document.createElement("div");
     nuevoModulo.classList.add("modulo");
-    nuevoModulo.dataset.codigo = codigo;
-    nuevoModulo.dataset.nombre = nombre;
-    nuevoModulo.dataset.familia = familia;
+    nuevoModulo.dataset.matricula = matricula;
+    nuevoModulo.dataset.ciclo = ciclo;
+    nuevoModulo.dataset.modulo = modulo;
 
     nuevoModulo.innerHTML = `
-        <span>${nombre} (${codigo})</span>
+        <span>${modulo} - ${ciclo} (Matrícula: ${matricula})</span>
         <div class="acciones">
             <button class="ver">👁️</button>
             <button class="eliminar">❌</button>
@@ -80,7 +80,7 @@ function agregarModulo() {
     document.getElementById("modalModulo").remove();
 }
 
-// Evento para manejar la eliminación y edición de módulos
+// Evento para manejar eliminación y edición de módulos
 lista.addEventListener("click", function (event) {
     if (event.target.classList.contains("eliminar")) {
         event.target.closest(".modulo").remove();
@@ -94,27 +94,37 @@ lista.addEventListener("click", function (event) {
     }
 });
 
-// Función para crear la ventana emergente (modal) de ver y editar módulo
+// Función para crear la ventana de edición/ver módulo
 function crearModalVerEditarModulo(moduloElement) {
     const modal = document.createElement("div");
     modal.className = "modal";
     modal.id = "modalVerEditarModulo";
 
-    // Recuperar los datos existentes
-    const codigo = moduloElement.dataset.codigo || "";
-    const nombre = moduloElement.dataset.nombre || "";
-    const familia = moduloElement.dataset.familia || "";
+    const matricula = moduloElement.dataset.matricula || "";
+    const ciclo = moduloElement.dataset.ciclo || "DAM";
+    const modulo = moduloElement.dataset.modulo || "Programación";
 
     modal.innerHTML = `
         <div class="modal-contenido">
             <h3>Editar Datos del Módulo</h3>
             <form id="formVerEditarModulo">
-                <label>Código</label>
-                <input type="text" id="editCodigoModulo" value="${codigo}" required>
-                <label>Nombre</label>
-                <input type="text" id="editNombreModulo" value="${nombre}" required>
-                <label>Familia Profesional</label>
-                <input type="text" id="editFamiliaModulo" value="${familia}">
+                <label>Número de Matrícula</label>
+                <input type="text" id="editNumeroMatricula" value="${matricula}" required>
+
+                <label>Ciclo</label>
+                <select id="editSelectCiclo">
+                    <option value="DAM" ${ciclo === "DAM" ? "selected" : ""}>DAM</option>
+                    <option value="DAW" ${ciclo === "DAW" ? "selected" : ""}>DAW</option>
+                    <option value="ASIR" ${ciclo === "ASIR" ? "selected" : ""}>ASIR</option>
+                </select>
+
+                <label>Módulo</label>
+                <select id="editSelectModulo">
+                    <option value="Programación" ${modulo === "Programación" ? "selected" : ""}>Programación</option>
+                    <option value="Bases de Datos" ${modulo === "Bases de Datos" ? "selected" : ""}>Bases de Datos</option>
+                    <option value="Lenguaje de Marcas" ${modulo === "Lenguaje de Marcas" ? "selected" : ""}>Lenguaje de Marcas</option>
+                </select>
+
                 <div class="modal-botones">
                     <button type="button" class="cancelar">Cancelar</button>
                     <button type="submit">Guardar cambios</button>
@@ -136,21 +146,22 @@ function crearModalVerEditarModulo(moduloElement) {
     });
 }
 
-// Función para actualizar los datos del módulo
+// Función para actualizar datos
 function actualizarModulo(moduloElement) {
-    const nuevoCodigo = document.getElementById("editCodigoModulo").value.trim();
-    const nuevoNombre = document.getElementById("editNombreModulo").value.trim();
-    const nuevaFamilia = document.getElementById("editFamiliaModulo").value.trim();
+    const nuevaMatricula = document.getElementById("editNumeroMatricula").value.trim();
+    const nuevoCiclo = document.getElementById("editSelectCiclo").value;
+    const nuevoModulo = document.getElementById("editSelectModulo").value;
 
-    if (!nuevoCodigo || !nuevoNombre) {
-        alert("Por favor, complete los campos obligatorios.");
+    if (!nuevaMatricula) {
+        alert("Por favor, introduzca el número de matrícula.");
         return;
     }
 
-    moduloElement.dataset.codigo = nuevoCodigo;
-    moduloElement.dataset.nombre = nuevoNombre;
-    moduloElement.dataset.familia = nuevaFamilia;
-    moduloElement.querySelector("span").textContent = `${nuevoNombre} (${nuevoCodigo})`;
+    moduloElement.dataset.matricula = nuevaMatricula;
+    moduloElement.dataset.ciclo = nuevoCiclo;
+    moduloElement.dataset.modulo = nuevoModulo;
+
+    moduloElement.querySelector("span").textContent = `${nuevoModulo} - ${nuevoCiclo} (Matrícula: ${nuevaMatricula})`;
 
     document.getElementById("modalVerEditarModulo").remove();
 }

@@ -6,11 +6,13 @@
         <title>IES SAN CLEMENTE</title>
         <link rel="stylesheet" href="/css/nav.css">
         <link rel="stylesheet" href="/css/matriculaalumno_movil.css">
+        <script src="/js/nav.js" defer></script>
+        <script src="/js/matriculaalumno_movil.js" defer></script>
     </head>
     <body>
         <!-- Encabezado -->
         <header>
-            <img src="images/index/logo.png" alt="logo san clemente" class="logoSanClemente">
+            <img src="./img/logo.png" alt="logo san clemente" class="logoSanClemente">
         </header>
         <main>
              <!-- Contenido Principal -->
@@ -24,7 +26,7 @@
                         <li><button>Current User</button></li>
                         <li><button id="ciclosBtn" >Ciclos</button></li>
                         <li><button id="modulosBtn" >Módulos</button></li>
-                        <li><button id="horariosBtn" >Horarios</button></li>
+                        <li><button id="horariosBtn" >Sesiones</button></li>
                         <li><button id="alumnosBtn" >Alumnos</button></li>
                         <li><button id="profesoresBtn" >Profesores</button></li>
                     </ul>
@@ -32,18 +34,18 @@
                 </nav>
             
                 <!-- Frame de Módulos -->
-            <div id="modulosFrame" class="frame">
                 <div id="toolbar">
                     <select class="cicloSelect">
-                    <option value="ciclo1">Ciclo 1</option>
-                    <option value="ciclo2">Ciclo 2</option>
-                    <option value="ciclo3">Ciclo 3</option>
+                    <option value="ciclo1">DAM</option>
+                    <option value="ciclo2">DAW</option>
+                    <option value="ciclo3">ASIR</option>
                     </select>
-                    <button id="botonAgregar1" class="botonAgregar">+</button>
+                    <button id="botonAgregar1" class="botonAgregar">Agregar</button>
                 </div>
 
 
                 <div id="listaModulos" class="lista">
+                    <h2>Lista de Módulos</h2>
                     <!-- Los modulos se agregarán aquí -->
                     <div class="modulo">
                     <span>Modulo 1</span>
@@ -57,10 +59,8 @@
         </main>
         <!-- Pie de Página -->
         <footer>
-            <img src="images/index/logoXuntaClaro.png" alt="logoXunta" class="logoXunta">
+            <img src="./img/logoxunta.svg" alt="logoXunta" class="logoXunta">
         </footer>
-        <script src="/js/nav.js"></script>
-        <script src="/js/matriculaalumno_movil.js"></script>
     </body>
 </html>
     
