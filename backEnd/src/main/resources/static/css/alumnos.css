@@ -175,7 +175,7 @@ select {
 
 .btnadd {
     display: block;
-    margin: 10px auto;
+    margin: 20px auto;
     padding: 10px;
     background: green;
     color: white;
@@ -202,15 +202,16 @@ button:hover {
 }
 
 table {
-    border-collapse: collapse;
+    width: 80%;
     margin: 20px auto;
+    border-collapse: collapse;
+    background: white;
 }
 
 th, td {
     border: 1px solid #ddd;
     padding: 10px;
     text-align: center;
-    min-width: 150px;
 }
 
 th {
@@ -397,4 +398,11 @@ footer p{
         font-weight: bold;
         transform: scale(1.15);
     }
+}
+
+#filtro{
+    width: 20%;
+    min-width: 220px;
+    margin-left: 10%;
+    border: 2px solid #468DAE;
 }

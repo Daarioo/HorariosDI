@@ -1,4 +1,5 @@
 let profesores;
+let profesoresFiltrados;
 let pagina = 1;
 const tamanhoPagina = 12;
 
@@ -144,8 +145,9 @@ async function borrarProfesor(id) {
 
 document.addEventListener("DOMContentLoaded", function () {
   const currentPage = window.location.pathname.split("/").pop();
-
   const links = document.querySelectorAll("nav a");
+  const filtro = document.getElementById("filtro");
+  filtro.addEventListener("input", filtrarProfesores);
 
   links.forEach(link => {
       if (link.getAttribute("href") === currentPage) {
@@ -249,7 +251,70 @@ function cargarPágina(){
     }
 }
 
+function cargarPáginaFiltrada(){
+    const profesoresTabla = document.querySelector("#profesoresTable tbody");
+    profesoresTabla.innerHTML = "";
+    for(let i = tamanhoPagina * (pagina - 1); i < tamanhoPagina * (pagina - 1) + tamanhoPagina; i++){
+        if(i < profesoresFiltrados.length){
+            agregarFilaProfesor(profesoresFiltrados[i]);
+        }
+    }
+    const pagesContainer = document.querySelector("#pagesContainer");
+    let paginasTotales = Math.ceil(profesoresFiltrados.length / tamanhoPagina);
+    pagesContainer.innerHTML = "";
+
+    if(pagina > 4){
+        pagesContainer.innerHTML += `
+            <button onclick="cambiarPagina(1)">1</button>
+            <span>...</span>
+            <button onclick="cambiarPagina(${pagina - 2})">${pagina - 2}</button>
+            <button onclick="cambiarPagina(${pagina - 1})">${pagina - 1}</button>
+            <button id="activeBtn">${pagina}</button>
+        `;
+    } else {
+        for(let i=1; i <= pagina; i++){
+            if(i == pagina){
+                pagesContainer.innerHTML += `<button id="activeBtn">${i}</button>`;
+            } else {
+                pagesContainer.innerHTML += `<button onclick="cambiarPagina(${i})">${i}</button>`;
+            }
+        }
+    }
+
+    let cond = paginasTotales - pagina;
+
+    if(cond > 2){
+        pagesContainer.innerHTML += `
+            <button onclick="cambiarPagina(${pagina + 1})">${pagina + 1}</button>
+            <button onclick="cambiarPagina(${pagina + 2})">${pagina + 2}</button>
+            <span>...</span>
+            <button onclick="cambiarPagina(${paginasTotales})">${paginasTotales}</button>
+        `;
+    } else {
+        for(let i=pagina + 1; i<=paginasTotales; i++){
+            pagesContainer.innerHTML += `<button onclick="cambiarPagina(${i})">${i}</button>`;
+        }
+    }
+}
+
 function cambiarPagina(numero){
     pagina = numero;
-    cargarPágina();
+    const filtro = document.getElementById("filtro");
+    if(filtro.value == ''){
+        cargarPágina();
+    } else {
+        cargarPáginaFiltrada();
+    }
+}
+
+function filtrarProfesores(event){
+    let text = event.target.value.toLowerCase().trim();
+    profesoresFiltrados = profesores.filter(obj =>
+        Object.values(obj).some(value =>
+            String(value).toLowerCase().includes(text)
+        )
+    );
+
+    pagina = 1;
+    cargarPáginaFiltrada();
 }

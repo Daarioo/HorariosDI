@@ -382,7 +382,7 @@ function filtrarModulos(event){
     let text = event.target.value;
     modulosFiltrados = modulos.filter(obj =>
         Object.values(obj).some(value =>
-           String(value).toLowerCase().includes(text.toLowerCase())
+           String(value).toLowerCase().includes(text.toLowerCase().trim())
         )
     );
 

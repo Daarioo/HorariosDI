@@ -36,11 +36,9 @@
         </header>
 
         <main>
-            <h2 class="text2">Gestión de Profesores</h2>
             <div onload="init()">
                 <button class="btnadd" id="openModal">Añadir Profesor</button>
 
-                <h2 class="text1">Profesores añadidos</h2>
                 <div id="modal" class="modal">
                     <div class="modal-content">
                         <span class="close">&times;</span>
@@ -60,6 +58,7 @@
                     </div>
                 </div>
 
+                <input type="text" placeholder="Filtro" id="filtro">
                 <table id="profesoresTable">
                     <thead>
                         <tr>

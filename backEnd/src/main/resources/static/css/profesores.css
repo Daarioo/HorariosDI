@@ -192,7 +192,7 @@ select {
 
 .btnadd {
     display: block;
-    margin: 10px auto;
+    margin: 20px auto;
     padding: 10px;
     background: green;
     color: white;
@@ -391,4 +391,11 @@ footer p{
         font-weight: bold;
         transform: scale(1.15);
     }
+}
+
+#filtro{
+    width: 20%;
+    min-width: 220px;
+    margin-left: 10%;
+    border: 2px solid #468DAE;
 }
