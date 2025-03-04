@@ -378,3 +378,10 @@ footer p{
         transform: scale(1.15);
     }
 }
+
+#filtro{
+    width: 20%;
+    min-width: 220px;
+    margin-left: 5%;
+    border: 2px solid #468DAE;
+}

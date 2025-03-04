@@ -1,4 +1,5 @@
 let modulos;
+let modulosFiltrados;
 let pagina = 1;
 const tamanhoPagina = 12;
 
@@ -57,6 +58,8 @@ document.addEventListener("DOMContentLoaded", async function () {
     await cargarModulos();
     await cargarCiclos();
     await cargarProfesores();
+    const filtro = document.getElementById("filtro");
+    filtro.addEventListener("input", filtrarModulos);
 });
 
 // Función para obtener y llenar los ciclos en el select
@@ -319,7 +322,70 @@ function cargarPágina(){
     }
 }
 
+function cargarPáginaFiltrada(){
+    const modulosTabla = document.querySelector("#modulosTabla");
+    modulosTabla.innerHTML = "";
+    for(let i = tamanhoPagina * (pagina - 1); i < tamanhoPagina * (pagina - 1) + tamanhoPagina; i++){
+        if(i < modulosFiltrados.length){
+            agregarFilaModulo(modulosFiltrados[i]);
+        }
+    }
+    const pagesContainer = document.querySelector("#pagesContainer");
+    let paginasTotales = Math.ceil(modulosFiltrados.length / tamanhoPagina);
+    pagesContainer.innerHTML = "";
+
+    if(pagina > 4){
+        pagesContainer.innerHTML += `
+            <button onclick="cambiarPagina(1)">1</button>
+            <span>...</span>
+            <button onclick="cambiarPagina(${pagina - 2})">${pagina - 2}</button>
+            <button onclick="cambiarPagina(${pagina - 1})">${pagina - 1}</button>
+            <button id="activeBtn">${pagina}</button>
+        `;
+    } else {
+        for(let i=1; i <= pagina; i++){
+            if(i == pagina){
+                pagesContainer.innerHTML += `<button id="activeBtn">${i}</button>`;
+            } else {
+                pagesContainer.innerHTML += `<button onclick="cambiarPagina(${i})">${i}</button>`;
+            }
+        }
+    }
+
+    let cond = paginasTotales - pagina;
+
+    if(cond > 2){
+        pagesContainer.innerHTML += `
+            <button onclick="cambiarPagina(${pagina + 1})">${pagina + 1}</button>
+            <button onclick="cambiarPagina(${pagina + 2})">${pagina + 2}</button>
+            <span>...</span>
+            <button onclick="cambiarPagina(${paginasTotales})">${paginasTotales}</button>
+        `;
+    } else {
+        for(let i=pagina + 1; i<=paginasTotales; i++){
+            pagesContainer.innerHTML += `<button onclick="cambiarPagina(${i})">${i}</button>`;
+        }
+    }
+}
+
 function cambiarPagina(numero){
     pagina = numero;
-    cargarPágina();
+    const filtro = document.getElementById("filtro");
+    if(filtro.value == ''){
+        cargarPágina();
+    } else {
+        cargarPáginaFiltrada();
+    }
+}
+
+function filtrarModulos(event){
+    let text = event.target.value;
+    modulosFiltrados = modulos.filter(obj =>
+        Object.values(obj).some(value =>
+           String(value).toLowerCase().includes(text.toLowerCase())
+        )
+    );
+
+    pagina = 1;
+    cargarPáginaFiltrada();
 }
