@@ -8,55 +8,34 @@
         <link rel="stylesheet" href="/css/modulos_movil.css">
     </head>
     <body>
-        <!-- Encabezado -->
         <header>
             <img src="/images/logo.png" alt="logo san clemente" class="logoSanClemente">
         </header>
         <main>
+            <button id="menuToggle" class="menu-toggle">&#9776;</button>
 
-
-                <!-- Botón de Menú Hamburguesa -->
-                <button id="menuToggle" class="menu-toggle">&#9776;</button>
+            <nav class="panel" id="navPanel">
+                <ul>
+                    <li><button>Current User</button></li>
+                    <li><button id="ciclosBtn" >Ciclos</button></li>
+                    <li><button id="modulosBtn" >Módulos</button></li>
+                    <li><button id="horariosBtn" >Sesiones</button></li>
+                    <li><button id="alumnosBtn" >Alumnos</button></li>
+                    <li><button id="profesoresBtn" >Profesores</button></li>
+                </ul>
+                <a id="logoutBtn" href="../logout">Cerrar Sesión</a>
+            </nav>
             
-                <!-- Panel de Navegación -->
-                <nav class="panel" id="navPanel">
-                    <ul>
-                        <li><button>Current User</button></li>
-                        <li><button id="ciclosBtn" >Ciclos</button></li>
-                        <li><button id="modulosBtn" >Módulos</button></li>
-                        <li><button id="horariosBtn" >Horarios</button></li>
-                        <li><button id="alumnosBtn" >Alumnos</button></li>
-                        <li><button id="profesoresBtn" >Profesores</button></li>
-                    </ul>
-                    <button id="logoutBtn">Cerrar Sesión</button>
-                </nav>
-            
-                <!-- Frame de Módulos -->
             <div id="modulosFrame" class="frame">
-
-                    <button id="botonAgregar1" class="botonAgregar">+</button>
-
-
-
+                <button id="botonAgregar1" class="botonAgregar">Agregar</button>
                 <div id="listaModulos" class="lista">
-                    <!-- Los modulos se agregarán aquí -->
-                    <div class="modulo">
-                    <span>Modulo 1</span>
-                    <div class="acciones">
-                        <button class="ver" id="verModulo">👁️</button>
-                        <button class="eliminar">❌</button>
-                    </div>
-                    </div>
+
                 </div>
             </div>
         </main>
-        <!-- Pie de Página -->
+
         <footer>
-            <article class="footer">
-                <div class="xunta">
-                    <img src="/images/logoxunta.svg" alt="logoxunta" class="logoxunta">
-                </div>
-            </article>
+            <img src="/images/logoxunta.svg" alt="logoxunta" class="logoxunta">
         </footer>
         <script src="/js/nav.js"></script>
         <script src="/js/modulos_movil.js"></script>

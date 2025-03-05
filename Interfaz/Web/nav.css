@@ -90,7 +90,6 @@ body {
 }
 
 #toolbar{
-  margin-top: 10%;
   display: flex;
   justify-content: space-between;
 }
@@ -257,8 +256,8 @@ footer {
 }
 
 .logoXunta {
-    width: 50%;
-    max-width: 350px;
+  width: 40%;
+  max-width: 260px;
 }
 
 

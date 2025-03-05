@@ -1,5 +1,6 @@
 :root{
   --color_primario: #468DAE;
+  --naranja: rgb(244, 121, 27);
 }
 
 body {
@@ -10,7 +11,8 @@ body {
     overflow: hidden;
     background-color:var(--color_primario);
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    height: 100vh;
 }
 /* Header */
 .logoSanClemente{
@@ -22,26 +24,33 @@ body {
 
 /* Menu */
 .menu-toggle {
-    background-color: rgb(104, 187, 255);
+    background-color: var(--color_primario);
     font-size: 24px;
     border-radius: 8px;
     cursor: pointer;
     position: fixed;
-    top: 16px;
-    left: 15px;
+    top: 18px;
+    left: 20px;
     z-index: 1000;
+    color: white;
+    border: 2px solid white;
+
+    &:active{
+        filter: brightness(0.9);
+    }
 }
 
 .panel {
     position: fixed;
     top: 0;
-    left: -50%;
+    left: -52%;
     width: 50%;
     height: 100%;
     background-color: #fff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     transition: left 0.3s ease-out;
     z-index: 999;
+    border-right: 1px solid var(--color_primario);
 }
 
 .panel.active {
@@ -49,10 +58,10 @@ body {
 }
 
 .panel ul {
-    margin-top: 50px;
+    margin-top: 60px;
+    margin-bottom: 0px;
     list-style-type: none;
     padding: 20px;
-    
 }
 
 
@@ -72,17 +81,19 @@ body {
     text-decoration: underline;
 }
 
-/* Cerrar sesion */
 #logoutBtn {
-    width: calc(100% - 40px);
+    display: block;
+    width: calc(100% - 60px);
     padding: 10px;
-    margin: 20px;
+    margin: 0px 20px;
     border: none;
     border-radius: 5px;
     background-color: #dc3545;
     color: #fff;
     font-size: 16px;
     cursor: pointer;
+    text-decoration: none;
+    text-align: center;
 }
 
 #logoutBtn:hover {
@@ -95,19 +106,17 @@ body {
   justify-content: space-between;
 }
 
-  /* Lista  */
   .lista {
-    max-height: 300px; /* Altura fija */
     overflow-y: auto;
-    padding: 10px;
+    -webkit-overflow-scrolling: touch;
     display: flex;
     flex-direction: column;
     text-align: center;
+    padding: 5px;
+    height: calc(100% - 64px);
+    margin-bottom: 10px;
   }
 
-
-/* desplegable para añadir alumno */
-/* Estilos para la superposición del modal */
 .modal {
   position: fixed;
   top: 0;
@@ -225,12 +234,17 @@ html{
 
 
 /* Botones de div de lista generado */
+
+.acciones{
+    width: 60px;
+}
+
 .acciones button {
   border: none;
   background: transparent;
   font-size: 18px;
   cursor: pointer;
-  margin-left: 5px;
+  padding: 0px;
 }
 
 .acciones button.ver {
@@ -256,21 +270,24 @@ footer {
     align-items: center;
 }
 
-.logoXunta {
-    width: 50%;
-    max-width: 350px;
+.logoxunta {
+    width: 40%;
+    max-width: 260px;
 }
 
+.botonAgregar{
+    display: block;
+    margin-bottom: 15px;
+    margin-left: auto;
+    background: green;
+    color: white;
+    font-size: 18px;
+    border: 0px;
+    border-radius: 8px;
+    padding: 10px;
+    margin-right: 5px;
+}
 
-
-
-
-
-
-
-
-
-  
-
-
-  
+.frame{
+    height: 100%;
+}

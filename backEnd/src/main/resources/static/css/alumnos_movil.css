@@ -1,19 +1,14 @@
-/* Frame de alumnos */
-  
-  /* Estilos de cada alumno */
-  .alumno {
+.alumno {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #d3d3d3;
+    background: #468DAE;
     padding: 10px;
-    margin-bottom: 10px;
     border-radius: 5px;
-  }
-
-  #listaAlumnos{
-    margin-top: 16%;
-    height: 300px;
-  }
+    margin-bottom: 10px;
+    color: white;
+    box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+}
   
 
