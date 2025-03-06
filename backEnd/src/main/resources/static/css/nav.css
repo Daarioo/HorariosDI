@@ -3,8 +3,11 @@
   --naranja: rgb(244, 121, 27);
 }
 
-body {
+* {
     font-family: Arial, sans-serif;
+}
+
+body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -146,14 +149,18 @@ body {
   margin-top: 0;
 }
 
-/* Estilos para los inputs del formulario */
-.modal-contenido input {
-  width: 100%;
-  padding: 0.5rem;
-  margin: 0.5rem 0;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
+.modal-contenido {
+    & input, select, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin: 0.5rem 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      resize: vertical;
+      max-height: 350px;
+      min-height: 30px;
+    }
 }
 
 /* Estilos para los botones del modal */

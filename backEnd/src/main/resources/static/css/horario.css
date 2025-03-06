@@ -19,7 +19,6 @@ body {
 
 /*header*/
 
-
 .niños {
     width: 100%;
     height: 300px;
@@ -109,14 +108,12 @@ nav a.active {
 color: #F4791B;
 }
 
-
 .centro {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    margin-top: 30px; /* Espacio desde arriba */
 }
 
 #select-modulo {
@@ -128,7 +125,8 @@ color: #F4791B;
 }
 
 .centro div {
-    margin-top: 15px; /* Espacio entre el selector y los botones */
+    margin-top: 15px;
+
 }
 
 /* Estilos para los botones */
@@ -137,7 +135,8 @@ button {
     color: white;
     border: none;
     padding: 10px 15px;
-    }
+    border-radius: 4px;
+}
 
 
 /* FOOTER */

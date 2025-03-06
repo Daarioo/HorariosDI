@@ -79,7 +79,8 @@ function agregarFilaSesion(sesion) {
     tr.setAttribute("data-id", sesion.idSesion); // Guardar ID en la fila
 
     tr.innerHTML = `
-        <td>${sesion.modulo.nombre} (${sesion.modulo.ciclo.nombre})</td>
+        <td>${sesion.modulo.nombre}</td>
+        <td>${sesion.modulo.ciclo.nombre}</td>
         <td>${sesion.horaInicio}</td>
         <td>${sesion.horaFin}</td>
         <td>${sesion.dia}</td>
