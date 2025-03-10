@@ -87,7 +87,7 @@ function agregarFilaSesion(sesion) {
         <td>${sesion.aula}</td>
         <td>${sesion.cursoAcademico}</td>
         <td>
-            <button class="btn-editar" onclick="editarSesion(${sesion.idSesion})">✏️ Editar</button>
+            <button class="btn-editar" onclick="modalEditarAlumno(${sesion.idSesion})"><img src="/images/pencil.svg"/> Editar</button>
             <button class="btn-eliminar" onclick="eliminarSesion(${sesion.idSesion})"><img src="/images/bin.svg"/> Eliminar</button>
         </td>
     `;

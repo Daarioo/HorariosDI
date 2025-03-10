@@ -177,7 +177,7 @@ function agregarFilaProfesor(profesor) {
     htmlRow = ` <td>${profesor.nombre} ${profesor.apellidos}</td> <td>${profesor.email}</td>`;
 
     htmlRow += `<td>
-            <button class="btn-editar" onclick="modalEditarProfesor(${profesor.idProfesor})">✏️ Editar</button>
+            <button class="btn-editar" onclick="modalEditarAlumno(${profesor.idProfesor})"><img src="/images/pencil.svg"/> Editar</button>
             <button class="btn-eliminar" onclick="borrarProfesor(${profesor.idProfesor})"><img src="/images/bin.svg"/> Eliminar</button>
     </td>`
 

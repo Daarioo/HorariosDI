@@ -296,12 +296,19 @@ footer p{
     cursor: pointer;
     font-size: 16px;
     border-radius: 4px;
-    vertical-align: middle
+    vertical-align: middle;
+    color: white;
+    display: inline-flex;
+    align-items: center;
 }
 
 .btn-editar {
-    background-color: #F4B400; /* Amarillo */
-    color: white;
+    background-color: #F4B400;
+}
+
+.btn-editar > img {
+    width: 20px;
+    margin-right: 5px;
 }
 
 .btn-editar:hover {
@@ -309,10 +316,7 @@ footer p{
 }
 
 .btn-eliminar {
-    background-color: #DB4437; /* Rojo */
-    color: white;
-    display: inline-flex;
-    align-items: center;
+    background-color: #DB4437;
 }
 
 .btn-eliminar > img {
