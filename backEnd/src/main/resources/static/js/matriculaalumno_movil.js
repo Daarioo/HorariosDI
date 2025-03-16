@@ -165,3 +165,21 @@ function actualizarModulo(moduloElement) {
 
     document.getElementById("modalVerEditarModulo").remove();
 }
+
+async function obtenerUsuario() {
+    try {
+        const response = await fetch('/api/usuarios/info', { credentials: 'include' });
+        const data = await response.json();
+
+        if (data.authenticated) {
+            const userName = document.getElementById("userName");
+            userName.innerText = data.nombre;
+        } else {
+            console.log("Usuario no autenticado");
+        }
+    } catch (error) {
+        console.error("Error al obtener usuario:", error);
+    }
+}
+
+await obtenerUsuario();

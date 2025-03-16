@@ -2,12 +2,14 @@ document.addEventListener("DOMContentLoaded", async function () {
     await cargarCiclos();
     await cargarProfesores();
     await cargarModulos();
+    await obtenerUsuario();
+    const filtro = document.getElementById("filtro");
+    filtro.addEventListener("input", filtrarModulos);
 });
 
 const btnAgregar = document.getElementById("botonAgregar1");
 const lista = document.getElementById("listaModulos");
 
-// Mostrar Modal
 btnAgregar.addEventListener("click", function () {
     crearModalModulo();
 });
@@ -43,10 +45,10 @@ async function cargarModulos() {
         const response = await fetch("/api/admin/modulos", { credentials: "include" });
         if (!response.ok) throw new Error("Error al obtener los módulos");
 
-        const modulos = await response.json();
+        window.modulos = await response.json();
         lista.innerHTML = "";
 
-        modulos.forEach(modulo => {
+        window.modulos.forEach(modulo => {
             agregarModuloLista(modulo);
         });
     } catch (error) {
@@ -158,7 +160,11 @@ async function guardarModulo(idModulo) {
 
         alert(idModulo ? "Módulo actualizado" : "Módulo agregado");
         document.querySelector(".modal").remove();
-        cargarModulos();
+        if(modulos.length == modulosFiltrados.length){
+            cargarModulos();
+        } else {
+            cargarModulosFiltrados();
+        }
     } catch (error) {
         console.error(error);
         alert("No se pudo guardar el módulo");
@@ -202,9 +208,47 @@ async function eliminarModulo(id) {
         if (!response.ok) throw new Error("Error al eliminar el módulo");
 
         alert("Módulo eliminado");
-        cargarModulos();
+        if(modulos.length == modulosFiltrados.length){
+            cargarModulos();
+        } else {
+            cargarModulosFiltrados();
+        }
     } catch (error) {
         console.error(error);
         alert("No se pudo eliminar el módulo");
     }
+}
+
+async function obtenerUsuario() {
+    try {
+        const response = await fetch('/api/usuarios/info', { credentials: 'include' });
+        const data = await response.json();
+
+        if (data.authenticated) {
+            const userName = document.getElementById("userName");
+            userName.innerText = data.nombre;
+        } else {
+            console.log("Usuario no autenticado");
+        }
+    } catch (error) {
+        console.error("Error al obtener usuario:", error);
+    }
+}
+
+function filtrarModulos(event){
+    let text = event.target.value;
+    window.modulosFiltrados = window.modulos.filter(obj =>
+        Object.values(obj).some(value =>
+           String(value).toLowerCase().includes(text.toLowerCase().trim())
+        )
+    );
+    cargarModulosFiltrados();
+}
+
+async function cargarModulosFiltrados() {
+    lista.innerHTML = "";
+
+    window.modulosFiltrados.forEach(modulo => {
+        agregarModuloLista(modulo);
+    });
 }

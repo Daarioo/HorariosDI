@@ -103,6 +103,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (!response.ok) throw new Error("Error al crear el ciclo");
 
             console.log("Ciclo creado");
+            getCiclos();
         } catch (error) {
             console.error("Error:", error);
         }
@@ -120,6 +121,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (!response.ok) throw new Error("Error al actualizar el ciclo");
 
             console.log(`Ciclo con ID ${id} actualizado`);
+            getCiclos();
         } catch (error) {
             console.error("Error:", error);
         }
@@ -135,6 +137,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             if (!response.ok) throw new Error("Error al eliminar ciclo");
 
             console.log(`Ciclo con ID ${id} eliminado`);
+
+            getCiclos();
         } catch (error) {
             console.error("Error:", error);
         }
@@ -150,7 +154,8 @@ async function obtenerUsuario() {
         const data = await response.json();
 
         if (data.authenticated) {
-            document.getElementById("usuarioFooter").innerText = data.nombre;
+            const userName = document.getElementById("userName");
+            userName.innerText = data.nombre;
         } else {
             console.log("Usuario no autenticado");
         }

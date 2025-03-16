@@ -1,46 +1,44 @@
 document.addEventListener("DOMContentLoaded", function () {
     obtenerUsuario();
     getProfesores();
-
 });
 
 const btnAgregar = document.getElementById("botonAgregar4");
 const listProfes = document.getElementById("listaProfes");
-
-
+const filtro = document.getElementById("filtro");
+filtro.addEventListener("input", filtrarProfesores);
 
 async function getProfesores() {
     try {
         const response = await fetch("/api/admin/profesores", { credentials: "include" });
         if (!response.ok) throw new Error("Error al obtener los profesores");
-        const profesores = await response.json();
-        mostrarProfesores(profesores);
+        window.profesores = await response.json();
+        window.profesores.forEach((profesor)=>{
+            agregarProfesorLista(profesor);
+        });
     } catch (error) {
         console.error("Error:", error);
     }
 }
 
-function mostrarProfesores(profesores) {
-    listProfes.innerHTML = "";
-    profesores.forEach(profesor => {
-        const nuevoProfe = document.createElement("div");
-        nuevoProfe.classList.add("profesor");
-        nuevoProfe.dataset.id = profesor.idProfesor;
-        nuevoProfe.dataset.nombre = profesor.nombre;
-        nuevoProfe.dataset.apellidos = profesor.apellidos;
-        nuevoProfe.dataset.correo = profesor.email;
+function agregarProfesorLista(profesor) {
+    const nuevoProfe = document.createElement("div");
+    nuevoProfe.classList.add("profesor");
+    nuevoProfe.dataset.id = profesor.idProfesor;
+    nuevoProfe.dataset.nombre = profesor.nombre;
+    nuevoProfe.dataset.apellidos = profesor.apellidos;
+    nuevoProfe.dataset.correo = profesor.email;
 
-        nuevoProfe.innerHTML = `
-            <div class="profesor-info">
-                <span><strong>${profesor.nombre} ${profesor.apellidos}</strong></span>
-            </div>
-            <div class="acciones">
-                <button class="ver">✏️</button>
-                <button class="eliminar">❌</button>
-            </div>
-        `;
-        listProfes.appendChild(nuevoProfe);
-    });
+    nuevoProfe.innerHTML = `
+        <div class="profesor-info">
+            <span><strong>${profesor.nombre} ${profesor.apellidos}</strong></span>
+        </div>
+        <div class="acciones">
+            <button class="ver">👁️</button>
+            <button class="eliminar">❌</button>
+        </div>
+    `;
+    listProfes.appendChild(nuevoProfe);
 }
 
 
@@ -68,7 +66,11 @@ async function agregarProfesor(modal) {
             credentials: "include"
         });
         if (!response.ok) throw new Error("Error al agregar el profesor");
-        getProfesores();
+        if(window.profesores.length == window.profesoresFiltrados.length){
+            getProfesores();
+        } else {
+            cargarProfesoresFiltrados();
+        }
     } catch (error) {
         console.error("Error:", error);
     }
@@ -105,7 +107,11 @@ async function editarProfesor(id, modal) {
             credentials: "include"
         });
         if (!response.ok) throw new Error("Error al actualizar el profesor");
-        getProfesores();
+        if(window.profesores.length == window.profesoresFiltrados.length){
+            getProfesores();
+        } else {
+            cargarProfesoresFiltrados();
+        }
     } catch (error) {
         console.error("Error:", error);
     }
@@ -118,7 +124,11 @@ async function borrarProfesor(id) {
             credentials: "include"
         });
         if (!response.ok) throw new Error("Error al eliminar el profesor");
-        getProfesores();
+        if(window.profesores.length == window.profesoresFiltrados.length){
+            getProfesores();
+        } else {
+            cargarProfesoresFiltrados();
+        }
     } catch (error) {
         console.error("Error:", error);
     }
@@ -195,15 +205,34 @@ function obtenerDatosFormulario(form) {
 
 async function obtenerUsuario() {
     try {
-        const response = await fetch('/api/usuarios/info', {
-            method: 'GET',
-            credentials: 'include'
-        });
+        const response = await fetch('/api/usuarios/info', { credentials: 'include' });
         const data = await response.json();
+
         if (data.authenticated) {
-            document.getElementById("usuarioFooter").innerText = data.nombre;
+            const userName = document.getElementById("userName");
+            userName.innerText = data.nombre;
+        } else {
+            console.log("Usuario no autenticado");
         }
     } catch (error) {
         console.error("Error al obtener usuario:", error);
     }
+}
+
+function filtrarProfesores(event){
+    let text = event.target.value;
+    window.profesoresFiltrados = window.profesores.filter(obj =>
+        Object.values(obj).some(value =>
+            String(value).toLowerCase().includes(text)
+        )
+    );
+    cargarProfesoresFiltrados();
+}
+
+async function cargarProfesoresFiltrados() {
+    listProfes.innerHTML = "";
+
+    window.profesoresFiltrados.forEach(profesor => {
+        agregarProfesorLista(profesor);
+    });
 }

@@ -16,7 +16,7 @@
 
             <nav class="panel" id="navPanel">
                 <ul>
-                    <li><button>Current User</button></li>
+                    <li><button id="userName">Current User</button></li>
                     <li><button id="ciclosBtn" >Ciclos</button></li>
                     <li><button id="modulosBtn" >Módulos</button></li>
                     <li><button id="horariosBtn" >Sesiones</button></li>
@@ -27,7 +27,10 @@
             </nav>
             
             <div id="modulosFrame" class="frame">
-                <button id="botonAgregar1" class="botonAgregar">Agregar</button>
+                <div id="options">
+                    <input type="text" placeholder="Filtro" id="filtro">
+                    <button id="botonAgregar1" class="botonAgregar">Agregar</button>
+                </div>
                 <div id="listaModulos" class="lista">
 
                 </div>

@@ -92,8 +92,8 @@ function manageCycles() {
                 <p><strong>Descripción:</strong> ${description}</p>
             </div>
             <div id="buttonContainer">
-                <button class='edit'>Editar</button>
-                <button class='delete'><img src="/images/bin.svg"/></button>
+                <button class='edit'>Editar <img src="/images/pencil.svg"/></button>
+                <button class='delete'>Eliminar <img src="/images/bin.svg"/></button>
             </div>
         `;
     }

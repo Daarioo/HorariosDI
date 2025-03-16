@@ -1,6 +1,10 @@
 const btnAgregar = document.getElementById("botonAgregar3");
 const listProfes = document.getElementById("listaAlumnos");
 
+document.addEventListener("DOMContentLoaded", async function () {
+    await obtenerUsuario();
+});
+
 // Función para crear el modal de ingreso de datos (Agregar alumno)
 function crearModalProfe() {
   const modal = document.createElement("div");
@@ -146,3 +150,20 @@ function crearModalVerEditarProfe(alumnoElement) {
     modalAlu.remove();
   });
 }
+
+async function obtenerUsuario() {
+    try {
+        const response = await fetch('/api/usuarios/info', { credentials: 'include' });
+        const data = await response.json();
+
+        if (data.authenticated) {
+            const userName = document.getElementById("userName");
+            userName.innerText = data.nombre;
+        } else {
+            console.log("Usuario no autenticado");
+        }
+    } catch (error) {
+        console.error("Error al obtener usuario:", error);
+    }
+}
+

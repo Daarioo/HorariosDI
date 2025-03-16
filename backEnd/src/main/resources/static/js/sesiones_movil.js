@@ -1,14 +1,15 @@
 document.addEventListener("DOMContentLoaded", async function () {
-    await cargarModulos(); // Cargar módulos al iniciar
-    await cargarSesiones(); // Cargar sesiones al iniciar
+    await cargarModulos();
+    await cargarSesiones();
     obtenerUsuario();
+    const filtro = document.getElementById("filtro");
+    filtro.addEventListener("input", filtrarSesiones);
 
-    // Asegurémonos de agregar el event listener para el botón
     const btnAgregar = document.getElementById("botonAgregar5");
     const listaSesiones = document.getElementById("listaSesiones");
     if (btnAgregar) {
         btnAgregar.addEventListener("click", function() {
-            crearModalSesion(); // Llamar a la función para crear el modal
+            crearModalSesion();
         });
     } else {
         console.error("El botón de agregar no se encontró.");
@@ -111,10 +112,10 @@ async function cargarSesiones() {
         const response = await fetch("/api/admin/sesiones", { credentials: "include" });
         if (!response.ok) throw new Error("Error al obtener sesiones");
 
-        const sesiones = await response.json();
+        window.sesiones = await response.json();
         listaSesiones.innerHTML = "";
 
-        sesiones.forEach(sesion => {
+        window.sesiones.forEach(sesion => {
             agregarSesionLista(sesion);
         });
     } catch (error) {
@@ -123,7 +124,6 @@ async function cargarSesiones() {
     }
 }
 
-// Función para agregar sesión a la lista
 function agregarSesionLista(sesion) {
     const nuevaSesion = document.createElement("div");
     nuevaSesion.classList.add("sesion");
@@ -190,7 +190,11 @@ async function agregarSesion(e) {
 
         alert("Sesión agregada correctamente");
         document.getElementById("modalSesion").remove();
-        await cargarSesiones();
+        if(window.sesiones.length == window.sesionesFiltradas.length){
+            cargarSesiones();
+        } else {
+            cargarSesionesFiltradas();
+        }
     } catch (error) {
         console.error("Error al agregar sesión:", error);
         alert("No se pudo agregar la sesión.");
@@ -209,7 +213,11 @@ async function eliminarSesion(idSesion) {
         if (!response.ok) throw new Error("Error al eliminar sesión");
 
         alert("Sesión eliminada correctamente");
-        await cargarSesiones();
+        if(window.sesiones.length == window.sesionesFiltradas.length){
+            cargarSesiones();
+        } else {
+            cargarSesionesFiltradas();
+        }
     } catch (error) {
         console.error("Error al eliminar sesión:", error);
         alert("No se pudo eliminar la sesión.");
@@ -223,7 +231,7 @@ async function editarSesion(idSesion) {
         if (!response.ok) throw new Error("Error al obtener la sesión");
 
         const sesion = await response.json();
-        crearModalSesion(sesion); // Pasamos la sesión para editar
+        crearModalSesion(sesion);
 
     } catch (error) {
         console.error("Error al cargar sesión para editar:", error);
@@ -257,7 +265,7 @@ async function actualizarSesion(idSesion) {
 
     try {
         const response = await fetch(`/api/admin/sesiones/${idSesion}`, {
-            method: "PUT", // Cambiar a PUT para actualización
+            method: "PUT",
             credentials: "include",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(sesion)
@@ -267,7 +275,11 @@ async function actualizarSesion(idSesion) {
 
         alert("Sesión actualizada correctamente");
         document.getElementById("modalSesion").remove();
-        await cargarSesiones();
+        if(window.sesiones.length == window.sesionesFiltradas.length){
+            cargarSesiones();
+        } else {
+            cargarSesionesFiltradas();
+        }
     } catch (error) {
         console.error("Error al actualizar sesión:", error);
         alert("No se pudo actualizar la sesión.");
@@ -280,10 +292,34 @@ async function obtenerUsuario() {
         const data = await response.json();
 
         if (data.authenticated) {
-            let nombre = document.getElementById("usuarioFooter");
-            nombre.innerText = data.nombre;
+            const userName = document.getElementById("userName");
+            userName.innerText = data.nombre;
+        } else {
+            console.log("Usuario no autenticado");
         }
     } catch (error) {
         console.error("Error al obtener usuario:", error);
     }
+}
+
+function filtrarSesiones(event){
+    let text = event.target.value;
+    window.sesionesFiltradas = window.sesiones.filter(obj => {
+        const valores = Object.values(obj);
+        const valoresModulo = obj.modulo ? Object.values(obj.modulo) : [];
+        const valoresCiclo = obj.modulo?.ciclo ? Object.values(obj.modulo.ciclo) : [];
+
+        return [...valores, ...valoresModulo, ...valoresCiclo].some(value =>
+            String(value).toLowerCase().includes(text.toLowerCase().trim())
+        );
+    });
+    cargarSesionesFiltradas();
+}
+
+async function cargarSesionesFiltradas() {
+    listaSesiones.innerHTML = "";
+
+    window.sesionesFiltradas.forEach(sesion => {
+        agregarSesionLista(sesion);
+    });
 }
