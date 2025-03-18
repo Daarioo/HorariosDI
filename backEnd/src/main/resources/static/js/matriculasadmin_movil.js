@@ -266,18 +266,20 @@ async function crearModalEditarModulo(id) {
 }
 
 async function obtenerUsuario() {
+    const url = window.top.location.href;
+    const partes = url.split('/');
+    const id = partes[partes.length - 1];
     try {
-        const response = await fetch('/api/usuarios/info', { credentials: 'include' });
+        const response = await fetch('/api/usuarios/' + id, {
+            method: 'GET',
+            credentials: 'include'
+        });
         const data = await response.json();
 
-        if (data.authenticated) {
-            const userName = document.getElementById("userName");
-            userName.innerText = data.nombre;
-            usuarioId = data.id;
-            await getMatriculas(usuarioId);
-        } else {
-            console.log("Usuario no autenticado");
-        }
+        const userName = document.getElementById("userName");
+        userName.innerText = data.nombre;
+        usuarioId = data.idUsuario;
+        await getMatriculas(usuarioId);
     } catch (error) {
         console.error("Error al obtener usuario:", error);
     }

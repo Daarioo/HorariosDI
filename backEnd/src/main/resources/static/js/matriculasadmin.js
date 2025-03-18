@@ -54,8 +54,6 @@ async function cargarCiclos() {
             option.textContent = ciclo.nombre;
             selectCiclo.append(option);
         });
-
-        console.log(ciclos);
     } catch (error) {
         console.error(error);
         alert("No se pudieron cargar los ciclos.");
@@ -165,7 +163,7 @@ async function cargarMatriculas() {
                 <td>${matricula.cicloFormativo.nombre}</td>
                 <td>${matricula.modulo.nombre}</td>
                 <td>
-                    <button class="btn-editar" onclick="modalEditarAlumno(${matricula.id})"><img src="/images/pencil.svg"/> Editar</button>
+                    <button class="btn-editar" onclick="editarMatricula(${matricula.id})"><img src="/images/pencil.svg"/> Editar</button>
                     <button class="btn-eliminar" onclick="eliminarMatricula(${matricula.id})"><img src="/images/bin.svg"/> Eliminar</button>
                 </td>
             `;

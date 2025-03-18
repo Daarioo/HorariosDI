@@ -92,12 +92,17 @@ function agregarAlumnoLista(alumno) {
     nuevoAlumno.innerHTML = `
         <div class="alumno-info">
             <span><strong>${alumno.nombreUsuario}</strong></span>
+            <a href="matriculasadmin/${alumno.idUsuario}">Ver matriculas</a>
         </div>
         <div class="acciones">
             <button class="ver">👁️</button>
             <button onclick="borrarAlumno(${alumno.idUsuario})" class="eliminar">❌</button>
         </div>
     `;
+
+    nuevoAlumno.querySelector("a").addEventListener("click", () => {
+        window.top.location.href = "matriculasadmin/" + alumno.idUsuario;
+    });
     listAlumnos.appendChild(nuevoAlumno);
 }
 

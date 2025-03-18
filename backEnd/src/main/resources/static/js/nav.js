@@ -4,6 +4,8 @@ const modulos = document.getElementById("modulosBtn");
 const horarios = document.getElementById("horariosBtn");
 const alumnos = document.getElementById("alumnosBtn");
 const profesores = document.getElementById("profesoresBtn");
+const horario = document.getElementById("horariosBtn");
+const matricula = document.getElementById("matriculasBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 
 // Menú desplegable
@@ -14,26 +16,48 @@ menuToggle.addEventListener("click", function () {
 });
 
 // Redirecciones al hacer clic en los botones
-ciclos.addEventListener("click", function () {
-  window.top.location.href = "ciclos";
-});
+if(ciclos != undefined){
+    ciclos.addEventListener("click", function () {
+        window.top.location.href = "ciclos";
+    });
+}
 
-modulos.addEventListener("click", function () {
-  window.top.location.href = "modulos";
-});
+if(modulos != undefined){
+    modulos.addEventListener("click", function () {
+        window.top.location.href = "modulos";
+    });
+}
 
-horarios.addEventListener("click", function () {
-  window.top.location.href = "sesiones";
-});
+if(horario != undefined){
+    horario.addEventListener("click", function () {
+        window.top.location.href = "horarios";
+    });
+}
 
-alumnos.addEventListener("click", function () {
-  window.top.location.href = "alumnos";
-});
+if(matricula != undefined){
+    matricula.addEventListener("click", function () {
+        window.top.location.href = "matriculaalumno";
+    });
+}
 
-profesores.addEventListener("click", function () {
-  window.top.location.href = "profesores";
-});
+if(alumnos != undefined){
+    alumnos.addEventListener("click", function () {
+        window.top.location.href = "alumnos";
+    });
+}
+
+if(profesores != undefined){
+    profesores.addEventListener("click", function () {
+        window.top.location.href = "profesores";
+    });
+}
+
+if(modulos != undefined){
+    modulos.addEventListener("click", function () {
+        window.top.location.href = "modulos";
+    });
+}
 
 logoutBtn.addEventListener("click", function () {
-  window.top.location.href = "index"; // Redirige al usuario a la página de inicio de sesión
+    window.top.location.href = "index";
 });
