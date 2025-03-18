@@ -338,3 +338,45 @@ function filtrarAlumnos(event){
     pagina = 1;
     cargarPáginaFiltrada();
 }
+
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const importButton = document.getElementById('importButton');
+    const fileInput = document.getElementById('fileInput');
+
+    if (importButton && fileInput) {
+        importButton.addEventListener('click', function() {
+            console.log('Botón de importación clicado');
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                console.log('Archivo seleccionado:', file.name);
+                const formData = new FormData();
+                formData.append('file', file);
+
+                fetch('/importar-alumnos', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.text())
+                .then(data => {
+                    console.log('Respuesta del servidor:', data);
+                    alert(data);
+                })
+                .catch(error => {
+                    console.error('Error al importar alumnos:', error);
+                });
+            }
+        });
+    } else {
+        console.error('Elementos no encontrados en el DOM');
+    }
+});

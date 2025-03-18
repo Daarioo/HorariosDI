@@ -8,88 +8,89 @@
     <script defer src="/js/matriculasadmin.js"></script>
 </head>
 <body>
-    <main id="movil">
-        <iframe src="../matriculasadmin_movil" frameborder="0" id="iframe"></iframe>
-    </main>
-    <main id="desktop">
-        <section class="header_container">
-            <img src="/images/logo.png" alt="san" class="san">
-            <img src="/images/clase.jpg" alt="niños" class="niños">
-            <div class="flecha">
-                <div class="corte"></div>
-                <div class="bloque">
-                    <nav>
-                        <a href="../ciclos">Ciclos</a>
-                        <a href="../modulos">Módulos</a>
-                        <a href="../sesiones">Sesiones</a>
-                        <a href="../alumnos">Alumnos</a>
-                        <a href="../profesores">Profesores</a>
-                    </nav>
-                </div>
-                <div class="corte2"></div>
+
+<header>
+    <section class="header_container">
+        <img src="/images/logo.png" alt="san" class="san">
+        <img src="/images/clase.jpg" alt="niños" class="niños">
+        <div class="flecha">
+            <div class="corte"></div>
+            <div class="bloque">
+                <nav>
+                    <a href="../ciclos">Ciclos</a>
+                    <a href="../modulos">Módulos</a>
+                    <a href="../sesiones">Sesiones</a>
+                    <a href="../alumnos">Alumnos</a>
+                    <a href="../profesores">Profesores</a>
+                </nav>
             </div>
-        </section>
+            <div class="corte2"></div>
+        </div>
+    </section>
+</header>
 
+<main>
+    <h2 class="text1" id="mensaje-bienvenida"></h2>
 
-        <main>
-            <h2 class="text1" id="mensaje-bienvenida"></h2>
+    <button class="btnadd" id="abrirModal" onclick="mostrarModal()">Matricular módulo</button>
 
-            <button class="btnadd" id="abrirModal" onclick="mostrarModal()">Matricular módulo</button>
+    <button id="importMatriculasButton" class="btnadd">Importar Matrículas desde XML</button>
+    <input type="file" id="matriculasFileInput" style="display: none;" accept=".xml">
 
-            <div id="modal" class="modal">
-                <div class="modal-content">
-                    <span class="close" onclick="cerrarModal()">&times;</span>
-                    <h2>Formalizar Matrícula</h2>
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModal()">&times;</span>
+            <h2>Formalizar Matrícula</h2>
 
-                    <form id="matriculaForm" onsubmit="formalizarMatricula(event)">
-                        <label for="numMatricula">Número de matrícula:</label>
-                        <input type="text" id="numMatricula" required>
-                        <label for="ciclo">Selecciona un ciclo:</label>
-                        <select id="ciclo" required onchange="cargarModulos()">
-                            <option value="">Seleccione un ciclo</option>
-                        </select>
+            <form id="matriculaForm" onsubmit="formalizarMatricula(event)">
+                <label for="numMatricula">Número de matrícula:</label>
+                <input type="text" id="numMatricula" required>
+                <label for="ciclo">Selecciona un ciclo:</label>
+                <select id="ciclo" required onchange="cargarModulos()">
+                    <option value="">Seleccione un ciclo</option>
+                </select>
 
-                        <label for="modulo">Selecciona un módulo:</label>
-                        <select id="modulo" required>
-                            <option value="">Seleccione un módulo</option>
-                        </select>
+                <label for="modulo">Selecciona un módulo:</label>
+                <select id="modulo" required>
+                    <option value="">Seleccione un módulo</option>
+                </select>
 
-                        <button type="submit" class="submit">Enviar datos</button>
-                    </form>
-                </div>
-            </div>
+                <button type="submit" class="submit">Enviar datos</button>
+            </form>
+        </div>
+    </div>
 
-            <h2 class="text1">Módulos matriculados</h2>
-            <table>
-                <thead>
-                <tr>
-                    <th>Número de matrícula</th>
-                    <th>Ciclo</th>
-                    <th>Nombre del Módulo</th>
-                    <th>Acciones</th>
-                </tr>
-                </thead>
-                <tbody id="matriculasTabla">
-                </tbody>
-            </table>
-        </main>
+    <h2 class="text1">Módulos matriculados</h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Número de matrícula</th>
+            <th>Ciclo</th>
+            <th>Nombre del Módulo</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody id="matriculasTabla">
+        </tbody>
+    </table>
+</main>
 
-        <footer>
-            <article class="footer">
-                <div class="xunta">
-                    <img src="/images/logoxunta.svg" alt="logoxunta" class="logoxunta">
-                </div>
-                <div class="logout">
-                    <p>Usted se ha identificado como <b id="usuarioFooter"></b></p>
-                    <span>(<a href="../../logout">Cerrar sesión</a>)</span>
-                </div>
-                <div class="redes">
-                    <img src="/images/facebook.svg" alt="facebook" class="facebook">
-                    <img src="/images/instagram.svg" alt="instagram" class="instagram">
-                    <img src="/images/youtube.svg" alt="youtube" class="youtube">
-                </div>
-            </article>
-        </footer>
-    </main>
+<footer>
+    <article class="footer">
+        <div class="xunta">
+            <img src="/images/logoxunta.svg" alt="logoxunta" class="logoxunta">
+        </div>
+        <div class="logout">
+            <p>Usted se ha identificado como <b id="usuarioFooter"></b></p>
+            <span>(<a href="../../logout">Cerrar sesión</a>)</span>
+        </div>
+        <div class="redes">
+            <img src="/images/facebook.svg" alt="facebook" class="facebook">
+            <img src="/images/instagram.svg" alt="instagram" class="instagram">
+            <img src="/images/youtube.svg" alt="youtube" class="youtube">
+        </div>
+    </article>
+</footer>
+
 </body>
 </html>

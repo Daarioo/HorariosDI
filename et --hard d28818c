@@ -1,0 +1,33 @@
+[33ma0e34cf[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m HEAD@{0}: reset: moving to origin/main
+[33md28818c[m HEAD@{1}: commit: Implementado matriculas admin
+[33m086fcd8[m HEAD@{2}: pull: Fast-forward
+[33m1a5cdfb[m HEAD@{3}: pull: Fast-forward
+[33me2e60f0[m HEAD@{4}: commit: Alumnos_movil añadido
+[33m36de670[m HEAD@{5}: commit: Añadido filtros a las vistas de movil
+[33mdf865e1[m HEAD@{6}: pull: Fast-forward
+[33m91cea76[m HEAD@{7}: commit: Mas css movil
+[33mf5aa0f5[m HEAD@{8}: commit: Cambiado el css a todas las vistas de movil
+[33meb86679[m HEAD@{9}: commit: Todos los filtros acabados
+[33mfc2a137[m HEAD@{10}: commit: Filtro de modulos
+[33m85c6ec7[m HEAD@{11}: pull: Fast-forward
+[33m9acc0cb[m HEAD@{12}: commit: Toda la paginacion añadida
+[33m479a638[m HEAD@{13}: commit: Paginacion añadida a modulos
+[33m9000dad[m HEAD@{14}: pull: Fast-forward
+[33m13763fb[m HEAD@{15}: commit: Paginacion de sesiones hecha
+[33mb3b6f31[m HEAD@{16}: pull: Fast-forward
+[33m03aadd7[m HEAD@{17}: commit: Cambios css
+[33m0d98e01[m HEAD@{18}: rebase (finish): returning to refs/heads/main
+[33m0d98e01[m HEAD@{19}: rebase (continue): CSS ajustado para todas las ventanas modales
+[33m943803d[m HEAD@{20}: rebase (start): checkout origin/main
+[33m2fd306b[m HEAD@{21}: commit: CSS ajustado para todas las ventanas modales
+[33m68e05e3[m HEAD@{22}: merge origin/main: Fast-forward
+[33m0da71cb[m HEAD@{23}: commit: Pagina de alumnos acabada
+[33mc0c5e53[m HEAD@{24}: pull: Fast-forward
+[33m92d13fd[m HEAD@{25}: rebase (finish): returning to refs/heads/main
+[33m92d13fd[m HEAD@{26}: rebase (continue): Horario acabado, ya genera pdf
+[33md9ceaad[m HEAD@{27}: rebase (start): checkout origin/main
+[33m3baa3e0[m HEAD@{28}: reset: moving to HEAD
+[33m3baa3e0[m HEAD@{29}: commit: Horario acabado, ya genera pdf
+[33m2f01148[m HEAD@{30}: commit: Ciclos acabado, añadidos filtros a los horarios
+[33m1c9be80[m HEAD@{31}: commit: Los horarios cargan correctamente
+[33mc81a0a1[m HEAD@{32}: clone: from https://github.com/Daarioo/HorariosDI.git

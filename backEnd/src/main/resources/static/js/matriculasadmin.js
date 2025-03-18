@@ -312,3 +312,28 @@ async function getUsuario() {
         console.error("Error al obtener usuario:", error);
     }
 }
+
+
+document.getElementById('importMatriculasButton').addEventListener('click', function() {
+    document.getElementById('matriculasFileInput').click();
+});
+
+document.getElementById('matriculasFileInput').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        fetch('/api/admin/matriculas/importar-matriculas', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            alert(data);
+        })
+        .catch(error => {
+            console.error('Error al importar matrículas:', error);
+        });
+    }
+});

@@ -85,4 +85,19 @@ public class UsuarioController {
                 "tipo", usuario.getTipo().name()
         );
     }
+
+    @PostMapping("/importar-alumnos")
+    public String importarAlumnos() {
+        Alumnado alumnado = XMLParser.parseXML("ruta/al/archivo.xml", Alumnado.class);
+
+        if (alumnado != null) {
+            for (Alumno alumno : alumnado.getAlumnos()) {
+                Usuario usuario = usuarioMapper.mapAlumnoToUsuario(alumno);
+                usuarioService.createUsuario(usuario);
+            }
+            return "Alumnos importados correctamente";
+        } else {
+            return "Error al importar alumnos";
+        }
+    }
 }

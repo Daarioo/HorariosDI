@@ -48,4 +48,26 @@ public class MatriculaController {
     public ResponseEntity<Void> eliminarMatricula(@PathVariable int idMatricula) {
         return matriculaService.eliminarMatricula(idMatricula) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
+
+    @PostMapping("/importar-matriculas")
+    public ResponseEntity<String> importarMatriculas(@RequestParam("file") MultipartFile file) {
+        try {
+            File tempFile = File.createTempFile("matriculas", ".xml");
+            file.transferTo(tempFile);
+
+            Matriculas matriculas = XMLParser.parseXML(tempFile.getAbsolutePath(), Matriculas.class);
+
+            if (matriculas != null && matriculas.getAlumnos() != null) {
+                for (AlumnoMatricula alumnoMatricula : matriculas.getAlumnos()) {
+                    Matricula matricula = matriculaMapper.mapCampoMatriculaToEntity(alumnoMatricula);
+                    matriculaService.crearMatricula(matricula);
+                }
+                return ResponseEntity.ok("Matrículas importadas correctamente");
+            } else {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al importar matrículas");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al procesar el archivo XML: " + e.getMessage());
+        }
+    }
 }

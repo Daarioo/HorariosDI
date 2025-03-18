@@ -337,7 +337,7 @@ footer p{
     background-color: #b53126;
 }
 
-#openModal {
+#openModal, #importButton {
     display: block;
     margin: 20px auto;
     padding: 10px;
