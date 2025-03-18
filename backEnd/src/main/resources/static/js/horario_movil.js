@@ -194,22 +194,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Función para generar XLSX
     function generarXLSX() {
-        let data = [];
-        let headers = ["Día", "Materia", "Hora Inicio", "Hora Fin", "Aula"];
+        let tablaDatos = JSON.parse(localStorage.getItem('tablaDatos'));
+        if (!tablaDatos || tablaDatos.length === 0) {
+            console.error("No se encontraron datos para generar el XLSX.");
+            return;
+        }
 
-        data.push(headers);
-
-        Object.keys(horariosData).forEach(dia => {
-            horariosData[dia].forEach(({ materia, inicio, fin, aula }) => {
-                data.push([dia, materia, inicio, fin, aula]);
-            });
-        });
-
-        let ws = XLSX.utils.aoa_to_sheet(data);
         let wb = XLSX.utils.book_new();
+        let ws = XLSX.utils.aoa_to_sheet(tablaDatos);
+
         XLSX.utils.book_append_sheet(wb, ws, "Horario");
         XLSX.writeFile(wb, "Horario.xlsx");
     }
+
+     document.getElementById("xmlButton").addEventListener("click", function () {
+            generarXML();
+        });
+
+        // Botón XLSX
+        document.getElementById("xlsxButton").addEventListener("click", function () {
+            generarXLSX();
+        });
 
     // Llamar a la función principal para obtener los datos
     obtenerUsuario();
