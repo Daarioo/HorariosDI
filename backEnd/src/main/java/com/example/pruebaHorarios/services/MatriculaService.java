@@ -1,7 +1,9 @@
 package com.example.pruebaHorarios.services;
 
 import com.example.pruebaHorarios.entities.Matricula;
+import com.example.pruebaHorarios.entities.Usuario;
 import com.example.pruebaHorarios.repositories.MatriculaRepository;
+import com.example.pruebaHorarios.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

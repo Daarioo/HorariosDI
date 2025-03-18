@@ -1,5 +1,7 @@
 package com.example.pruebaHorarios.services;
 
+import com.example.pruebaHorarios.config.alumnoXML.Alumno;
+import com.example.pruebaHorarios.config.mappers.UsuarioMapper;
 import com.example.pruebaHorarios.entities.Usuario;
 import com.example.pruebaHorarios.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;

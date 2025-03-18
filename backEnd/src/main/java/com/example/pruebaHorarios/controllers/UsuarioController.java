@@ -1,5 +1,9 @@
 package com.example.pruebaHorarios.controllers;
 
+import com.example.pruebaHorarios.config.XMLParser;
+import com.example.pruebaHorarios.config.alumnoXML.Alumnado;
+import com.example.pruebaHorarios.config.alumnoXML.Alumno;
+import com.example.pruebaHorarios.config.mappers.UsuarioMapper;
 import com.example.pruebaHorarios.entities.Usuario;
 import com.example.pruebaHorarios.services.UsuarioService;
 import org.slf4j.Logger;
@@ -91,6 +95,7 @@ public class UsuarioController {
         Alumnado alumnado = XMLParser.parseXML("ruta/al/archivo.xml", Alumnado.class);
 
         if (alumnado != null) {
+            UsuarioMapper usuarioMapper = new UsuarioMapper();
             for (Alumno alumno : alumnado.getAlumnos()) {
                 Usuario usuario = usuarioMapper.mapAlumnoToUsuario(alumno);
                 usuarioService.createUsuario(usuario);

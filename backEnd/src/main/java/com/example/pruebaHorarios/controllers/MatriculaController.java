@@ -1,11 +1,18 @@
 package com.example.pruebaHorarios.controllers;
 
+import com.example.pruebaHorarios.config.XMLParser;
+import com.example.pruebaHorarios.config.mappers.MatriculaMapper;
+import com.example.pruebaHorarios.config.matriculaXML.AlumnoMatricula;
+import com.example.pruebaHorarios.config.matriculaXML.Matriculas;
 import com.example.pruebaHorarios.entities.Matricula;
 import com.example.pruebaHorarios.services.MatriculaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
 import java.util.Optional;
 
@@ -59,6 +66,7 @@ public class MatriculaController {
 
             if (matriculas != null && matriculas.getAlumnos() != null) {
                 for (AlumnoMatricula alumnoMatricula : matriculas.getAlumnos()) {
+                    MatriculaMapper matriculaMapper = new MatriculaMapper();
                     Matricula matricula = matriculaMapper.mapCampoMatriculaToEntity(alumnoMatricula);
                     matriculaService.crearMatricula(matricula);
                 }
