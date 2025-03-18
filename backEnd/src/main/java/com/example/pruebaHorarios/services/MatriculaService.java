@@ -14,9 +14,25 @@ public class MatriculaService {
     @Autowired
     private MatriculaRepository matriculaRepository;
 
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     public Matricula crearMatricula(Matricula matricula) {
-        return matriculaRepository.save(matricula);
+        // Verificar si el alumno existe
+        Optional<Usuario> usuario = usuarioRepository.findById(matricula.getNumMatricula());
+
+        if (usuario != null) {
+            matricula.setUsuario(usuario.get());
+
+            // Asegúrate de que cicloFormativo y modulo no sean nulos
+            if (matricula.getCicloFormativo() != null && matricula.getModulo() != null) {
+                return matriculaRepository.save(matricula);
+            } else {
+                throw new RuntimeException("Ciclo o módulo no encontrado para la matrícula con ID: " + matricula.getNumMatricula());
+            }
+        } else {
+            throw new RuntimeException("Alumno no encontrado con ID: " + matricula.getNumMatricula());
+        }
     }
 
     public List<Matricula> obtenerTodasMatriculas() {

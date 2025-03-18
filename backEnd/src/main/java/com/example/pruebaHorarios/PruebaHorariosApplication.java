@@ -11,6 +11,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan("com.example.pruebaHorarios.repositories")
 @ComponentScan("com.example.pruebaHorarios.services")
 @ComponentScan("com.example.pruebaHorarios.config")
+@ComponentScan("com.example.pruebaHorarios.config.mappers")
+@ComponentScan("com.example.pruebaHorarios.config.alumnoXML")
 @EnableWebMvc
 public class PruebaHorariosApplication {
 	public static void main(String[] args) {

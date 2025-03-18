@@ -20,6 +20,9 @@ public class UsuarioService implements UserDetailsService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
+    @Autowired
+    private UsuarioMapper usuarioMapper;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         System.out.println("Buscando usuario: " + email); // Debug
@@ -86,6 +89,14 @@ public class UsuarioService implements UserDetailsService {
         Optional<Usuario> usuario = usuarioRepository.findByNombreUsuario(nombreUsuario);
         System.out.println("Usuario encontrado en DB: " + usuario.orElse(null)); // Debug
         return usuario;
+    }
+
+    // Método para procesar y guardar todos los alumnos
+    public void procesarAlumnos(List<Alumno> alumnos) {
+        for (Alumno alumno : alumnos) {
+            Usuario usuario = usuarioMapper.mapAlumnoToUsuario(alumno);
+            usuarioRepository.save(usuario);
+        }
     }
 
 }
