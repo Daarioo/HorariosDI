@@ -1,11 +1,5 @@
 /* Frame de matricula */
  
-  /* Estilos de cada alumno */
-  .main{
-    height: 100%;
-    background-color: #FFFFFF;
-  }
-
   .modulo {
     background-color:#468DAE;
     border-radius: 5px;
@@ -19,50 +13,6 @@
     color: #FFFFFF;
     font-weight: bold;
   }
-
-  #listaModulos{
-    margin-top: 16%;
-    height: 300px;
-    background-color: #FFFFFF;
-
-}
-
-.frame{
-  background-color: #ffff;
-  height: 100%;
-}
-
-.cicloSelect{
-  color: #468DAE;
-  border-color: #468DAE;
-  border-width: 2px;
-  font-weight: bold;
-  width: 25%;
-  border: 2px solid #468DAE;
-  padding: 8px;
-  margin-bottom: 20px;
-  border-radius: 10px;
-  font-size: 16px;
-}
-
-.cicloSelect:focus{
-  all:unset;
-}
-
-.botonAgregar{
-  background-color: #F4791B;
-  font-weight: bold;
-  color: white;
-  height: 40px;
-  border-width: 2px;
-  border-radius: 5%;
-  font-size: 24px;
-  cursor: pointer;
-}
-
-.botonAgregar:hover{
-  background-color: #D86800;
-  font-weight: bold;
 }
 
 .modal {
@@ -88,8 +38,6 @@
   height: fit-content;
 }
 
-
-
 form {
   width: 100%;
   margin: 20px auto;
@@ -98,27 +46,5 @@ form {
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   font-family: Arial, sans-serif;
-}
-
-input,
-select {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #468DAE;
-    border-radius: 4px;
-    font-size: 14px;
-    color: #468DAE;
-    font-weight: bold;
-    font-size: 15px;
-}
-
-option{
-  color: #468DAE;
-  font-weight: bold;
-  font-size: 15px;
-}
-
-h4{
-  color: #FFFFFF;
 }
   

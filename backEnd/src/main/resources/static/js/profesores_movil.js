@@ -223,7 +223,7 @@ function filtrarProfesores(event){
     let text = event.target.value;
     window.profesoresFiltrados = window.profesores.filter(obj =>
         Object.values(obj).some(value =>
-            String(value).toLowerCase().includes(text)
+            String(value).toLowerCase().includes(text.toLowerCase())
         )
     );
     cargarProfesoresFiltrados();

@@ -331,7 +331,7 @@ function filtrarAlumnos(event){
     let text = event.target.value.toLowerCase().trim();
     alumnosFiltrados = alumnos.filter(obj =>
         Object.values(obj).some(value =>
-            String(value).toLowerCase().includes(text)
+            String(value).toLowerCase().includes(text.toLowerCase())
         )
     );
 
