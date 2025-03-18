@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Título y usuario
       doc.setFont("helvetica", "bold");
       doc.setFontSize(16);
-      doc.text("Horario, 105, 15, { align: "center" });
+      doc.text("Horario", 105, 15, { align: "center" });
       doc.setFontSize(14);
       doc.text(usuario, 105, 25, { align: "center" });
 
