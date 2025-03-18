@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 horarioDiv.innerHTML = `
                     <div class='materia'><strong>${materia}</strong></div>
                     <div class='horario'>${inicio} - ${fin}</div>
-                    <div class='aula'>Aula: ${aula}</div>
+                    <div class='aula'>${aula}</div>
                 `;
                 horariosFrame.appendChild(horarioDiv);
             });
@@ -104,92 +104,52 @@ document.addEventListener("DOMContentLoaded", () => {
         console.log("Botón PDF presionado");
         generarPDF();
     });
-   function generarPDF() {
-       const { jsPDF } = window.jspdf;
-       const doc = new jsPDF();
+  function generarPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
 
-       // Título y usuario
-       doc.setFont("helvetica", "bold");
-       doc.setFontSize(16);
-       doc.text("Horario", 105, 15, { align: "center" });
-       doc.setFontSize(14);
-       doc.text(usuario, 105, 25, { align: "center" });
+      // Título y usuario
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(16);
+      doc.text("Horario", 105, 15, { align: "center" });
+      doc.setFontSize(14);
+      doc.text(usuario, 105, 25, { align: "center" });
 
-       // Días de la semana
-       const diasSemana = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+      // Recuperamos los datos almacenados en localStorage
+      let tablaDatos = JSON.parse(localStorage.getItem('tablaDatos'));
 
-       // Datos del horario: Array de arrays, cada array representa un día
-       let horarioData = [];
-       let horas = [];
+      if (!tablaDatos || tablaDatos.length === 0) {
+          console.error("No se encontraron datos para generar el PDF.");
+          return;
+      }
 
-       // Recorremos cada día de la semana para extraer las clases
-       diasSemana.forEach((dia) => {
-           let actividadesDelDia = [];
-           let diaDiv = document.querySelector(`.dia[data-dia="${dia.toLowerCase()}"]`);
+      let headers = ["Hora", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
+      let dataTabla = tablaDatos; // Usamos los datos almacenados en tablaDatos
 
-           if (diaDiv) {
-               // Extraemos las clases de cada día
-               diaDiv.querySelectorAll(".hora p").forEach((p) => {
-                   let texto = p.innerText.trim();
-                   let hora = texto.split(":")[0].trim();  // Obtener la hora
-                   let actividad = texto.split(":")[1].trim();  // Obtener la actividad
-                   if (!horas.includes(hora)) {
-                       horas.push(hora); // Evitar duplicados de horas
-                   }
+      // Generar la tabla en el PDF usando autoTable
+      doc.autoTable({
+          head: [headers],  // Cabeceras
+          body: dataTabla,  // Filas de la tabla
+          startY: 40,  // Posición vertical para la tabla
+          styles: {
+              fontSize: 8,
+              cellPadding: 3,
+              halign: "center",
+              minCellWidth: 30
+          },
+          headStyles: {
+              fillColor: [74, 139, 172],
+              textColor: 255,
+              fontStyle: "bold",
+              halign: "center"
+          },
+          theme: "grid",
+          margin: { top: 20 },
+      });
 
-                   actividadesDelDia.push(actividad);
-               });
-           }
-
-           horarioData.push(actividadesDelDia);
-       });
-
-       // Aseguramos que las horas estén ordenadas
-       horas = horas.sort((a, b) => a.localeCompare(b));
-
-       // Cabeceras de la tabla (Días de la semana)
-       let headers = ["Hora", ...diasSemana];
-
-       // Generar la tabla para el horario
-       let rows = [];
-
-       // Para cada hora, buscamos las clases de cada día
-       horas.forEach((hora, index) => {
-           let row = [hora];  // Primera columna con la hora
-
-           diasSemana.forEach((dia, dayIndex) => {
-               // Obtenemos la actividad de ese día y hora
-               let actividad = horarioData[dayIndex][index] || ""; // Si no hay actividad, dejamos vacío
-               row.push(actividad);
-           });
-
-           rows.push(row); // Añadir la fila con la hora y las clases de cada día
-       });
-
-       // Generar la tabla en el PDF usando autoTable
-       doc.autoTable({
-           head: [headers],  // Cabeceras
-           body: rows,  // Filas de la tabla
-           startY: 40,  // Posición vertical para la tabla
-           styles: {
-               fontSize: 8,
-               cellPadding: 3,
-               halign: "center",
-               minCellWidth: 30
-           },
-           headStyles: {
-               fillColor: [74, 139, 172],
-               textColor: 255,
-               fontStyle: "bold",
-               halign: "center"
-           },
-           theme: "grid",
-           margin: { top: 20 },
-       });
-
-       // Guardar el PDF
-       doc.save("Horario.pdf");
-   }
+      // Guardar el PDF
+      doc.save("Horario.pdf");
+  }
     // Función para generar XML
     function generarXML() {
         let xmlDoc = document.implementation.createDocument(null, "Horario", null);

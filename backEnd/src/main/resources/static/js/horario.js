@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 let modulosExcluidos = [];
 let usuario;
 let ciclo;
+let tablaDatos = []; // Variable global para almacenar los datos de la tabla
 
 async function obtenerUsuario() {
     try {
@@ -128,6 +129,9 @@ function loadSesion(data) {
     // Ordenar las horas para detectar huecos
     let horasOrdenadas = Array.from(horasSet).sort();
 
+    // Almacenar los datos de la tabla en tablaDatos
+    tablaDatos = []; // Limpiar los datos previos
+
     var head = document.createElement("thead");
     var filaHead = document.createElement("tr");
 
@@ -150,6 +154,8 @@ function loadSesion(data) {
         celdaHora.innerText = `${horaInicio}-${horaFin}`;
         fila.append(celdaHora);
 
+        let row = [horaInicio + "-" + horaFin]; // Fila de datos
+
         for (let j = 0; j < 5; j++) {
             var celda = document.createElement("td");
             let diaSemana = diasSemana[j + 1];
@@ -157,15 +163,21 @@ function loadSesion(data) {
             let sesion = sesionesOriginales.find(s => s.dia === diaSemana && s.horaInicio === horaInicio);
             if (sesion) {
                 celda.innerText = `${sesion.modulo} (${sesion.aula})`;
+                row.push(`${sesion.modulo} (${sesion.aula})`); // Almacenar en la variable tablaDatos
             } else {
                 celda.innerText = ""; // Espacio vacío en caso de que no haya sesión
+                row.push(""); // Almacenar espacio vacío en tablaDatos
             }
 
             fila.append(celda);
         }
 
+        tablaDatos.push(row); // Añadir la fila de datos a la variable global tablaDatos
         body.append(fila);
     }
+
+    // Almacenar la variable tablaDatos en localStorage para usarla en la versión móvil
+    localStorage.setItem('tablaDatos', JSON.stringify(tablaDatos));
 
     tabla.append(head);
     tabla.append(body);
