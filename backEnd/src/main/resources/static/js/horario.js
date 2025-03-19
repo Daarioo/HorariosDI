@@ -33,21 +33,50 @@ function getJson(id) {
     fetch('http://localhost:8080/api/alumno/' + id)
         .then(response => response.json())
         .then(data => {
-            ciclo = data.matriculas[0].cicloFormativo;
-            cargarModulosSelect(data);
-            loadSesion(data);
+            if (!data.matriculas || data.matriculas.length === 0) {
+                console.error("El usuario no tiene matrículas.");
+                return;
+            }
+
+            let selectCiclo = document.getElementById("select-ciclo");
+            selectCiclo.innerHTML = ""; // Limpiar select ciclos
+
+            let ciclosUnicos = new Set(data.matriculas.map(m => m.cicloFormativo.nombre));
+
+            ciclosUnicos.forEach(nombreCiclo => {
+                let option = document.createElement("option");
+                option.value = nombreCiclo;
+                option.innerText = nombreCiclo;
+                selectCiclo.appendChild(option);
+            });
+
+            // Escuchar cambios en el select de ciclo
+            selectCiclo.addEventListener("change", () => {
+                let cicloSeleccionado = selectCiclo.value;
+                actualizarHorario(data, cicloSeleccionado);
+            });
+
+            // Cargar el horario del primer ciclo automáticamente
+            actualizarHorario(data, selectCiclo.value);
         })
         .catch(error => console.error("Error:", error));
 }
 
-function cargarModulosSelect(data) {
+function actualizarHorario(data, cicloSeleccionado) {
+    let matriculasFiltradas = data.matriculas.filter(m => m.cicloFormativo.nombre === cicloSeleccionado);
+
+    cargarModulosSelect(matriculasFiltradas);
+    loadSesion(matriculasFiltradas);
+}
+
+function cargarModulosSelect(matriculasFiltradas) {
     let selectModulos = document.getElementById("select-modulo");
     let contenedorBotones = document.getElementById("tag-container");
 
     selectModulos.innerHTML = "";
     contenedorBotones.innerHTML = "";
 
-    data.matriculas.forEach(matricula => {
+    matriculasFiltradas.forEach(matricula => {
         if (matricula.modulo && !modulosExcluidos.includes(matricula.modulo.nombre)) {
             let option = document.createElement("option");
             option.value = matricula.modulo.nombre;
@@ -61,53 +90,43 @@ function cargarModulosSelect(data) {
         boton.innerText = modulo + " ❌";
         boton.classList.add("modulo-boton");
         boton.addEventListener("click", function () {
-            quitarModulo(modulo, data);
+            quitarModulo(modulo, matriculasFiltradas);
         });
         contenedorBotones.appendChild(boton);
     });
 
-    // 🔥 Eliminar event listeners anteriores para evitar duplicación
-    let btnFiltrar = document.getElementById("btn-filtrar");
-    let btnReset = document.getElementById("btn-reset");
-
-    let nuevoBtnFiltrar = btnFiltrar.cloneNode(true);
-    let nuevoBtnReset = btnReset.cloneNode(true);
-
-    btnFiltrar.replaceWith(nuevoBtnFiltrar);
-    btnReset.replaceWith(nuevoBtnReset);
-
-    // Agregar event listeners solo una vez
-    nuevoBtnFiltrar.addEventListener("click", function () {
+    document.getElementById("btn-filtrar").addEventListener("click", function () {
         let moduloSeleccionado = selectModulos.value;
         if (moduloSeleccionado && !modulosExcluidos.includes(moduloSeleccionado)) {
             modulosExcluidos.push(moduloSeleccionado);
         }
-        cargarModulosSelect(data);
-        loadSesion(data);
+        cargarModulosSelect(matriculasFiltradas);
+        loadSesion(matriculasFiltradas);
     });
 
-    nuevoBtnReset.addEventListener("click", function () {
+    document.getElementById("btn-reset").addEventListener("click", function () {
         modulosExcluidos = [];
-        cargarModulosSelect(data);
-        loadSesion(data);
+        cargarModulosSelect(matriculasFiltradas);
+        loadSesion(matriculasFiltradas);
     });
 }
 
-function loadSesion(data) {
+
+function loadSesion(matriculasFiltradas) {
     var tabla = document.querySelector("table");
     tabla.innerHTML = "";
 
     var diasSemana = ["", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes"];
 
-    if (!data.matriculas || data.matriculas.length === 0) {
-        console.error("No hay matrículas en el JSON.");
+    if (matriculasFiltradas.length === 0) {
+        console.error("No hay módulos en este ciclo.");
         return;
     }
 
     let sesionesOriginales = [];
     let horasSet = new Set();
 
-    data.matriculas.forEach(matricula => {
+    matriculasFiltradas.forEach(matricula => {
         if (matricula.modulo && Array.isArray(matricula.modulo.sesiones)) {
             if (modulosExcluidos.includes(matricula.modulo.nombre)) return;
 
@@ -126,11 +145,8 @@ function loadSesion(data) {
         }
     });
 
-    // Ordenar las horas para detectar huecos
     let horasOrdenadas = Array.from(horasSet).sort();
-
-    // Almacenar los datos de la tabla en tablaDatos
-    tablaDatos = []; // Limpiar los datos previos
+    tablaDatos = [];
 
     var head = document.createElement("thead");
     var filaHead = document.createElement("tr");
@@ -154,7 +170,7 @@ function loadSesion(data) {
         celdaHora.innerText = `${horaInicio}-${horaFin}`;
         fila.append(celdaHora);
 
-        let row = [horaInicio + "-" + horaFin]; // Fila de datos
+        let row = [horaInicio + "-" + horaFin];
 
         for (let j = 0; j < 5; j++) {
             var celda = document.createElement("td");
@@ -163,20 +179,19 @@ function loadSesion(data) {
             let sesion = sesionesOriginales.find(s => s.dia === diaSemana && s.horaInicio === horaInicio);
             if (sesion) {
                 celda.innerText = `${sesion.modulo} (${sesion.aula})`;
-                row.push(`${sesion.modulo} (${sesion.aula})`); // Almacenar en la variable tablaDatos
+                row.push(`${sesion.modulo} (${sesion.aula})`);
             } else {
-                celda.innerText = ""; // Espacio vacío en caso de que no haya sesión
-                row.push(""); // Almacenar espacio vacío en tablaDatos
+                celda.innerText = "";
+                row.push("");
             }
 
             fila.append(celda);
         }
 
-        tablaDatos.push(row); // Añadir la fila de datos a la variable global tablaDatos
+        tablaDatos.push(row);
         body.append(fila);
     }
 
-    // Almacenar la variable tablaDatos en localStorage para usarla en la versión móvil
     localStorage.setItem('tablaDatos', JSON.stringify(tablaDatos));
 
     tabla.append(head);
@@ -194,12 +209,14 @@ document.getElementById("btn-pdf").addEventListener("click", function () {
 });
 
 function generarPDF() {
+      let selectCiclo = document.getElementById("select-ciclo");
+        let cicloSeleccionado = selectCiclo.value; // Tomar el ciclo desde el select
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
     doc.setFont("helvetica", "bold");
     doc.setFontSize(16);
-    doc.text(ciclo.nombre, 105, 15, { align: "center" });
+    doc.text(cicloSeleccionado, 105, 15, { align: "center" });
     doc.setFontSize(14);
     doc.text(usuario, 105, 25, { align: "center" });
 
@@ -249,7 +266,7 @@ function generarPDF() {
     doc.save("Horario.pdf");
 }
 
-//Exportar a XML 
+//Exportar a XML
 
 document.getElementById("btn-xml").addEventListener("click", function () {
     generarXML();

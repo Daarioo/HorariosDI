@@ -25,21 +25,21 @@
         <!-- Panel de Navegación -->
         <nav class="panel" id="navPanel">
             <ul>
-                <li>
-                    <button id="userName">Current User</button>
-                </li>
-                <li>
-                    <button id="horariosBtn">Horarios</button>
-                </li>
-                <li>
-                    <button id="matriculasBtn">Matrículas</button>
-                </li>
+                <li><button>Current User</button></li>
+                <li><button id="ciclosBtn" >Ciclos</button></li>
+                <li><button id="modulosBtn" >Módulos</button></li>
+                <li><button id="horariosBtn" >Horarios</button></li>
+                <li><button id="alumnosBtn" >Alumnos</button></li>
+                <li><button id="profesoresBtn" >Profesores</button></li>
             </ul>
-            <a id="logoutBtn">Cerrar Sesión</a>
+            <button id="logoutBtn">Cerrar Sesión</button>
         </nav>
 
         <!-- Frame de Horarios -->
         <div id="horariosFrame" class="frame">
+
+            <label for="select-ciclo">Seleccionar Ciclo:</label>
+            <select id="select-ciclo"></select> <!-- Selector de ciclos -->
 
             <div class="content">
                 <button id="pdfButton">Generar PDF</button>
@@ -70,4 +70,6 @@
 <script src="/js/horario_movil.js"></script>
 </body>
 </html>
+
+
 

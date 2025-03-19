@@ -29,36 +29,65 @@ document.addEventListener("DOMContentLoaded", () => {
         fetch(`http://localhost:8080/api/alumno/${id}`)
             .then(response => response.json())
             .then(data => {
-                horariosData = procesarHorarios(data);
-                renderHorarios("Martes"); // Mostrar el horario del martes por defecto
+                if (!data.matriculas || data.matriculas.length === 0) {
+                    console.error("El usuario no tiene matrículas.");
+                    return;
+                }
+
+                let selectCiclo = document.getElementById("select-ciclo");
+                selectCiclo.innerHTML = ""; // Limpiar selector
+
+                let ciclosUnicos = new Set(data.matriculas.map(m => m.cicloFormativo.nombre));
+
+                // Llenar el selector de ciclos
+                ciclosUnicos.forEach(nombreCiclo => {
+                    let option = document.createElement("option");
+                    option.value = nombreCiclo;
+                    option.innerText = nombreCiclo;
+                    selectCiclo.appendChild(option);
+                });
+
+                // Escuchar cambios en el select de ciclo
+                selectCiclo.addEventListener("change", () => {
+                    let cicloSeleccionado = selectCiclo.value;
+                    actualizarHorario(data, cicloSeleccionado);
+                });
+
+                // Cargar el horario del primer ciclo automáticamente
+                actualizarHorario(data, selectCiclo.value);
             })
             .catch(error => console.error("Error al cargar horarios:", error));
     }
 
+    function actualizarHorario(data, cicloSeleccionado) {
+        horariosData = procesarHorarios(data, cicloSeleccionado);
+        renderHorarios("Martes"); // Mostrar el horario del martes por defecto
+    }
+
+
+
     // Procesar los horarios en un formato usable
-    function procesarHorarios(data) {
+    function procesarHorarios(data, cicloSeleccionado) {
         let horarios = {
-            "Lunes": [],
-            "Martes": [],
-            "Miércoles": [],
-            "Jueves": [],
-            "Viernes": []
+            "Lunes": [], "Martes": [], "Miércoles": [], "Jueves": [], "Viernes": []
         };
 
-        data.matriculas.forEach(matricula => {
-            if (matricula.modulo && !modulosExcluidos.includes(matricula.modulo.nombre)) {
-                matricula.modulo.sesiones.forEach(sesion => {
-                    horarios[sesion.dia].push({
-                        materia: matricula.modulo.nombre,
-                        inicio: sesion.horaInicio,
-                        fin: sesion.horaFin,
-                        aula: sesion.aula
+        data.matriculas
+            .filter(matricula => matricula.cicloFormativo.nombre === cicloSeleccionado) // Filtrar por ciclo
+            .forEach(matricula => {
+                if (matricula.modulo) {
+                    matricula.modulo.sesiones.forEach(sesion => {
+                        horarios[sesion.dia].push({
+                            materia: matricula.modulo.nombre,
+                            inicio: sesion.horaInicio,
+                            fin: sesion.horaFin,
+                            aula: sesion.aula
+                        });
                     });
-                });
-            }
-        });
+                }
+            });
 
-        // Ordenar las sesiones por hora de inicio para cada día
+        // Ordenar horarios por hora de inicio
         Object.keys(horarios).forEach(dia => {
             horarios[dia].sort((a, b) => {
                 let horaA = new Date(`1970-01-01T${a.inicio}:00`);

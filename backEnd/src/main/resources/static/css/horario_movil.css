@@ -1,13 +1,21 @@
 /* Frame de horarios */
-/* Frame de horarios */
+
 .horarios {
     background: white;
     color: black;
     padding: 15px;
     border-radius: 10px;
-    max-height: 640px; /* Limita la altura máxima */
+    max-height: 65vh;  /* Limita la altura máxima */
     overflow-y: auto;
      /* Muestra la barra de desplazamiento cuando el contenido se desborda */
+}
+
+#select-ciclo {
+    margin-bottom: 10px; /* Espacio entre el selector y los botones */
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
 }
 
 .content {

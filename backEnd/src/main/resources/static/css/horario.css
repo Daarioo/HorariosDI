@@ -116,7 +116,7 @@ color: #F4791B;
     text-align: center;
 }
 
-#select-modulo {
+#select-modulo, #select-ciclo {
     margin: 15px 0; /* Espacio entre el selector y los botones */
     padding: 8px;
     font-size: 16px;
@@ -205,7 +205,7 @@ table{
     border-spacing: 0px;
     border: 1px solid rgb(163, 163, 163);
     border-radius: 12px;
-    margin-bottom: 5%; 
+    margin-bottom: 5%;
 }
 
 table thead tr:first-child th:first-child {
