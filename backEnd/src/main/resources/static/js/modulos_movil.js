@@ -49,8 +49,8 @@ async function cargarModulos() {
         window.modulos = await response.json();
         lista.innerHTML = "";
 
-        if (modulosFiltrados != undefined){
-                if(window.modulos.length != modulosFiltrados.length){
+        if (window.modulosFiltrados != undefined){
+                if(window.modulos.length != window.modulosFiltrados.length){
                     filtrarModulos();
                     return;
                 }
@@ -147,7 +147,7 @@ async function guardarModulo(idModulo) {
     const modulo = {
         nombre,
         codigo,
-        horasSemana: parseInt(horasSemana),  // Convertimos SOLO si son válidos
+        horasSemana: parseInt(horasSemana),
         horasTotales: parseInt(horasTotales),
         ciclo: { idCiclo: parseInt(cicloId) },
         profesor: { idProfesor: parseInt(profesorId) }
@@ -165,8 +165,6 @@ async function guardarModulo(idModulo) {
         });
 
         if (!response.ok) throw new Error("Error al guardar el módulo");
-
-        alert(idModulo ? "Módulo actualizado" : "Módulo agregado");
         document.querySelector(".modal").remove();
         cargarModulos();
     } catch (error) {
@@ -210,8 +208,6 @@ async function eliminarModulo(id) {
         });
 
         if (!response.ok) throw new Error("Error al eliminar el módulo");
-
-        alert("Módulo eliminado");
         cargarModulos();
     } catch (error) {
         console.error(error);
@@ -235,8 +231,8 @@ async function obtenerUsuario() {
     }
 }
 
-function filtrarModulos(event){
-    let text = event.target.value;
+function filtrarModulos(){
+    let text = filtro.value;
     window.modulosFiltrados = window.modulos.filter(obj =>
         Object.values(obj).some(value =>
            String(value).toLowerCase().includes(text.toLowerCase().trim())

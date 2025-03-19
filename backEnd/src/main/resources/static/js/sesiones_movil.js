@@ -16,9 +16,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 });
 
-
-
-// Función para cargar módulos desde la API y llenar el select
 async function cargarModulos() {
     try {
         const response = await fetch("/api/admin/modulos", { credentials: "include" });
@@ -115,6 +112,12 @@ async function cargarSesiones() {
         window.sesiones = await response.json();
         listaSesiones.innerHTML = "";
 
+        if(window.sesionesFiltradas != undefined){
+            if(window.sesiones.length != window.sesionesFiltradas.length){
+                filtrarSesiones();
+                return;
+            }
+        }
         window.sesiones.forEach(sesion => {
             agregarSesionLista(sesion);
         });
@@ -187,14 +190,8 @@ async function agregarSesion(e) {
         });
 
         if (!response.ok) throw new Error("Error al agregar sesión");
-
-        alert("Sesión agregada correctamente");
         document.getElementById("modalSesion").remove();
-        if(window.sesiones.length == window.sesionesFiltradas.length){
-            cargarSesiones();
-        } else {
-            cargarSesionesFiltradas();
-        }
+        cargarSesiones();
     } catch (error) {
         console.error("Error al agregar sesión:", error);
         alert("No se pudo agregar la sesión.");
@@ -211,13 +208,7 @@ async function eliminarSesion(idSesion) {
         });
 
         if (!response.ok) throw new Error("Error al eliminar sesión");
-
-        alert("Sesión eliminada correctamente");
-        if(window.sesiones.length == window.sesionesFiltradas.length){
-            cargarSesiones();
-        } else {
-            cargarSesionesFiltradas();
-        }
+        cargarSesiones();
     } catch (error) {
         console.error("Error al eliminar sesión:", error);
         alert("No se pudo eliminar la sesión.");
@@ -272,14 +263,8 @@ async function actualizarSesion(idSesion) {
         });
 
         if (!response.ok) throw new Error("Error al actualizar sesión");
-
-        alert("Sesión actualizada correctamente");
+        cargarSesiones();
         document.getElementById("modalSesion").remove();
-        if(window.sesiones.length == window.sesionesFiltradas.length){
-            cargarSesiones();
-        } else {
-            cargarSesionesFiltradas();
-        }
     } catch (error) {
         console.error("Error al actualizar sesión:", error);
         alert("No se pudo actualizar la sesión.");
@@ -303,7 +288,7 @@ async function obtenerUsuario() {
 }
 
 function filtrarSesiones(event){
-    let text = event.target.value;
+    let text = filtro.value;
     window.sesionesFiltradas = window.sesiones.filter(obj => {
         const valores = Object.values(obj);
         const valoresModulo = obj.modulo ? Object.values(obj.modulo) : [];

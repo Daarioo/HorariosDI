@@ -16,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
             if (data.authenticated) {
                 usuario = data.nombre;
                 getHorarios(data.id);
+                const userName = document.getElementById("userName");
+                userName.innerText = data.nombre;
             } else {
                 console.error("Usuario no autenticado");
             }
