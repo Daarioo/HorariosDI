@@ -6,6 +6,7 @@ const alumnos = document.getElementById("alumnosBtn");
 const profesores = document.getElementById("profesoresBtn");
 const horario = document.getElementById("horariosBtn");
 const matricula = document.getElementById("matriculasBtn");
+const sesiones = document.getElementById("sesionesBtn");
 const logoutBtn = document.getElementById("logoutBtn");
 
 // Menú desplegable
@@ -25,6 +26,12 @@ if(ciclos != undefined){
 if(modulos != undefined){
     modulos.addEventListener("click", function () {
         window.top.location.href = "modulos";
+    });
+}
+
+if(sesiones != undefined){
+    sesiones.addEventListener("click", function () {
+        window.top.location.href = "sesiones";
     });
 }
 
@@ -59,5 +66,5 @@ if(modulos != undefined){
 }
 
 logoutBtn.addEventListener("click", function () {
-    window.top.location.href = "index";
+    window.top.location.href = "../logout";
 });

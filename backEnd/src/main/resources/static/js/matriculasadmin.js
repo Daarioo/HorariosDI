@@ -107,7 +107,9 @@ async function formalizarMatricula(event) {
         alert("Por favor, complete todos los campos.");
         return;
     }
-
+console.log(moduloId);
+    console.log(cicloId);
+    console.log(usuarioId);
   let matriculaData = {
       numMatricula: numMatricula,
       usuario: { idUsuario: usuarioId, tipo: "ALUMNO" },
@@ -115,7 +117,7 @@ async function formalizarMatricula(event) {
       modulo: { idModulo: parseInt(moduloId) }
   };
 
-    console.log(matriculaData);
+
 
     try {
         const response = await fetch("/api/admin/matriculas", {
@@ -127,7 +129,6 @@ async function formalizarMatricula(event) {
 
         if (!response.ok) throw new Error("Error al matricular el módulo");
 
-        alert("Matrícula realizada con éxito");
         cerrarModal();
         cargarMatriculas();
 

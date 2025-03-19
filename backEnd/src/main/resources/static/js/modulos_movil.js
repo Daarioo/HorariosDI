@@ -20,6 +20,7 @@ async function cargarCiclos() {
         if (!response.ok) throw new Error("Error al obtener los ciclos");
 
         const ciclos = await response.json();
+
         window.ciclos = ciclos;
     } catch (error) {
         console.error(error);
@@ -47,6 +48,13 @@ async function cargarModulos() {
 
         window.modulos = await response.json();
         lista.innerHTML = "";
+
+        if (modulosFiltrados != undefined){
+                if(window.modulos.length != modulosFiltrados.length){
+                    filtrarModulos();
+                    return;
+                }
+        }
 
         window.modulos.forEach(modulo => {
             agregarModuloLista(modulo);
@@ -160,11 +168,7 @@ async function guardarModulo(idModulo) {
 
         alert(idModulo ? "Módulo actualizado" : "Módulo agregado");
         document.querySelector(".modal").remove();
-        if(modulos.length == modulosFiltrados.length){
-            cargarModulos();
-        } else {
-            cargarModulosFiltrados();
-        }
+        cargarModulos();
     } catch (error) {
         console.error(error);
         alert("No se pudo guardar el módulo");
@@ -208,11 +212,7 @@ async function eliminarModulo(id) {
         if (!response.ok) throw new Error("Error al eliminar el módulo");
 
         alert("Módulo eliminado");
-        if(modulos.length == modulosFiltrados.length){
-            cargarModulos();
-        } else {
-            cargarModulosFiltrados();
-        }
+        cargarModulos();
     } catch (error) {
         console.error(error);
         alert("No se pudo eliminar el módulo");

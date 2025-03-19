@@ -21,8 +21,7 @@ public class MatriculaService {
 
     public Matricula crearMatricula(Matricula matricula) {
         // Verificar si el alumno existe
-        Optional<Usuario> usuario = usuarioRepository.findById(matricula.getNumMatricula());
-
+        Optional<Usuario> usuario = usuarioRepository.findById(matricula.getUsuario().getIdUsuario());
         if (usuario != null) {
             matricula.setUsuario(usuario.get());
 
