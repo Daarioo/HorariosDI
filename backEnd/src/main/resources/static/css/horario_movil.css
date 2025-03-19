@@ -78,3 +78,9 @@
 .horario-item .materia {
     font-weight: bold;
 }
+
+#select-ciclo{
+    display: block;
+    margin: auto;
+    margin-bottom: 15px;
+}

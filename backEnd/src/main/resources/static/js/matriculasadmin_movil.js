@@ -285,4 +285,26 @@ async function obtenerUsuario() {
     }
 }
 
+function filtrarMatriculas(){
+    let text = filtro.value;
+    window.sesionesFiltradas = window.sesiones.filter(obj => {
+        const valores = Object.values(obj);
+        const valoresModulo = obj.modulo ? Object.values(obj.modulo) : [];
+        const valoresCiclo = obj.modulo?.ciclo ? Object.values(obj.modulo.ciclo) : [];
+
+        return [...valores, ...valoresModulo, ...valoresCiclo].some(value =>
+            String(value).toLowerCase().includes(text.toLowerCase().trim())
+        );
+    });
+    cargarSesionesFiltradas();
+}
+
+async function cargarSesionesFiltradas() {
+    listaSesiones.innerHTML = "";
+
+    window.sesionesFiltradas.forEach(sesion => {
+        agregarSesionLista(sesion);
+    });
+}
+
 obtenerUsuario();

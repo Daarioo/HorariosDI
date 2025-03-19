@@ -13,6 +13,14 @@ async function getProfesores() {
         const response = await fetch("/api/admin/profesores", { credentials: "include" });
         if (!response.ok) throw new Error("Error al obtener los profesores");
         window.profesores = await response.json();
+
+        if(window.profesoresFiltrados != undefined){
+            if(window.profesores.length != window.profesoresFiltrados.length){
+                filtrarProfesores();
+                return;
+            }
+        }
+
         window.profesores.forEach((profesor)=>{
             agregarProfesorLista(profesor);
         });
@@ -66,11 +74,7 @@ async function agregarProfesor(modal) {
             credentials: "include"
         });
         if (!response.ok) throw new Error("Error al agregar el profesor");
-        if(window.profesores.length == window.profesoresFiltrados.length){
-            getProfesores();
-        } else {
-            cargarProfesoresFiltrados();
-        }
+        getProfesores();
     } catch (error) {
         console.error("Error:", error);
     }
@@ -107,11 +111,7 @@ async function editarProfesor(id, modal) {
             credentials: "include"
         });
         if (!response.ok) throw new Error("Error al actualizar el profesor");
-        if(window.profesores.length == window.profesoresFiltrados.length){
-            getProfesores();
-        } else {
-            cargarProfesoresFiltrados();
-        }
+        getProfesores();
     } catch (error) {
         console.error("Error:", error);
     }
@@ -124,11 +124,7 @@ async function borrarProfesor(id) {
             credentials: "include"
         });
         if (!response.ok) throw new Error("Error al eliminar el profesor");
-        if(window.profesores.length == window.profesoresFiltrados.length){
-            getProfesores();
-        } else {
-            cargarProfesoresFiltrados();
-        }
+        getProfesores();
     } catch (error) {
         console.error("Error:", error);
     }
@@ -220,7 +216,7 @@ async function obtenerUsuario() {
 }
 
 function filtrarProfesores(event){
-    let text = event.target.value;
+    let text = filtro.value;
     window.profesoresFiltrados = window.profesores.filter(obj =>
         Object.values(obj).some(value =>
             String(value).toLowerCase().includes(text.toLowerCase())

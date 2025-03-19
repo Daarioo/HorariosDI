@@ -300,11 +300,3 @@ function filtrarSesiones(event){
     });
     cargarSesionesFiltradas();
 }
-
-async function cargarSesionesFiltradas() {
-    listaSesiones.innerHTML = "";
-
-    window.sesionesFiltradas.forEach(sesion => {
-        agregarSesionLista(sesion);
-    });
-}
